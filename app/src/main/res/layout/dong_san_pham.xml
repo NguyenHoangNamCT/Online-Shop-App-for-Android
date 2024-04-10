@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/imageViewHinhAnh_dong_san_pham"
+
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/ao"
+
+        android:scaleType="centerCrop" />
+
+
+    <TextView
+        android:id="@+id/textViewTenSanPham_dong_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tên sản phẩm"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewGiamGia_dong_san_pham"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10%"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:background="#FFA500" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/textViewGia_dong_san_pham"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="100đ"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:layout_weight="1"/>
+
+
+        <TextView
+            android:id="@+id/textViewLuotBan_dong_san_pham"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Lượt bán: 100"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</LinearLayout>
