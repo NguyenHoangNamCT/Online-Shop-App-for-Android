@@ -3,9 +3,12 @@ package com.nhnam1710.OnlineShopAppForAndroid;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -15,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     GridView gridViewDanhSachSP;
     ArrayList<SanPham> arrayListSanPham;
     AdapterSanPham adapterSanPham;
+
+    TextView tenShop;
 
 
     @Override
@@ -28,6 +33,15 @@ public class MainActivity extends AppCompatActivity {
         gridViewDanhSachSP.setAdapter(adapterSanPham);
 //
         setSupportActionBar(myToolbar); //thay thế action bar mặc định thành toolbar
+
+        tenShop = findViewById(R.id.textViewTenShop);
+        tenShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DetailSanPham.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void anhXa(){

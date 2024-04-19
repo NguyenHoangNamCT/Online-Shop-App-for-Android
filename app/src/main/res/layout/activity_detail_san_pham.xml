@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Mở linear lv1-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailSanPham"
+    android:orientation="vertical">
+
+
+    <!-- ScrollView lv 2 -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- mở linear lv 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!-- Hình ảnh sản phẩm -->
+            <ImageView
+                android:id="@+id/anhSanPham"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ao"/>
+
+            <!-- Tên sản phẩm -->
+            <TextView
+                android:id="@+id/tenSanPham"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên sản phẩm"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <!-- Giá sản phẩm -->
+            <TextView
+                android:id="@+id/giaSanPham"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Giá: $100"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Đánh giá sao -->
+            <RatingBar
+                android:id="@+id/danhGiaSao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="4.5"
+                android:stepSize="0.1"
+                android:layout_marginTop="8dp"
+                android:progressTint="@color/yellow"/>
+
+            <!-- Lượt bán -->
+            <TextView
+                android:id="@+id/luotBan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lượt bán: 100"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Mô tả sản phẩm -->
+            <TextView
+                android:id="@+id/moTaSanPham"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mô tả: Đây là những dòng mô tả về sản phẩm"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"/>
+
+            <!-- Tiêu đề Đánh giá -->
+            <TextView
+                android:id="@+id/tieuDeDanhGia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đánh giá"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <!-- Hình ảnh người dùng và tên người dùng -->
+            <!-- mở linearlayout lv 4 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Hình ảnh người dùng -->
+                <ImageView
+                    android:id="@+id/anhNguoiDung"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ao"
+                    android:scaleType="centerCrop"
+                    android:layout_margin="5dp" />
+
+                <!-- Tên người dùng và số sao -->
+                <!-- mở linear lv 5 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <!-- Tên người dùng -->
+                    <TextView
+                        android:id="@+id/tenNguoiDung"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tên người dùng"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"/>
+
+                    <!-- Số sao -->
+                    <RatingBar
+                        android:id="@+id/soSao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="1"
+                        android:rating="4.5"
+                        android:scaleX="0.5"
+                        android:scaleY="0.5"
+                        android:layout_gravity="start"
+                        android:progressTint="@color/yellow"
+                        android:layout_marginStart="-60dp" />
+                <!-- Đóng linear lv 5 -->
+                </LinearLayout>
+            <!-- Đóng linear lv4 -->
+            </LinearLayout>
+
+            <!-- Hình ảnh sản phẩm -->
+            <!-- mở linear lv 4 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Ở đây sử dụng ImageView hoặc RecyclerView để hiển thị hình ảnh sản phẩm -->
+                <!-- Đối với RecyclerView, bạn cần tạo một Adapter riêng để hiển thị danh sách hình ảnh -->
+
+                <!-- Ví dụ sử dụng ImageView -->
+                <ImageView
+                    android:id="@+id/anhSanPham1"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ao"
+                    android:scaleType="centerCrop"
+                    android:layout_marginEnd="4dp" />
+
+                <ImageView
+                    android:id="@+id/anhSanPham2"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ao"
+                    android:scaleType="centerCrop"
+                    android:layout_marginEnd="4dp" />
+
+                <ImageView
+                    android:id="@+id/anhSanPham3"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ao"
+                    android:scaleType="centerCrop"
+                    android:layout_marginEnd="4dp" />
+
+                <ImageView
+                    android:id="@+id/anhSanPham4"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ao"
+                    android:scaleType="centerCrop"
+                    android:layout_marginEnd="4dp" />
+
+                <ImageView
+                    android:id="@+id/anhSanPham5"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ao"
+                    android:scaleType="centerCrop" />
+
+            <!-- đóng linear lv 4 -->
+            </LinearLayout>
+
+<!--            &lt;!&ndash; Số sao và đánh giá &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_marginTop="8dp">-->
+
+
+<!--                &lt;!&ndash; Đánh giá &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/danhGiaText"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="Đánh giá của người dùng"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textColor="@android:color/black"-->
+<!--                    android:layout_marginStart="8dp" />-->
+
+<!--            </LinearLayout>-->
+            <!-- Đánh giá -->
+            <TextView
+                android:id="@+id/danhGiaText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Đánh giá của người dùng"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginStart="8dp" />
+        <!-- Đóng linear lv 3-->
+        </LinearLayout>
+    <!-- Đóng ScrollView LV2 -->
+    </ScrollView>
+
+
+
+<!-- Đóng linear lv 1-->
+</LinearLayout>

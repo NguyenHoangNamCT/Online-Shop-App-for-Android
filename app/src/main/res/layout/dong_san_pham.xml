@@ -7,15 +7,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="5dp">
 
+
     <ImageView
         android:id="@+id/imageViewHinhAnh_dong_san_pham"
 
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/ao"
+        android:scaleType="centerCrop"
 
-        android:scaleType="centerCrop" />
-
+        android:src="@drawable/ao" />
 
     <TextView
         android:id="@+id/textViewTenSanPham_dong_san_pham"
