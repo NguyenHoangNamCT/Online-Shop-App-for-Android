@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <!-- ListView để hiển thị danh sách sản phẩm trong giỏ hàng -->
+    <ListView
+        android:id="@+id/listViewGioHang_activity_gio_hang"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp" />
+
+    <!-- Button Checkout -->
+    <Button
+        android:id="@+id/btnThanhToan_activity_gio_hang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chọn mua"
+        android:background="?attr/colorPrimary"
+        android:textColor="#fff"
+        android:textAllCaps="false"
+        android:padding="16dp"/>
+
+    <!-- Empty Cart View -->
+    <TextView
+        android:id="@+id/tvGioHangRong_activity_gio_hang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giỏ hàng của bạn rỗng"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+</LinearLayout>
