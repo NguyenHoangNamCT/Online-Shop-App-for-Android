@@ -18,6 +18,11 @@ public class AdapterGioHang extends BaseAdapter {
     int layout;
     List<SanPhamTrongGio> sanPhamTrongGioList;
 
+    public AdapterGioHang(Context context, int layout, List<SanPhamTrongGio> sanPhamTrongGioList) {
+        this.context = context;
+        this.layout = layout;
+        this.sanPhamTrongGioList = sanPhamTrongGioList;
+    }
 
     @Override
     public int getCount() {
@@ -47,8 +52,11 @@ public class AdapterGioHang extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
+        ViewHolder holder;
+
         if(convertView == null){
+            holder = new ViewHolder();
+
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(layout, null);
 
@@ -64,6 +72,20 @@ public class AdapterGioHang extends BaseAdapter {
         else{
             holder = (ViewHolder) convertView.getTag();
         }
+
+        SanPhamTrongGio sanPham = sanPhamTrongGioList.get(position);
+
+        // Gán các giá trị của SanPhamTrongGio vào holder
+        holder.textViewTenSanPham.setText(sanPham.getTenSanPham());
+        holder.textViewGia.setText(String.valueOf(sanPham.getGia()));
+        holder.editTextSoLuong.setText(String.valueOf(sanPham.getSoLuong()));
+
+        // Gán giá trị cho các thành phần khác
+        holder.checkbox.setChecked(sanPham.isChonMua());
+        holder.imageViewSanPham.setImageResource(sanPham.getHinhAnh());
+        // Tiếp tục gán giá trị cho các thành phần khác tương tự
+
+
         return convertView;
     }
 }

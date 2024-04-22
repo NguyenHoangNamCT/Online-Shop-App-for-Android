@@ -4,6 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0080FF">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFE500"
+            android:text="Giỏ hàng"
+            android:textSize="25sp"
+            android:layout_gravity="center_horizontal">
+        </TextView>
+    </Toolbar>
+
 
     <!-- ListView để hiển thị danh sách sản phẩm trong giỏ hàng -->
     <ListView

@@ -1,11 +1,13 @@
 package com.nhnam1710.OnlineShopAppForAndroid;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -67,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.menuCartOnMainactivity){
+            Intent intent = new Intent(MainActivity.this, GioHangActivity.class);
+            startActivity(intent);
+        }
 
-
+        return super.onOptionsItemSelected(item);
+    }
 }
