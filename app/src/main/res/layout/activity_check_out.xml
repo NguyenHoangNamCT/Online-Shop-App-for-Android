@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CheckOutActivity"
+    android:orientation="vertical">
+
+    <!-- Header: Tiêu đề -->
+    <TextView
+        android:id="@+id/textViewTieuDe_check_out_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thanh toán"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:padding="16dp"
+        android:background="@color/blue"
+        android:textColor="@color/yellow"
+        android:gravity="center"/>
+
+    <!-- Danh sách sản phẩm -->
+    <ListView
+        android:id="@+id/listViewDanhSachSanPham_check_out_activity"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp" />
+
+    <!-- Tổng số tiền -->
+    <TextView
+        android:id="@+id/textViewTongTien_check_out_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tổng cộng: 0 đ"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="16dp" />
+
+    <!-- Nút thanh toán -->
+    <Button
+        android:id="@+id/buttonDatHang_check_out_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đặt hàng"
+        android:backgroundTint="@color/yellow"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:padding="16dp"/>
+
+</LinearLayout>

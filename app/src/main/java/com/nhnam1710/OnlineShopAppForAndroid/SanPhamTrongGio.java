@@ -1,6 +1,8 @@
 package com.nhnam1710.OnlineShopAppForAndroid;
 
-public class SanPhamTrongGio {
+import java.io.Serializable;
+
+public class SanPhamTrongGio implements Serializable {
     private int id;
     private String tenSanPham;
     private int gia;
