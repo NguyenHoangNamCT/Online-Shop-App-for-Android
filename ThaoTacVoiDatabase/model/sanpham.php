@@ -1,5 +1,7 @@
 <?php 
 
+require("database.php");
+
 class SanPham{
     public function layDanhSachSanPham(){
         $conn = DATABASE::connect();
@@ -15,8 +17,6 @@ class SanPham{
             exit();
         }
     }
-
-    
 }
 
 ?>
