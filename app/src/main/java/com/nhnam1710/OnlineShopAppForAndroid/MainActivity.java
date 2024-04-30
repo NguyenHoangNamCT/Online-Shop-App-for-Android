@@ -6,11 +6,23 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -22,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     AdapterSanPham adapterSanPham;
 
     TextView tenShop;
+
+    String url = "http://192.168.1.11/onlineshopapp/hienThiDanhSachSanPhamDangJson.php";
 
 
     @Override
@@ -44,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        readJson(url);
     }
 
     public void anhXa(){
@@ -61,6 +77,26 @@ public class MainActivity extends AppCompatActivity {
         arrayListSanPham.add(new SanPham(R.drawable.ao, "Áo sơ mi trắng", 10, 10000, 20));
         arrayListSanPham.add(new SanPham(R.drawable.ao, "Áo sơ mi trắng", 10, 10000, 20));
         arrayListSanPham.add(new SanPham(R.drawable.ao, "Áo sơ mi trắng", 10, 10000, 20));
+    }
+
+    public void readJson(String url){
+        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Toast.makeText(MainActivity.this, "Xem thành công" + response.toString(), Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(MainActivity.this, "Lỗi: " + error.toString(), Toast.LENGTH_LONG).show();
+                        Log.d("AAA", "Lỗi nè: " + error.toString());
+                    }
+                });
+
+        requestQueue.add(jsonArrayRequest);
     }
 
     @Override
