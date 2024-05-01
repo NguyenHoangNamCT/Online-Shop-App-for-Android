@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -23,7 +24,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,16 +40,21 @@ public class MainActivity extends AppCompatActivity {
 
     TextView tenShop;
 
-    String url = "http://192.168.1.11/onlineshopapp/hienThiDanhSachSanPhamDangJson.php";
+    String url = "http://192.168.1.3/onlineshopapp/hienThiDanhSachSanPhamDangJson.php";
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        anhXa();
 
-        themDuLieu();
+
+
+
+        anhXa();
+        readJson(url);
+
         adapterSanPham = new AdapterSanPham(this, R.layout.dong_san_pham, arrayListSanPham);
         gridViewDanhSachSP.setAdapter(adapterSanPham);
 //
@@ -59,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        readJson(url);
+
     }
 
     public void anhXa(){
@@ -67,32 +77,31 @@ public class MainActivity extends AppCompatActivity {
         gridViewDanhSachSP = findViewById(R.id.gridViewDanhSachSP);
     }
 
-    public void themDuLieu(){
-        arrayListSanPham = new ArrayList<>();
-        arrayListSanPham.add(new SanPham(R.drawable.ao, "Áo sơ mi trắng", 10, 10000, 20));
-        arrayListSanPham.add(new SanPham(R.drawable.ao, "Áo sơ mi trắng", 10, 10000, 20));
-        arrayListSanPham.add(new SanPham(R.drawable.ao, "Áo sơ mi trắng", 10, 10000, 20));
-        arrayListSanPham.add(new SanPham(R.drawable.ao, "Áo sơ mi trắng", 10, 10000, 20));
-        arrayListSanPham.add(new SanPham(R.drawable.ao, "Áo sơ mi trắng", 10, 10000, 20));
-        arrayListSanPham.add(new SanPham(R.drawable.ao, "Áo sơ mi trắng", 10, 10000, 20));
-        arrayListSanPham.add(new SanPham(R.drawable.ao, "Áo sơ mi trắng", 10, 10000, 20));
-        arrayListSanPham.add(new SanPham(R.drawable.ao, "Áo sơ mi trắng", 10, 10000, 20));
-    }
 
     public void readJson(String url){
+        arrayListSanPham = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Toast.makeText(MainActivity.this, "Xem thành công" + response.toString(), Toast.LENGTH_LONG).show();
+                        for(int i = 0; i < response.length(); i++){
+                            try {
+                                JSONObject jsonObject = response.getJSONObject(i);
+                                arrayListSanPham.add(SanPham.fromJsonOject(jsonObject));
+                            } catch (JSONException e) {
+                                Log.d("loi cua toi", "Lỗi trycatch ở phương thức readJson ở Main Activity, cụ thể là trong onRespone");
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        adapterSanPham.notifyDataSetChanged();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(MainActivity.this, "Lỗi: " + error.toString(), Toast.LENGTH_LONG).show();
-                        Log.d("AAA", "Lỗi nè: " + error.toString());
+                        Log.d("loi cua toi", "Lỗi ở phương thức readJson ở Main Activity cụ thể là trong onErrorResponse: " + error.toString());
                     }
                 });
 
@@ -111,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, GioHangActivity.class);
             startActivity(intent);
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

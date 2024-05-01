@@ -45,29 +45,29 @@ public class AdapterSanPham extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if(convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView  = inflater.inflate(layout, null);
+            convertView = inflater.inflate(layout, null);
             holder.imgSP = convertView.findViewById(R.id.imageViewHinhAnh_dong_san_pham);
             holder.txtTenSP = convertView.findViewById(R.id.textViewTenSanPham_dong_san_pham);
             holder.txtGiamGia = convertView.findViewById(R.id.textViewGia_dong_san_pham);
             holder.txtGia = convertView.findViewById(R.id.textViewGia_dong_san_pham);
             holder.txtLuotBan = convertView.findViewById(R.id.textViewLuotBan_dong_san_pham);
             convertView.setTag(holder);
-        }
-        else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        SanPham sanPham = listSanPham.get(position);
 
-        holder.imgSP.setImageResource(listSanPham.get(position).getHinhAnh());
-        holder.txtTenSP.setText(listSanPham.get(position).getTenSP());
-        holder.txtGiamGia.setText(String.valueOf(listSanPham.get(position).getGiamGia()));
-        holder.txtGia.setText(String.valueOf(listSanPham.get(position).getGia()));
-        holder.txtLuotBan.setText(String.valueOf(listSanPham.get(position).getLuotBan()));
-
-
+        // Tải hình ảnh từ tên hình ảnh trong đối tượng SanPham
+        String imageName = sanPham.getHinhAnh();
+        holder.imgSP.setImageURI(SanPham.getDrawableUriByName(sanPham.getHinhAnh(), context));
+        holder.txtTenSP.setText(sanPham.getTenSanPham());
+        holder.txtGiamGia.setText(String.valueOf(sanPham.getGiamGia()));
+        holder.txtGia.setText(String.valueOf(sanPham.getGiaTien()));
+        holder.txtLuotBan.setText(String.valueOf(sanPham.getLuotMua()));
 
         return convertView;
     }
