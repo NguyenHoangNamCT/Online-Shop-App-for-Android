@@ -1,3 +1,5 @@
+<?php require('model/sanpham.php'); ?>
+<!-- file này show tất cả hình ảnh của database lên nhưng giờ nó không cần dùng nữa -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +10,18 @@
 <body>
     <div style="max-width: 800px; margin: 50px auto; text-align: center;">
         <h1>Hiển thị Hình ảnh</h1>
-        <img src="C:\Users\Admin\Desktop\Git\OnlineShopWeb\images\1.jpg" alt="Hình ảnh" style="max-width: 100%; height: auto;">
-    </div>
+        <?php
+            $sp = new SanPham();
+            $mangHinhSP = $sp->layTatCaHinhAnhSanPham();
+            $i = 0;
+            foreach($mangHinhSP as $spItem){
+                $i++;
+                echo $i;
+        ?> 
+                <img src="images\<?php echo $spItem['hinh_anh']; ?>" alt="Hình ảnh" style="max-width: 100%; height: auto;">
+        <?php
+            }
+        ?>
+</div>
 </body>
 </html>
-<?php ?>

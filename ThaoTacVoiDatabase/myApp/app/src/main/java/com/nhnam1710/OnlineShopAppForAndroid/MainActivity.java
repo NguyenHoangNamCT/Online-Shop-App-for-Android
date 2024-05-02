@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView tenShop;
 
-    String url = "http://192.168.1.3/onlineshopapp/hienThiDanhSachSanPhamDangJson.php";
+    String url = "http://192.168.1.12/onlineshopapp/hienThiDanhSachSanPhamDangJson.php";
 
 
 
