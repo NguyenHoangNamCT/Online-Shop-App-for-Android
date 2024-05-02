@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView tenShop;
 
-    String url = "http://192.168.1.12/onlineshopapp/hienThiDanhSachSanPhamDangJson.php";
+    String url;
 
 
 
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        url = getResources().getString(R.string.url_sever);
 
         anhXa();
         readJson(url);

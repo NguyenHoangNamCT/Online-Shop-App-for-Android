@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class AdapterSanPham extends BaseAdapter {
@@ -61,9 +63,10 @@ public class AdapterSanPham extends BaseAdapter {
 
         SanPham sanPham = listSanPham.get(position);
 
-        // Tải hình ảnh từ tên hình ảnh trong đối tượng SanPham
+        // dùng thư viện picasso để hiển thị hình ảnh từ sever
         String imageName = sanPham.getHinhAnh();
-        holder.imgSP.setImageURI(SanPham.getDrawableUriByName(sanPham.getHinhAnh(), context));
+        String urlImg = context.getResources().getString(R.string.url_img_on_sever)+imageName;
+        Picasso.get().load(urlImg).into(holder.imgSP);
         holder.txtTenSP.setText(sanPham.getTenSanPham());
         holder.txtGiamGia.setText(String.valueOf(sanPham.getGiamGia()));
         holder.txtGia.setText(String.valueOf(sanPham.getGiaTien()));
