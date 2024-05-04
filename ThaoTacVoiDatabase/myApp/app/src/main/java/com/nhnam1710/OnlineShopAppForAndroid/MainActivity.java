@@ -119,6 +119,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, GioHangActivity.class);
             startActivity(intent);
         }
+        else if(item.getItemId() == R.id.menuQuanLySanPham){
+            Intent intent = new Intent(MainActivity.this, QuanLySanPham_Activity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 }

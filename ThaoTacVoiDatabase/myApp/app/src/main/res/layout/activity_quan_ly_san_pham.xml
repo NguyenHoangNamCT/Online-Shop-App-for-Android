@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarQuanLySanPham_activity_quan_ly_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue"
+        android:elevation="4dp"
+        android:theme="?attr/actionBarTheme"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="ABCShop"
+        app:titleTextColor="@color/yellow">
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Danh sách sản phẩm -->
+    <TextView
+        android:id="@+id/textViewQuanLySanPham_activity_quan_ly_san_pham"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:text="Quản lý sản phẩm"
+        android:textColor="@color/blue"
+        android:textSize="23sp"
+        android:textStyle="bold">
+    </TextView>
+
+    <ListView
+        android:id="@+id/listViewSanPham_activity_quan_ly_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:padding="8dp">
+        <!--        android:listSelector="@drawable/list_selector"-->
+    </ListView>
+
+    <!-- Nút thêm sản phẩm -->
+    <Button
+        android:id="@+id/buttonThemSanPham_activity_quan_ly_san_pham"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thêm sản phẩm"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/blue"
+        android:textColor="@color/yellow"/>
+
+</LinearLayout>

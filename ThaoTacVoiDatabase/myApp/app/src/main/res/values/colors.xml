@@ -2,6 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="yellow">#FFD65B</color>
+    <color name="yellow">#FAC53C</color>
+    <color name="mauNenChinh">#878FB2</color>
+    <color name="mauNenPhu">#919094</color>
     <color name="blue">#3B6BF9</color>
+    <color name="mauPhu">#B67FAE</color>
+    <color name="mauPhu1">#493CFA</color>
+    <color name="mauPhu2">#3CE3FA</color>
+    <color name="mauPhu3">#3CA7FA</color>
+    <color name="mauPhu4">#873CFA</color>
+    <color name="erroColor">#FF5449</color>
 </resources>

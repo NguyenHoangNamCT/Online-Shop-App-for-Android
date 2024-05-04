@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">OnlineShopAppForAndroid</string>
-    <string name="url_sever">http://192.168.1.12/onlineshopapp/hienThiDanhSachSanPhamDangJson.php</string>
-    <string name="url_img_on_sever">http://192.168.1.12/onlineshopapp/images/</string>
+    <string name="url_sever">http://192.168.1.10/onlineshopapp/hienThiDanhSachSanPhamDangJson.php</string>
+    <string name="url_img_on_sever">http://192.168.1.10/onlineshopapp/images/</string>
 </resources>

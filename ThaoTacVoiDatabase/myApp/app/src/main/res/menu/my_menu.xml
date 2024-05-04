@@ -14,7 +14,10 @@
         android:icon="@drawable/menu_icon"
         app:showAsAction="always">
         <menu>
-            <item android:title="Quản lý"> </item>
+            <item
+                android:id="@+id/menuQuanLySanPham"
+                android:title="Quản lý">
+            </item>
         </menu>
     </item>
 </menu>
