@@ -32,6 +32,30 @@ class SanPham{
             exit();
         }
     }
+
+    public function themSanPham($id_loai_san_pham, $id_thuong_hieu, $ten_san_pham, $mo_ta, $gia_tien, $giam_gia, $so_luong, $hinh_anh, $don_vi_tinh){
+        $conn = DATABASE::connect();
+        try{
+            $sql = "INSERT INTO `sanpham` (`id_loai_san_pham`, `id_thuong_hieu`, `ten_san_pham`, `mo_ta`, `gia_tien`, `giam_gia`, `so_luong`, `hinh_anh`, `don_vi_tinh`) VALUES (:id_loai_san_pham, :id_thuong_hieu, :ten_san_pham, :mo_ta, :gia_tien, :giam_gia, :so_luong, :hinh_anh, :don_vi_tinh)";
+            $cmd = $conn->prepare($sql);
+            $cmd->bindParam(':id_loai_san_pham', $id_loai_san_pham);
+            $cmd->bindParam(':id_thuong_hieu', $id_thuong_hieu);
+            $cmd->bindParam(':ten_san_pham', $ten_san_pham);
+            $cmd->bindParam(':mo_ta', $mo_ta);
+            $cmd->bindParam(':gia_tien', $gia_tien);
+            $cmd->bindParam(':giam_gia', $giam_gia);
+            $cmd->bindParam(':so_luong', $so_luong);
+            $cmd->bindParam(':hinh_anh', $hinh_anh);
+            $cmd->bindParam(':don_vi_tinh', $don_vi_tinh);
+            $cmd->execute();
+            return $conn->lastInsertId(); // Hoặc bạn có thể trả về ID của bản ghi mới được thêm vào nếu cần
+        }
+        catch(PDOException $e){
+            echo "Lỗi truy vấn ở themSanPham() trong model SanPham: " . $e->getMessage();
+            exit();
+        }
+    }
+    
 }
 
 ?>
