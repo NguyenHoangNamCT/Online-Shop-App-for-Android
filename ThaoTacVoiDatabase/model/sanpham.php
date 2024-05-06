@@ -33,6 +33,25 @@ class SanPham{
         }
     }
 
+    public function layLoaiVaThuongHieuSP(){
+        $conn = DATABASE::connect();
+        try{
+            $sql = "SELECT sp.id_loai_san_pham, sp.id_thuong_hieu, l.ten_loai_san_pham, th.TenThuongHieu 
+                FROM sanpham sp
+                JOIN loaisanpham l ON sp.id_loai_san_pham = l.id
+                JOIN thuonghieu th ON sp.id_thuong_hieu = th.id";
+            $cmd = $conn->prepare($sql);
+            $cmd->execute();
+            $result = $cmd->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(PDOException $e){
+            echo "Lỗi ở phương thức layLoaiVaThuongHieuSP() trong model sanpham: " . $e->getMessage();
+            exit();
+        }
+    }
+    
+
     public function themSanPham($id_loai_san_pham, $id_thuong_hieu, $ten_san_pham, $mo_ta, $gia_tien, $giam_gia, $so_luong, $hinh_anh, $don_vi_tinh){
         $conn = DATABASE::connect();
         try{
