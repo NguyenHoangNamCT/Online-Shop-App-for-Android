@@ -4,7 +4,7 @@ class ThuongHieu {
     public function layDanhSachThuongHieu(){
         $conn = DATABASE::connect();
         try{
-            $sql = "SELECT id, ten_thuong_hieu FROM thuonghieu";
+            $sql = "SELECT id, TenThuongHieu FROM thuonghieu";
             $cmd = $conn->prepare($sql);
             $cmd->execute();
             $result = $cmd->fetchAll();

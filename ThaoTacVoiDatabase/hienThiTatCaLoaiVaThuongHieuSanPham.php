@@ -11,6 +11,4 @@ $mangLoaiVaThuongHieu["danhSachThuongHieu"] = $th->layDanhSachThuongHieu();
 $mangLoaiVaThuongHieu["danhSachLoaiSanPham"] = $l->layDanhSachLoaiSanPham();
 
 echo json_encode($mangLoaiVaThuongHieu);
-
-
-?>
+?>  

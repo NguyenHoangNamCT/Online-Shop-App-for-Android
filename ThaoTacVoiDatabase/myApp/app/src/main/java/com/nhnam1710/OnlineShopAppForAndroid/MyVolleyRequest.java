@@ -1,6 +1,9 @@
 package com.nhnam1710.OnlineShopAppForAndroid;
 
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,7 +28,7 @@ public class MyVolleyRequest {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         // URL của script PHP trên máy chủ
-        String url = "http://your_server_url/your_script.php";
+        String url = context.getString(R.string.url_thuong_hieu_va_loai_san_pham);
 
         // Tạo một yêu cầu JSON Object để gửi yêu cầu GET đến máy chủ
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -35,17 +38,19 @@ public class MyVolleyRequest {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // Xử lý phản hồi JSON từ máy chủ
-                        try {
-                            JSONArray danhSachThuongHieu = response.getJSONArray("danhSachThuongHieu");
-                            JSONArray danhSachLoaiSanPham = response.getJSONArray("danhSachLoaiSanPham");
+                        if(response != null){
+                            // Xử lý phản hồi JSON từ máy chủ
+                            try {
+                                JSONArray danhSachThuongHieu = response.getJSONArray("danhSachThuongHieu");
+                                JSONArray danhSachLoaiSanPham = response.getJSONArray("danhSachLoaiSanPham");
 
-                            // Gửi dữ liệu đến người nghe
-                            listener.duLieuNhanDuoc(danhSachThuongHieu, danhSachLoaiSanPham);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            // Gửi thông báo lỗi đến người nghe
-                            listener.onError(e.getMessage());
+                                // Gửi dữ liệu đến người nghe
+                                listener.duLieuNhanDuoc(danhSachThuongHieu, danhSachLoaiSanPham);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                // Gửi thông báo lỗi đến người nghe
+                                listener.onError(e.getMessage());
+                            }
                         }
                     }
                 },
@@ -54,6 +59,8 @@ public class MyVolleyRequest {
                     public void onErrorResponse(VolleyError error) {
                         // Xử lý lỗi khi gửi yêu cầu đến máy chủ
                         error.printStackTrace();
+                        Toast.makeText(context, "Lỗi: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                        Log.e("loi cua toi", "Lỗi: " + error.getMessage());
                         // Gửi thông báo lỗi đến người nghe
                         listener.onError(error.getMessage());
                     }
