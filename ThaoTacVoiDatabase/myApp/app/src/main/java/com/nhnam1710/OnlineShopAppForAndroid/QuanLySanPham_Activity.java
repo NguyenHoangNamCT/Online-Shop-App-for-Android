@@ -1,11 +1,14 @@
 package com.nhnam1710.OnlineShopAppForAndroid;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,6 +36,8 @@ public class QuanLySanPham_Activity extends AppCompatActivity {
     ArrayList<SanPham> sanPhamArrayList;
     AdapterQuanLySanPham adapterQuanLySanPham;
 
+    int REQUEST_CODE_THEM_SAN_PHAM = 99997;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,22 @@ public class QuanLySanPham_Activity extends AppCompatActivity {
         adapterQuanLySanPham = new AdapterQuanLySanPham(QuanLySanPham_Activity.this, R.layout.dong_quan_ly_san_pham, sanPhamArrayList);
         listViewSanPham.setAdapter(adapterQuanLySanPham);
         readJsonArraySanPham(QuanLySanPham_Activity.this, url);
+
+        buttonThemSanPham.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QuanLySanPham_Activity.this, ThemSanPhamActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_THEM_SAN_PHAM);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_THEM_SAN_PHAM && resultCode == RESULT_OK && data != null){
+
+        }
     }
 
     private void anhXa() {
