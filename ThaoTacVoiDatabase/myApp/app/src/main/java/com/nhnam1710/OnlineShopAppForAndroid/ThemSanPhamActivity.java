@@ -147,8 +147,23 @@ public class ThemSanPhamActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // Xử lý phản hồi từ máy chủ nếu cần
-                        Log.d("xem du lieu:D ", response + "----End data");
-                        Toast.makeText(ThemSanPhamActivity.this, "Đã gửi thành công", Toast.LENGTH_SHORT).show();
+                        if (response.equals("success")) {
+                            // Phản hồi thành công
+                            Intent intent = new Intent(ThemSanPhamActivity.this, QuanLySanPham_Activity.class);
+                            startActivity(intent);
+                            Toast.makeText(ThemSanPhamActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                        } else if (response.equals("erro")) {
+                            Log.e("loi cua toi", "Lỗi chỗ thêm sản phẩm trong file themsanpham.php check các tham số truyền vào + cái hàm thêm,...");
+                            Toast.makeText(ThemSanPhamActivity.this, "Có lỗi xảy ra khi thêm sản phẩm phía sever", Toast.LENGTH_SHORT).show();
+                        } else if (response.equals("erro them hinh")) {
+                            // Phản hồi lỗi khi thêm hình ảnh
+                            Log.e("loi cua toi", "Lỗi khi thêm hình ảnh đã gửi vào sever, nguyên nhân có thể do dạng base64 gửi lên có vấn đề,... hoặc khác");
+                            Toast.makeText(ThemSanPhamActivity.this, "Có lỗi xảy ra khi thêm hình ảnh", Toast.LENGTH_SHORT).show();
+                        } else if (response.equals("erro from app")) {
+                            // Phản hồi lỗi khi yêu cầu không phải là POST
+                            Log.e("loi cua toi", "Lỗi này có thể do hàm sendProductDataToServer (trong ThemSanPhamActivity) tham số khởi tạo của thằng stringRequest không phải là post,...");
+                            Toast.makeText(ThemSanPhamActivity.this, "Lỗi yêu cầu từ ứng dụng", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override

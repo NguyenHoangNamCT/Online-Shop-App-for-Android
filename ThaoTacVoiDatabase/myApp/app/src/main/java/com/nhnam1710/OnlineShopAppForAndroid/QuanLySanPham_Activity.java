@@ -35,6 +35,7 @@ public class QuanLySanPham_Activity extends AppCompatActivity {
 
     ArrayList<SanPham> sanPhamArrayList;
     AdapterQuanLySanPham adapterQuanLySanPham;
+    int REQUEST_CODE_THEM_SAN_PHAM = 2837;
 
 
 
@@ -54,11 +55,18 @@ public class QuanLySanPham_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(QuanLySanPham_Activity.this, ThemSanPhamActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE_THEM_SAN_PHAM);
             }
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_THEM_SAN_PHAM && resultCode == RESULT_OK && data != null){
+
+        }
+    }
 
     private void anhXa() {
         sanPhamArrayList = new ArrayList<>();
