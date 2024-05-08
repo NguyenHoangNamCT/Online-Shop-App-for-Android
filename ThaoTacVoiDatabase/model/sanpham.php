@@ -92,6 +92,63 @@ class SanPham{
             exit();
         }
     }
+
+    public function suaSanPham($sanPhamID, $idLoaiSanPham, $idThuongHieu, $tenSanPham, $moTa, $giaTien, $giamGia, $soLuong, $luotXem, $luotMua, $donViTinh, $hinhAnh = null){
+        $conn = DATABASE::connect();
+        try{
+                // Tạo chuỗi SQL để cập nhật thông tin của sản phẩm
+            $sql = "UPDATE `sanpham` SET 
+                `id_loai_san_pham` = :idLoaiSanPham, 
+                `id_thuong_hieu` = :idThuongHieu, 
+                `ten_san_pham` = :tenSanPham, 
+                `mo_ta` = :moTa, 
+                `gia_tien` = :giaTien, 
+                `giam_gia` = :giamGia, 
+                `so_luong` = :soLuong, 
+                `luot_xem` = :luotXem, 
+                `luot_mua` = :luotMua, 
+                `don_vi_tinh` = :donViTinh";
+
+            // Nếu hình ảnh được truyền vào, bao gồm nó trong câu lệnh SQL
+            if ($hinhAnh !== null) {
+                $sql .= ", `hinh_anh` = :hinhAnh";
+            }
+
+            $sql .= " WHERE `id` = :sanPhamID";
+    
+            $cmd = $conn->prepare($sql);
+            // Bind các giá trị mới vào câu lệnh SQL
+            $cmd->bindParam(':idLoaiSanPham', $idLoaiSanPham);
+            $cmd->bindParam(':idThuongHieu', $idThuongHieu);
+            $cmd->bindParam(':tenSanPham', $tenSanPham);
+            $cmd->bindParam(':moTa', $moTa);
+            $cmd->bindParam(':giaTien', $giaTien);
+            $cmd->bindParam(':giamGia', $giamGia);
+            $cmd->bindParam(':soLuong', $soLuong);
+            $cmd->bindParam(':luotXem', $luotXem);
+            $cmd->bindParam(':luotMua', $luotMua);
+            $cmd->bindParam(':donViTinh', $donViTinh);
+            $cmd->bindParam(':sanPhamID', $sanPhamID);
+
+            // Nếu hình ảnh được truyền vào, bind giá trị của hình ảnh
+            if ($hinhAnh !== null) {
+                $cmd->bindParam(':hinhAnh', $hinhAnh);
+            }
+    
+            $cmd->execute();
+            
+            // Kiểm tra xem có bao nhiêu hàng đã được cập nhật
+            $rowCount = $cmd->rowCount();
+    
+            // Trả về true nếu có ít nhất một hàng được cập nhật, ngược lại trả về false
+            return $rowCount > 0;
+        }
+        catch(PDOException $e){
+            echo "Lỗi truy vấn ở suaSanPham() trong model SanPham: " . $e->getMessage();
+            exit();
+        }
+    }
+    
     
     
 }
