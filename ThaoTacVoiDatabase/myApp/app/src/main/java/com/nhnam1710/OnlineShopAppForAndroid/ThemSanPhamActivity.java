@@ -200,10 +200,15 @@ public class ThemSanPhamActivity extends AppCompatActivity {
     private String getImageString(Uri uri) {
         Bitmap bitmap;
         try {
+            // Tạo một đối tượng Bitmap từ URI
             bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+            // Chuẩn bị để nén hình ảnh thành một mảng byte bằng cách sử dụng ByteArrayOutputStream.
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            // Nén hình ảnh thành một mảng byte sử dụng phương thức compress của lớp Bitmap. với định dạng đầu ra là jpg, chất lượng hình ảnh là 100% không bị giảm, tất cả được lưu vào byteArrayOutputStream
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            //chuyển byteArrayOutputStream thành 1 mảng byte
             byte[] imageBytes = byteArrayOutputStream.toByteArray();
+            // Chuyển đổi mảng byte thành một chuỗi dạng Base64 sử dụng phương thức encodeToString của lớp Base64.
             return Base64.encodeToString(imageBytes, Base64.DEFAULT);
         } catch (IOException e) {
             e.printStackTrace();
