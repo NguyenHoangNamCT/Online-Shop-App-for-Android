@@ -74,6 +74,25 @@ class SanPham{
             exit();
         }
     }
+
+    public function xoaSanPham($sanPhamID){
+        $conn = DATABASE::connect();
+        try{
+            $sql = "DELETE FROM `sanpham` WHERE `id` = :sanPhamID";
+            $cmd = $conn->prepare($sql);
+            $cmd->bindParam(':sanPhamID', $sanPhamID);
+            $cmd->execute();
+            // Kiểm tra xem có bao nhiêu hàng đã bị xóa
+             $rowCount = $cmd->rowCount();
+            // Trả về true nếu có ít nhất một hàng được xóa, ngược lại trả về false
+            return $rowCount > 0;
+        }
+        catch(PDOException $e){
+            echo "Lỗi truy vấn ở xoaSanPham() trong model SanPham: " . $e->getMessage();
+            exit();
+        }
+    }
+    
     
 }
 
