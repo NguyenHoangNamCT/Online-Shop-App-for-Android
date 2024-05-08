@@ -44,6 +44,8 @@ public class MyVolleyStringRequest {
                 return thaoTac.guiMapLenSever(param);
             }
         };
+
+        requestQueue.add(stringRequest);
     }
 }
 
