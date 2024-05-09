@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- EditText cho tên sản phẩm -->
+    <EditText
+        android:id="@+id/editTextTenSanPham_activity_sua_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tên sản phẩm"
+        android:inputType="text" />
+
+    <!-- EditText cho mô tả -->
+    <EditText
+        android:id="@+id/editTextMoTa_activity_sua_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mô tả"
+        android:inputType="textMultiLine" />
+
+    <!-- EditText cho giá tiền -->
+    <EditText
+        android:id="@+id/editTextGiaTien_activity_sua_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Giá tiền"
+        android:inputType="numberDecimal" />
+
+    <!-- EditText cho giảm giá -->
+    <EditText
+        android:id="@+id/editTextGiamGia_activity_sua_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Giảm giá"
+        android:inputType="numberDecimal" />
+
+    <!-- EditText cho số lượng -->
+    <EditText
+        android:id="@+id/editTextSoLuong_activity_sua_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Số lượng"
+        android:inputType="number" />
+
+    <!-- EditText cho hình ảnh -->
+    <EditText
+        android:id="@+id/editTextHinhAnh_activity_sua_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hình ảnh"
+        android:inputType="text" />
+
+    <!-- EditText cho đơn vị tính -->
+    <EditText
+        android:id="@+id/editTextDonViTinh_activity_sua_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Đơn vị tính"
+        android:inputType="text" />
+
+    <!-- Spinner cho loại sản phẩm -->
+    <Spinner
+        android:id="@+id/spinnerLoaiSanPham_activity_sua_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/spinner_hint_chon_loai_sp"/>
+
+    <!-- Spinner cho thương hiệu -->
+    <Spinner
+        android:id="@+id/spinnerThuongHieu_activity_sua_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@id/spinnerThuongHieu_activity_sua_san_pham"/>
+
+    <ImageView
+        android:id="@+id/ivHinhAnhDaChon_activity_sua_san_pham"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <!-- Button để chọn hình ảnh từ máy -->
+    <Button
+        android:id="@+id/btnChonHinhAnh_activity_sua_san_pham"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn hình ảnh từ máy"
+        android:textColor="@color/yellow"
+        android:backgroundTint="@color/blue"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"/>
+
+
+    <!-- Nút Thêm và Hủy -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/buttonSua_activity_sua_san_pham"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Sửa"
+            android:layout_weight="1"
+            android:textColor="@color/yellow"
+            android:backgroundTint="@color/blue"/>
+
+        <Button
+            android:id="@+id/buttonHuy_activity_sua_san_pham"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Huỷ"
+            android:layout_weight="1"
+            android:textColor="@color/yellow"
+            android:backgroundTint="@color/blue"/>
+    </LinearLayout>
+</LinearLayout>
