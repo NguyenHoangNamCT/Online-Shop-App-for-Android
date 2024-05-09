@@ -45,13 +45,6 @@
         android:hint="Số lượng"
         android:inputType="number" />
 
-    <!-- EditText cho hình ảnh -->
-    <EditText
-        android:id="@+id/editTextHinhAnh_activity_them_san_pham"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Hình ảnh"
-        android:inputType="text" />
 
     <!-- EditText cho đơn vị tính -->
     <EditText
@@ -61,12 +54,30 @@
         android:hint="Đơn vị tính"
         android:inputType="text" />
 
+    <!-- TextView cho loại sản phẩm -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn loại sản phẩm:"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="7dp" />
+
     <!-- Spinner cho loại sản phẩm -->
     <Spinner
         android:id="@+id/spinnerLoaiSanPham_activity_them_san_pham"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:prompt="@string/spinner_hint_chon_loai_sp"/>
+
+    <!-- TextView cho thương hiệu -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn thương hiệu:"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="7dp" />
 
     <!-- Spinner cho thương hiệu -->
     <Spinner

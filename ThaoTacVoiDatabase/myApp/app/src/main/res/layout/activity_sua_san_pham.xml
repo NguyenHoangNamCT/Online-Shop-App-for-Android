@@ -5,6 +5,14 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- TextView cho Tên sản phẩm -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên sản phẩm:"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
     <!-- EditText cho tên sản phẩm -->
     <EditText
         android:id="@+id/editTextTenSanPham_activity_sua_san_pham"
@@ -12,6 +20,15 @@
         android:layout_height="wrap_content"
         android:hint="Tên sản phẩm"
         android:inputType="text" />
+
+    <!-- TextView cho Mô tả -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mô tả:"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="7dp" />
 
     <!-- EditText cho mô tả -->
     <EditText
@@ -21,6 +38,15 @@
         android:hint="Mô tả"
         android:inputType="textMultiLine" />
 
+    <!-- TextView cho Giá tiền -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giá tiền:"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="7dp" />
+
     <!-- EditText cho giá tiền -->
     <EditText
         android:id="@+id/editTextGiaTien_activity_sua_san_pham"
@@ -28,6 +54,15 @@
         android:layout_height="wrap_content"
         android:hint="Giá tiền"
         android:inputType="numberDecimal" />
+
+    <!-- TextView cho Giảm giá -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giảm giá:"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="7dp" />
 
     <!-- EditText cho giảm giá -->
     <EditText
@@ -37,6 +72,15 @@
         android:hint="Giảm giá"
         android:inputType="numberDecimal" />
 
+    <!-- TextView cho Số lượng -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Số lượng:"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="7dp" />
+
     <!-- EditText cho số lượng -->
     <EditText
         android:id="@+id/editTextSoLuong_activity_sua_san_pham"
@@ -45,13 +89,14 @@
         android:hint="Số lượng"
         android:inputType="number" />
 
-    <!-- EditText cho hình ảnh -->
-    <EditText
-        android:id="@+id/editTextHinhAnh_activity_sua_san_pham"
-        android:layout_width="match_parent"
+    <!-- TextView cho Đơn vị tính -->
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Hình ảnh"
-        android:inputType="text" />
+        android:text="Đơn vị tính:"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="7dp" />
 
     <!-- EditText cho đơn vị tính -->
     <EditText
@@ -61,12 +106,30 @@
         android:hint="Đơn vị tính"
         android:inputType="text" />
 
+    <!-- TextView cho loại sản phẩm -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn loại sản phẩm:"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="7dp" />
+
     <!-- Spinner cho loại sản phẩm -->
     <Spinner
         android:id="@+id/spinnerLoaiSanPham_activity_sua_san_pham"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:prompt="@string/spinner_hint_chon_loai_sp"/>
+
+    <!-- TextView cho thương hiệu -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn thương hiệu:"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="7dp" />
 
     <!-- Spinner cho thương hiệu -->
     <Spinner
