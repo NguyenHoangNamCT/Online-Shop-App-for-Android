@@ -5,6 +5,7 @@
     <string name="url_thuong_hieu_va_loai_san_pham">http://192.168.1.14/onlineshopapp/hienThiTatCaLoaiVaThuongHieuSanPham.php</string>
     <string name="url_them_san_pham">http://192.168.1.14/onlineshopapp/themSanPham.php</string>
     <string name="url_xoa_san_pham">http://192.168.1.14/onlineshopapp/xoaSanPham.php</string>
+    <string name="url_sua_san_pham">http://192.168.1.14/onlineshopapp/suaSanPham.php</string>
     <string name="spinner_hint_chon_loai_sp">Chọn loại sản phẩm</string>
     <string name="spinner_hint_chon_thuong_hieu_sp">Chọn thương hiệu</string>
 </resources>

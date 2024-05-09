@@ -135,13 +135,11 @@ class SanPham{
                 $cmd->bindParam(':hinhAnh', $hinhAnh);
             }
     
-            $cmd->execute();
+            $result = $cmd->execute();
             
-            // Kiểm tra xem có bao nhiêu hàng đã được cập nhật
-            $rowCount = $cmd->rowCount();
     
             // Trả về true nếu có ít nhất một hàng được cập nhật, ngược lại trả về false
-            return $rowCount > 0;
+            return $result;
         }
         catch(PDOException $e){
             echo "Lỗi truy vấn ở suaSanPham() trong model SanPham: " . $e->getMessage();

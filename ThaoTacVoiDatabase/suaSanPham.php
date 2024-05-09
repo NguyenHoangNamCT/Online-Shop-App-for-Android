@@ -21,9 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $luotMua = $_POST['luotMua'];
         $donViTinh = $_POST['donViTinh'];
 
-        if($hinhAnhBase64 !== null){
+
+        //nếu app gửi lên kiểu null thì biến $hinhAnhBase64 sẽ có giá trị là chuổi rổng
+        if($hinhAnhBase64 !== ""){
             // Chuyển đổi hình ảnh từ dạng base64 sang dạng file
-            $hinhAnh = base64_decode($hinh_anh_base64);
+            $hinhAnh = base64_decode($hinhAnhBase64);
 
             // Lưu hình ảnh vào thư mục trên server
             //dòng này dùng nối chuổi bình thường cũng được không cần dùng base name cũng không sao
@@ -32,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //nếu lưu thành công
             if (file_put_contents($target_file, $hinhAnh)) {
                 // Gọi phương thức suaSanPham để cập nhật sản phẩm
-                if($sp->suaSanPham($sanPhamID, $idLoaiSanPham, $idThuongHieu, $tenSanPham, $moTa, $giaTien, $giamGia, $soLuong, $luotXem, $luotMua, $donViTinh, $hinhAnh))
+                if($sp->suaSanPham($sanPhamID, $idLoaiSanPham, $idThuongHieu, $tenSanPham, $moTa, $giaTien, $giamGia, $soLuong, $luotXem, $luotMua, $donViTinh, $imageName))
                     echo "success";
                 else
                     echo "erro";
@@ -49,6 +51,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Thông báo lỗi nếu thiếu các trường dữ liệu cần thiết
         echo "gui thieu thong tin";
+        if(!isset($_POST['sanPhamID'])) {
+            echo "Biến sanPhamID không tồn tại";
+        }
+        if(!isset($_POST['idLoaiSanPham'])) {
+            echo "Biến idLoaiSanPham không tồn tại";
+        }
+        if(!isset($_POST['idThuongHieu'])) {
+            echo "Biến idThuongHieu không tồn tại";
+        }
+        if(!isset($_POST['tenSanPham'])) {
+            echo "Biến tenSanPham không tồn tại";
+        }
+        if(!isset($_POST['moTa'])) {
+            echo "Biến moTa không tồn tại";
+        }
+        if(!isset($_POST['giaTien'])) {
+            echo "Biến giaTien không tồn tại";
+        }
+        if(!isset($_POST['giamGia'])) {
+            echo "Biến giamGia không tồn tại";
+        }
+        if(!isset($_POST['soLuong'])) {
+            echo "Biến soLuong không tồn tại";
+        }
+        if(!isset($_POST['hinhAnh'])) {
+            echo "Biến hinhAnh không tồn tại";
+        }
+        if(!isset($_POST['luotXem'])) {
+            echo "Biến luotXem không tồn tại";
+        }
+        if(!isset($_POST['luotMua'])) {
+            echo "Biến luotMua không tồn tại";
+        }
+        if(!isset($_POST['donViTinh'])) {
+            echo "Biến donViTinh không tồn tại";
+        }
+        
     }
 }else{
     echo "khong phai post";
