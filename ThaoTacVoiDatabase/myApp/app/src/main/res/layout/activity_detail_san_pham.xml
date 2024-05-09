@@ -6,7 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DetailSanPham"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
+    android:paddingBottom="2dp">
 
 
     <!-- ScrollView lv 2 -->
@@ -20,7 +23,7 @@
             android:orientation="vertical">
             <!-- Hình ảnh sản phẩm -->
             <ImageView
-                android:id="@+id/anhSanPham"
+                android:id="@+id/anhSanPham_activity_detail_san_pham"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:scaleType="centerCrop"
@@ -28,26 +31,54 @@
 
             <!-- Tên sản phẩm -->
             <TextView
-                android:id="@+id/tenSanPham"
+                android:id="@+id/tenSanPham_activity_detail_san_pham"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tên sản phẩm"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp"
+                android:textColor="@color/blue"/>
 
-            <!-- Giá sản phẩm -->
-            <TextView
-                android:id="@+id/giaSanPham"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Giá: $100"
-                android:textSize="18sp"
-                android:layout_marginTop="8dp"/>
+                android:orientation="horizontal">
+                <!-- Giá sản phẩm -->
+
+                <TextView
+                    android:id="@+id/giaSanPham_activity_detail_san_pham"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Giá: $100"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/giamGia_activity_detail_san_pham"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Giá: 100"
+                    android:textSize="18sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="15dp"
+                    android:textColor="@color/mauPhu1"/>
+
+                <TextView
+                    android:id="@+id/giaBan_activity_detail_san_pham"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Giá: $100"
+                    android:textSize="18sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="15dp"
+                    android:textColor="@color/mauPhu2"/>
+
+            </LinearLayout>
 
             <!-- Đánh giá sao -->
             <RatingBar
-                android:id="@+id/danhGiaSao"
+                android:id="@+id/danhGiaSao_activity_detail_san_pham"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5"
@@ -58,7 +89,16 @@
 
             <!-- Lượt bán -->
             <TextView
-                android:id="@+id/luotBan"
+                android:id="@+id/luotBan_activity_detail_san_pham"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lượt bán: 100"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Lượt bán -->
+            <TextView
+                android:id="@+id/soLuongSanPham_activity_detail_san_pham"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lượt bán: 100"
@@ -67,7 +107,7 @@
 
             <!-- Mô tả sản phẩm -->
             <TextView
-                android:id="@+id/moTaSanPham"
+                android:id="@+id/moTaSanPham_activity_detail_san_pham"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Mô tả: Đây là những dòng mô tả về sản phẩm"
@@ -76,7 +116,7 @@
 
             <!-- Tiêu đề Đánh giá -->
             <TextView
-                android:id="@+id/tieuDeDanhGia"
+                android:id="@+id/tieuDeDanhGia_activity_detail_san_pham"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Đánh giá"
@@ -93,7 +133,7 @@
 
                 <!-- Hình ảnh người dùng -->
                 <ImageView
-                    android:id="@+id/anhNguoiDung"
+                    android:id="@+id/anhNguoiDung_activity_detail_san_pham"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/ao"
@@ -108,7 +148,7 @@
                     android:orientation="vertical">
                     <!-- Tên người dùng -->
                     <TextView
-                        android:id="@+id/tenNguoiDung"
+                        android:id="@+id/tenNguoiDung_activity_detail_san_pham"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tên người dùng"
@@ -118,7 +158,7 @@
 
                     <!-- Số sao -->
                     <RatingBar
-                        android:id="@+id/soSao"
+                        android:id="@+id/soSao_activity_detail_san_pham"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:numStars="5"
@@ -146,7 +186,7 @@
 
                 <!-- Ví dụ sử dụng ImageView -->
                 <ImageView
-                    android:id="@+id/anhSanPham1"
+                    android:id="@+id/anhSanPham1_activity_detail_san_pham"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
@@ -155,7 +195,7 @@
                     android:layout_marginEnd="4dp" />
 
                 <ImageView
-                    android:id="@+id/anhSanPham2"
+                    android:id="@+id/anhSanPham2_activity_detail_san_pham"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
@@ -164,7 +204,7 @@
                     android:layout_marginEnd="4dp" />
 
                 <ImageView
-                    android:id="@+id/anhSanPham3"
+                    android:id="@+id/anhSanPham3_activity_detail_san_pham"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
@@ -173,7 +213,7 @@
                     android:layout_marginEnd="4dp" />
 
                 <ImageView
-                    android:id="@+id/anhSanPham4"
+                    android:id="@+id/anhSanPham4_activity_detail_san_pham"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
@@ -182,7 +222,7 @@
                     android:layout_marginEnd="4dp" />
 
                 <ImageView
-                    android:id="@+id/anhSanPham5"
+                    android:id="@+id/anhSanPham5_activity_detail_san_pham"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
@@ -214,7 +254,7 @@
 <!--            </LinearLayout>-->
             <!-- Đánh giá -->
             <TextView
-                android:id="@+id/danhGiaText"
+                android:id="@+id/danhGiaText_activity_detail_san_pham"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

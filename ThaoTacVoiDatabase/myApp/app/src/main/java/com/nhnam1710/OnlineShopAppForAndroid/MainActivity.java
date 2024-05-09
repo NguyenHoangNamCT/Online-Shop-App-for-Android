@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,8 +67,18 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, DetailSanPham.class);
                 startActivity(intent);
             }
+
+
         });
 
+        gridViewDanhSachSP.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, DetailSanPham.class);
+                intent.putExtra("sanPham", arrayListSanPham.get(position));
+                startActivity(intent);
+            }
+        });
 
     }
 
