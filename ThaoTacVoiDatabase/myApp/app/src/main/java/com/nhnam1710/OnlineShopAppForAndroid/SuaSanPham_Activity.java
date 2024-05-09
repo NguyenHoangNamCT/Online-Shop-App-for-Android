@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +50,12 @@ public class SuaSanPham_Activity extends AppCompatActivity {
             editTextSoLuong.setText(String.valueOf(sp.getSoLuong()));
             editTextHinhAnh.setText(sp.getHinhAnh());
             editTextDonViTinh.setText(sp.getDonViTinh());
+            String imageName = sp.getHinhAnh();
+            String urlImageOnSever = getResources().getString(R.string.url_img_on_sever) + imageName;
+            Picasso.get().load(urlImageOnSever).into(ivHinhAnhDaChon);
+            ivHinhAnhDaChon.setVisibility(View.VISIBLE);
+            //set 2 spinner nằm trong ánh xạ
+
         }
     }
 
