@@ -3,6 +3,7 @@ package com.nhnam1710.OnlineShopAppForAndroid;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.contract.ActivityResultContracts;
 
 import com.squareup.picasso.Picasso;
 
@@ -72,6 +75,8 @@ public class AdapterQuanLySanPham extends BaseAdapter {
 
         // Lấy đối tượng sản phẩm tương ứng với vị trí
         SanPham sanPham = sanPhamList.get(position);
+
+        //bắt sự kiện nút xoá
         viewHolder.imageButtonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +84,15 @@ public class AdapterQuanLySanPham extends BaseAdapter {
             }
         });
 
+        //bắt sự kiện nút sửa
+        viewHolder.imageButtonEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SuaSanPham_Activity.class);
+                intent.putExtra("sanPhamData", sanPham);
+                context.startActivity(intent);
+            }
+        });
 
 
         // Đặt dữ liệu cho các view trong ViewHolder từ đối tượng sản phẩm
@@ -111,4 +125,23 @@ public class AdapterQuanLySanPham extends BaseAdapter {
 
         alertDialog.show();
     }
+
+//    public void xacNhanSua(SanPham sp){
+//        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//        builder.setMessage("Bán có muốn sửa sản phẩm " + sp.getTenSanPham() + " không? ");
+//        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//            }
+//        });
+//
+//        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//            }
+//        });
+//        builder.show();
+//    }
 }

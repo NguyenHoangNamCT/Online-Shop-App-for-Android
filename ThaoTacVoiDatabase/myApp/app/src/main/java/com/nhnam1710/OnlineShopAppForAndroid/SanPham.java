@@ -7,7 +7,9 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SanPham {
+import java.io.Serializable;
+
+public class SanPham implements Serializable {
     private int id;
     private int idLoaiSanPham;
     private int idThuongHieu;
@@ -20,7 +22,9 @@ public class SanPham {
     private int luotXem;
     private int luotMua;
 
-    public SanPham(int id, int idLoaiSanPham, int idThuongHieu, String tenSanPham, String moTa, double giaTien, double giamGia, int soLuong, String hinhAnh, int luotXem, int luotMua) {
+    private String donViTinh;
+
+    public SanPham(int id, int idLoaiSanPham, int idThuongHieu, String tenSanPham, String moTa, double giaTien, double giamGia, int soLuong, String hinhAnh, int luotXem, int luotMua, String donViTinh) {
         this.id = id;
         this.idLoaiSanPham = idLoaiSanPham;
         this.idThuongHieu = idThuongHieu;
@@ -32,8 +36,30 @@ public class SanPham {
         this.hinhAnh = hinhAnh;
         this.luotXem = luotXem;
         this.luotMua = luotMua;
+        this.donViTinh = donViTinh;
     }
 
+//    public SanPham(int id, int idLoaiSanPham, int idThuongHieu, String tenSanPham, String moTa, double giaTien, double giamGia, int soLuong, String hinhAnh, int luotXem, int luotMua) {
+//        this.id = id;
+//        this.idLoaiSanPham = idLoaiSanPham;
+//        this.idThuongHieu = idThuongHieu;
+//        this.tenSanPham = tenSanPham;
+//        this.moTa = moTa;
+//        this.giaTien = giaTien;
+//        this.giamGia = giamGia;
+//        this.soLuong = soLuong;
+//        this.hinhAnh = hinhAnh;
+//        this.luotXem = luotXem;
+//        this.luotMua = luotMua;
+//    }
+
+    public String getDonViTinh() {
+        return donViTinh;
+    }
+
+    public void setDonViTinh(String donViTinh) {
+        this.donViTinh = donViTinh;
+    }
     public int getId() {
         return id;
     }
@@ -143,7 +169,8 @@ public class SanPham {
             String hinhAnh = jsonObject.getString("hinh_anh");
             int luotXem = jsonObject.getInt("luot_xem");
             int luotMua = jsonObject.getInt("luot_mua");
-            sp = new SanPham(id, idLoaiSanPham, idThuongHieu, tenSanPham, moTa, giaTien, giamGia, soLuong, hinhAnh, luotXem, luotMua);
+            String donViTinh = jsonObject.getString("don_vi_tinh");
+            sp = new SanPham(id, idLoaiSanPham, idThuongHieu, tenSanPham, moTa, giaTien, giamGia, soLuong, hinhAnh, luotXem, luotMua, donViTinh);
         } catch (JSONException e) {
             Log.d("loi cua toi", "Lỗi try catch phương thức tĩnh fromJson trong class SanPham: " + e.getMessage());
             throw new RuntimeException(e);
