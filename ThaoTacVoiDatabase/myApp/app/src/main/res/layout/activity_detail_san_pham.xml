@@ -15,11 +15,12 @@
     <!-- ScrollView lv 2 -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
         <!-- mở linear lv 3 -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="vertical">
             <!-- Hình ảnh sản phẩm -->
             <ImageView
@@ -40,6 +41,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/blue"/>
 
+            <!-- mở linear lv 4 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,7 +64,7 @@
                     android:textSize="18sp"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="15dp"
-                    android:textColor="@color/mauPhu1"/>
+                    android:textColor="@color/mauPhu3"/>
 
                 <TextView
                     android:id="@+id/giaBan_activity_detail_san_pham"
@@ -73,7 +75,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="15dp"
                     android:textColor="@color/mauPhu2"/>
-
+            <!-- đóng linnear lv 4-->
             </LinearLayout>
 
             <!-- Đánh giá sao -->
@@ -96,12 +98,12 @@
                 android:textSize="16sp"
                 android:layout_marginTop="8dp"/>
 
-            <!-- Lượt bán -->
+            <!-- Số lượng -->
             <TextView
                 android:id="@+id/soLuongSanPham_activity_detail_san_pham"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lượt bán: 100"
+                android:text="Số lượng: 100"
                 android:textSize="16sp"
                 android:layout_marginTop="8dp"/>
 
@@ -128,7 +130,7 @@
             <!-- mở linearlayout lv 4 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <!-- Hình ảnh người dùng -->
@@ -264,10 +266,58 @@
                 android:layout_marginStart="8dp" />
         <!-- Đóng linear lv 3-->
         </LinearLayout>
+
     <!-- Đóng ScrollView LV2 -->
     </ScrollView>
 
+    <LinearLayout
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/mauPhu2"
+        android:elevation="8dp"
+        android:padding="8dp"
+        android:layout_gravity="bottom">
+
+        <Button
+            android:id="@+id/btn_home_activity_detail_san_pham"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Home"
+            android:textColor="@color/phanMauPhu2"
+            android:background="?android:selectableItemBackground"
+            android:padding="8dp"
+            android:textSize="17sp"/>
+
+        <Button
+            android:id="@+id/btn_cart_activity_detail_san_pham"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Giỏ hàng"
+            android:textColor="@color/phanMauPhu2"
+            android:background="?android:selectableItemBackground"
+            android:padding="8dp"
+            android:textSize="17sp"/>
+
+        <Button
+            android:id="@+id/btn_buy_activity_detail_san_pham"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Mua hàng"
+            android:textColor="@color/phanMauPhu2"
+            android:background="?android:selectableItemBackground"
+            android:padding="8dp"
+            android:textSize="17sp"/>
 
 
-<!-- Đóng linear lv 1-->
+    </LinearLayout>
+
+
+
+
+    <!-- Đóng linear lv 1-->
 </LinearLayout>
