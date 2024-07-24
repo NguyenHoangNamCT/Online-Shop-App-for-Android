@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+
+import java.util.Map;
+
 public class Login_Activity extends AppCompatActivity {
 
     private EditText editTextTenDangNhap;
@@ -24,20 +28,21 @@ public class Login_Activity extends AppCompatActivity {
         buttonDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                guiTaiKhoanMatKhauLenSever();
                 String tenDangNhap = editTextTenDangNhap.getText().toString();
                 String password = editTextPassword.getText().toString();
 
                 // Thực hiện kiểm tra đăng nhập ở đây (giả sử kiểm tra thành công)
                 if (tenDangNhap.equals("123") && password.equals("123")) {
+                    Toast.makeText(Login_Activity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                     GlobalClass.setUserName(editTextTenDangNhap.getText().toString());
                     GlobalClass.setPassword(editTextPassword.getText().toString());
-                    Toast.makeText(Login_Activity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                    // Chuyển sang Activity khác
                     Intent intent = new Intent(Login_Activity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(Login_Activity.this, "Tên đăng nhập hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
                 }
+                //-----------------------------------------------------------------
             }
         });
     }
@@ -46,5 +51,28 @@ public class Login_Activity extends AppCompatActivity {
         editTextTenDangNhap = findViewById(R.id.editTextTenDangNhap_activity_login);
         editTextPassword = findViewById(R.id.editTextPassword_activity_login);
         buttonDangNhap = findViewById(R.id.buttonDangNhap_activity_login);
+    }
+
+    public void guiTaiKhoanMatKhauLenSever(){
+        String urlNhanTaiKhoanVaMatKhau = getResources().getString(R.string.url_nhan_tai_khoan_va_mat_khau_va_xu_ly);
+        MyVolleyStringRequest.GuiStringRequestDenSever(urlNhanTaiKhoanVaMatKhau, Login_Activity.this, new MyVolleyStringRequest.thaoTacVoiStringRequestNay() {
+            @Override
+            public Map<String, String> guiMapLenSever(Map<String, String> param) {
+                param.put("tenDangNhap", editTextTenDangNhap.getText().toString().trim());
+                param.put("matKhau", editTextPassword.getText().toString());
+                return param;
+            }
+
+            @Override
+            public void xuLyChuoiDocDuocTuSever(String response) {
+                //biến response chính là dòng chữ mà sever in ra sau khi xử lý
+            }
+
+            @Override
+            public void baoLoiCuaOnErrorResponse(VolleyError error) {
+                //báo lỗi của cua OnErrorResponse trong myVolleyStringRequest (class này gọi lại tức là lỗi xuất phát từ đây, nhưng code thì ở bên kia) code bên đây nếu lỗi thì lỗi dữ liệu đầu vào (biến kiểu Map tên param)
+
+            }
+        });
     }
 }
