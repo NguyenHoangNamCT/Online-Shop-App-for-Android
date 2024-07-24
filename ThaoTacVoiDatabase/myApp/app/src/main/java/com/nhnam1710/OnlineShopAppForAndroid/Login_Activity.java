@@ -29,6 +29,8 @@ public class Login_Activity extends AppCompatActivity {
 
                 // Thực hiện kiểm tra đăng nhập ở đây (giả sử kiểm tra thành công)
                 if (tenDangNhap.equals("123") && password.equals("123")) {
+                    GlobalClass.setUserName(editTextTenDangNhap.getText().toString());
+                    GlobalClass.setPassword(editTextPassword.getText().toString());
                     Toast.makeText(Login_Activity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                     // Chuyển sang Activity khác
                     Intent intent = new Intent(Login_Activity.this, MainActivity.class);

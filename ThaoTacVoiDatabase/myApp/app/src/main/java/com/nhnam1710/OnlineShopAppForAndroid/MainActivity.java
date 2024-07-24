@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Toast.makeText(MainActivity.this, "Tài khoảng và mật khẩu của bạn là: " + GlobalClass.getUserName() + "\t" + GlobalClass.getPassword(), Toast.LENGTH_LONG).show();
         url = getResources().getString(R.string.url_sever);
 
         anhXa();
