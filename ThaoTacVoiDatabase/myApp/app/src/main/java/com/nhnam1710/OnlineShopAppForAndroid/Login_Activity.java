@@ -30,10 +30,6 @@ public class Login_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 //phương thức này sẽ lấy dữ liệu người dùng nhập vào và mã hóa xong gửi lên sever
                 guiTaiKhoanMatKhauLenSever();
-
-//                //mã hóa tk mk người dùng
-//                String tenDangNhap = GlobalClass.getMD5(editTextTenDangNhap.getText().toString());
-//                String password = GlobalClass.getMD5(editTextPassword.getText().toString());
 //
 //                // Thực hiện kiểm tra đăng nhập ở đây (giả sử kiểm tra thành công)
 //                if (tenDangNhap.equals("123") && password.equals("123")) {
@@ -41,8 +37,6 @@ public class Login_Activity extends AppCompatActivity {
 //                    Toast.makeText(Login_Activity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
 //                    GlobalClass.setUserName(editTextTenDangNhap.getText().toString());
 //                    GlobalClass.setPassword(editTextPassword.getText().toString());
-//                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-//                    startActivity(intent);
 //                } else {
 //                    Toast.makeText(Login_Activity.this, "Tên đăng nhập hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
 //                }
@@ -62,7 +56,7 @@ public class Login_Activity extends AppCompatActivity {
         MyVolleyStringRequest.GuiStringRequestDenSever(urlNhanTaiKhoanVaMatKhau, Login_Activity.this, new MyVolleyStringRequest.thaoTacVoiStringRequestNay() {
             @Override
             public Map<String, String> guiMapLenSever(Map<String, String> param) {
-                String tenDangNhapMD5 = GlobalClass.getMD5(editTextTenDangNhap.getText().toString().trim()),
+                String tenDangNhapMD5 = editTextTenDangNhap.getText().toString().trim(),
                         matKhauMD5 = GlobalClass.getMD5(editTextPassword.getText().toString());
 
                 param.put("tenDangNhap", tenDangNhapMD5);
@@ -72,7 +66,22 @@ public class Login_Activity extends AppCompatActivity {
 
             @Override
             public void xuLyChuoiDocDuocTuSever(String response) {
-                //biến response chính là dòng chữ mà sever in ra sau khi xử lý
+                if(response.equals("Success")){
+                    Toast.makeText(Login_Activity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                    //mã hóa mk người dùng và lưu vào các biến tĩnh của GlobalClass mỗi khi người dùng làm việc gì đó quan trọng gửi lên sever check lại
+                    GlobalClass.setUserName(editTextTenDangNhap.getText().toString().trim());
+                    GlobalClass.setPassword(GlobalClass.getMD5(editTextPassword.getText().toString()));
+
+                    //chuyển màn hình vì đã đăng nhập thành công
+                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+                else if(response.equals("Fail")){
+                    Toast.makeText(Login_Activity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(Login_Activity.this, "Có lỗi khi đăng nhập: @Override xuLyChuoiDocDuocTuSever trong Login activity", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

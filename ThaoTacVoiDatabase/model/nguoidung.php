@@ -1,4 +1,6 @@
 <?php
+require("database.php");
+
 class NGUOIDUNG {
     // Hàm kiểm tra người dùng hợp lệ
     public function kiemTraNguoiDungHopLe($tendangnhap, $matkhau) {
@@ -10,11 +12,11 @@ class NGUOIDUNG {
             $cmd->bindValue(":matkhau", md5($matkhau)); // Gán giá trị biến vào tham số của câu lệnh SQL và mã hóa mật khẩu bằng MD5
             $cmd->execute(); // Thực thi câu lệnh SQL
             $valid = ($cmd->rowCount() == 1); // Kiểm tra xem người dùng có hợp lệ hay không
-            if ($valid) { // Nếu người dùng hợp lệ
-                $user = $cmd->fetch(PDO::FETCH_ASSOC); // Lấy thông tin của người dùng
-                // Tạo token phiên
-                $this->taoTokenPhien($user['id']); // Gọi phương thức để tạo token phiên
-            }
+            // if ($valid) { // Nếu người dùng hợp lệ
+            //     // $user = $cmd->fetch(PDO::FETCH_ASSOC); // Lấy thông tin của người dùng
+            //     // Tạo token phiên
+            //     // $this->taoTokenPhien($user['id']); // Gọi phương thức để tạo token phiên
+            // }
             $cmd->closeCursor(); // Đóng con trỏ của câu lệnh SQL
             return $valid; // Trả về kết quả xác nhận hợp lệ của người dùng
         } catch (PDOException $e) { // Xử lý ngoại lệ nếu có lỗi khi thực thi câu lệnh SQL
@@ -24,26 +26,50 @@ class NGUOIDUNG {
         }
     }
 
-    // Hàm tạo token phiên
-    private function taoTokenPhien($userId) {
+    // Hàm kiểm tra người dùng hợp lệ: // dữ liệu đầu vào là tk mk đã mã hóa md5
+    public function kiemTraNguoiDungHopLeDaMaHoa($tendangnhap, $matkhau) {
         $db = DATABASE::connect(); // Kết nối đến cơ sở dữ liệu
         try {
-            $token = bin2hex(random_bytes(32)); // Tạo một token phiên ngẫu nhiên
-            $expiry = date("Y-m-d H:i:s", strtotime('+1 hour')); // Tính toán thời gian hết hạn của token
-            $sql = "INSERT INTO user_sessions (user_id, token, expiry) VALUES (:user_id, :token, :expiry)"; // Chuẩn bị câu lệnh SQL để chèn dữ liệu vào bảng user_sessions
+            $sql = "SELECT * FROM nguoidung WHERE ten_dang_nhap = :tendangnhap AND mat_khau = :matkhau AND trang_thai = 1"; // Chuẩn bị câu lệnh SQL để kiểm tra người dùng
             $cmd = $db->prepare($sql); // Chuẩn bị câu lệnh SQL để thực thi
-            $cmd->bindValue(":user_id", $userId); // Gán giá trị biến vào tham số của câu lệnh SQL
-            $cmd->bindValue(":token", $token); // Gán giá trị biến vào tham số của câu lệnh SQL
-            $cmd->bindValue(":expiry", $expiry); // Gán giá trị biến vào tham số của câu lệnh SQL
+            $cmd->bindValue(":tendangnhap", $tendangnhap); // Gán giá trị biến vào tham số của câu lệnh SQL
+            $cmd->bindValue(":matkhau", $matkhau); // Gán giá trị biến vào tham số của câu lệnh SQL và mã hóa mật khẩu bằng MD5
             $cmd->execute(); // Thực thi câu lệnh SQL
-            $_SESSION['token'] = $token; // Lưu token vào phiên
-            $_SESSION['user_id'] = $userId; // Lưu ID người dùng vào phiên
+            $valid = ($cmd->rowCount() == 1); // Kiểm tra xem người dùng có hợp lệ hay không
+            // if ($valid) { // Nếu người dùng hợp lệ
+            //     // $user = $cmd->fetch(PDO::FETCH_ASSOC); // Lấy thông tin của người dùng
+            //     // Tạo token phiên
+            //     // $this->taoTokenPhien($user['id']); // Gọi phương thức để tạo token phiên
+            // }
+            $cmd->closeCursor(); // Đóng con trỏ của câu lệnh SQL
+            return $valid; // Trả về kết quả xác nhận hợp lệ của người dùng
         } catch (PDOException $e) { // Xử lý ngoại lệ nếu có lỗi khi thực thi câu lệnh SQL
             $error_message = $e->getMessage(); // Lấy thông báo lỗi
-            echo "<p>Lỗi truy vấn ở taoTokenPhien: $error_message</p>"; // Xuất thông báo lỗi
+            echo "<p>Lỗi truy vấn ở kiemTraNguoiDungHopLeDaMaHoa: $error_message</p>"; // Xuất thông báo lỗi
             exit(); // Thoát khỏi chương trình
         }
     }
+
+    // // Hàm tạo token phiên
+    // private function taoTokenPhien($userId) {
+    //     $db = DATABASE::connect(); // Kết nối đến cơ sở dữ liệu
+    //     try {
+    //         $token = bin2hex(random_bytes(32)); // Tạo một token phiên ngẫu nhiên
+    //         $expiry = date("Y-m-d H:i:s", strtotime('+1 hour')); // Tính toán thời gian hết hạn của token
+    //         $sql = "INSERT INTO user_sessions (user_id, token, expiry) VALUES (:user_id, :token, :expiry)"; // Chuẩn bị câu lệnh SQL để chèn dữ liệu vào bảng user_sessions
+    //         $cmd = $db->prepare($sql); // Chuẩn bị câu lệnh SQL để thực thi
+    //         $cmd->bindValue(":user_id", $userId); // Gán giá trị biến vào tham số của câu lệnh SQL
+    //         $cmd->bindValue(":token", $token); // Gán giá trị biến vào tham số của câu lệnh SQL
+    //         $cmd->bindValue(":expiry", $expiry); // Gán giá trị biến vào tham số của câu lệnh SQL
+    //         $cmd->execute(); // Thực thi câu lệnh SQL
+    //         $_SESSION['token'] = $token; // Lưu token vào phiên
+    //         $_SESSION['user_id'] = $userId; // Lưu ID người dùng vào phiên
+    //     } catch (PDOException $e) { // Xử lý ngoại lệ nếu có lỗi khi thực thi câu lệnh SQL
+    //         $error_message = $e->getMessage(); // Lấy thông báo lỗi
+    //         echo "<p>Lỗi truy vấn ở taoTokenPhien: $error_message</p>"; // Xuất thông báo lỗi
+    //         exit(); // Thoát khỏi chương trình
+    //     }
+    // }
 
     // Hàm kiểm tra token phiên
     public function kiemTraTokenPhien() {
