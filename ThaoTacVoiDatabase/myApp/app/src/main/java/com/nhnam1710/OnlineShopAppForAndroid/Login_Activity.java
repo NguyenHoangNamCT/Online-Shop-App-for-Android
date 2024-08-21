@@ -28,21 +28,25 @@ public class Login_Activity extends AppCompatActivity {
         buttonDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //phương thức này sẽ lấy dữ liệu người dùng nhập vào và mã hóa xong gửi lên sever
                 guiTaiKhoanMatKhauLenSever();
-                String tenDangNhap = editTextTenDangNhap.getText().toString();
-                String password = editTextPassword.getText().toString();
 
-                // Thực hiện kiểm tra đăng nhập ở đây (giả sử kiểm tra thành công)
-                if (tenDangNhap.equals("123") && password.equals("123")) {
-                    Toast.makeText(Login_Activity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                    GlobalClass.setUserName(editTextTenDangNhap.getText().toString());
-                    GlobalClass.setPassword(editTextPassword.getText().toString());
-                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(Login_Activity.this, "Tên đăng nhập hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
-                }
-                //-----------------------------------------------------------------
+//                //mã hóa tk mk người dùng
+//                String tenDangNhap = GlobalClass.getMD5(editTextTenDangNhap.getText().toString());
+//                String password = GlobalClass.getMD5(editTextPassword.getText().toString());
+//
+//                // Thực hiện kiểm tra đăng nhập ở đây (giả sử kiểm tra thành công)
+//                if (tenDangNhap.equals("123") && password.equals("123")) {
+//                    //nếu đăng nhập thành công thì lưu tk mk vào global class và thông báo và chuyển màn hình đến main activity
+//                    Toast.makeText(Login_Activity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+//                    GlobalClass.setUserName(editTextTenDangNhap.getText().toString());
+//                    GlobalClass.setPassword(editTextPassword.getText().toString());
+//                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+//                    startActivity(intent);
+//                } else {
+//                    Toast.makeText(Login_Activity.this, "Tên đăng nhập hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+//                }
+//                //-----------------------------------------------------------------
             }
         });
     }
@@ -58,8 +62,11 @@ public class Login_Activity extends AppCompatActivity {
         MyVolleyStringRequest.GuiStringRequestDenSever(urlNhanTaiKhoanVaMatKhau, Login_Activity.this, new MyVolleyStringRequest.thaoTacVoiStringRequestNay() {
             @Override
             public Map<String, String> guiMapLenSever(Map<String, String> param) {
-                param.put("tenDangNhap", editTextTenDangNhap.getText().toString().trim());
-                param.put("matKhau", editTextPassword.getText().toString());
+                String tenDangNhapMD5 = GlobalClass.getMD5(editTextTenDangNhap.getText().toString().trim()),
+                        matKhauMD5 = GlobalClass.getMD5(editTextPassword.getText().toString());
+
+                param.put("tenDangNhap", tenDangNhapMD5);
+                param.put("matKhau", matKhauMD5);
                 return param;
             }
 
