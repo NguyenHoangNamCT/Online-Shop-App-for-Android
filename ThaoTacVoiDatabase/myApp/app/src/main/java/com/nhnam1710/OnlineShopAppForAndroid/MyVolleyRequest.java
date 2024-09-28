@@ -24,7 +24,7 @@ public class MyVolleyRequest {
         void onError(String errorMessage);
     }
 
-    public interface XuLyVolleyListennerLayFullLoaiSanPham{
+    public interface XuLyVolleyListennerVaErroLayFullLoaiSanPham{
         public void danhSachLoaiSanPhamDocDuoc(JSONArray response);
         public void chuoiBaoLoiCuaVolley(String VolleyErrorMessage);
     }
@@ -77,7 +77,7 @@ public class MyVolleyRequest {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public static void layFullLoaiSanPham(Context context, XuLyVolleyListennerLayFullLoaiSanPham listennerVaErroInterface){
+    public static void layFullLoaiSanPham(Context context, XuLyVolleyListennerVaErroLayFullLoaiSanPham listennerVaErroInterface){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         //lấy url đã lưu trong thư mục values
@@ -105,5 +105,6 @@ public class MyVolleyRequest {
                     }
                 });
 
+        requestQueue.add(jsonArrayRequest);
     }
 }

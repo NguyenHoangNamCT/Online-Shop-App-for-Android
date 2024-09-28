@@ -19,9 +19,16 @@ public class AdapterLoaiSanPham extends BaseAdapter {
     private int layout;
     Context context;
 
+    public AdapterLoaiSanPham(ArrayList<LoaiSanPham> loaiSanPhamArrayList, int layout, Context context) {
+        this.loaiSanPhamArrayList = loaiSanPhamArrayList;
+        this.layout = layout;
+        this.context = context;
+    }
+
+    // phương thức này rất quan trọng nếu return về 0 sẽ không hiển thị được gì
     @Override
     public int getCount() {
-        return 0;
+        return loaiSanPhamArrayList.size();
     }
 
     @Override

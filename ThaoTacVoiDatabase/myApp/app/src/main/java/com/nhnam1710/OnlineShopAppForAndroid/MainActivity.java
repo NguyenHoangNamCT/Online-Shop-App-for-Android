@@ -134,7 +134,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else if(item.getItemId() == R.id.menuQuanLyLoaiSanPham){
-
+            Intent intent = new Intent(MainActivity.this, Activity_QuanLyLoaiSanPham.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

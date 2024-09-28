@@ -1,5 +1,8 @@
 package com.nhnam1710.OnlineShopAppForAndroid;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class LoaiSanPham {
     private int id;
     private String tenLoaiSanPham;
@@ -18,6 +21,18 @@ public class LoaiSanPham {
         this.moTa = moTa;
         this.trangThai = trangThai;
         this.hinhAnh = hinhAnh;
+    }
+
+    public LoaiSanPham(JSONObject jsonObject) {
+        try {
+            this.id = jsonObject.getInt("id");
+            this.tenLoaiSanPham = jsonObject.getString("ten_loai_san_pham");
+            this.moTa = jsonObject.getString("mo_ta");
+            this.trangThai = jsonObject.getString("trang_thai").equals("1");//so sánh chuổi nhận được nếu là 1 thì true, nếu khác 1 là false (cuối cùng nhận được boolean)
+            this.hinhAnh = jsonObject.getString("hinh_anh");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Getter và Setter cho id
