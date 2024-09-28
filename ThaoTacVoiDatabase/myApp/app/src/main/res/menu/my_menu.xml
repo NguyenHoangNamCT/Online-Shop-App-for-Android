@@ -18,6 +18,10 @@
                 android:id="@+id/menuQuanLySanPham"
                 android:title="Quản lý">
             </item>
+            <item
+                android:id="@+id/menuQuanLyLoaiSanPham"
+                android:title="Quản lý loại sản phẩm">
+            </item>
         </menu>
     </item>
 </menu>

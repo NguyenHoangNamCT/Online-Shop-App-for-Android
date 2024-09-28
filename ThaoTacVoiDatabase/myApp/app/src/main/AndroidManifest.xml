@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Activity_QuanLyLoaiSanPham"
+            android:exported="false" />
+        <activity
             android:name=".SuaSanPham_Activity"
             android:exported="false" />
         <activity
@@ -33,12 +36,9 @@
         <activity
             android:name=".DetailSanPham"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
-
+            android:exported="false"></activity>
         <activity
             android:name=".Login_Activity"
             android:exported="true">

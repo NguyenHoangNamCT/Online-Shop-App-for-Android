@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarQuanLyLoaiSanPham_activity_quan_ly_loai_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue"
+        android:elevation="4dp"
+        android:theme="?attr/actionBarTheme"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="ABCShop - Quản Lý Loại Sản Phẩm"
+        app:titleTextColor="@color/yellow">
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Danh sách loại sản phẩm -->
+    <TextView
+        android:id="@+id/textViewQuanLyLoaiSanPham_activity_quan_ly_loai_san_pham"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:text="Quản lý loại sản phẩm"
+        android:textColor="@color/blue"
+        android:textSize="23sp"
+        android:textStyle="bold">
+    </TextView>
+
+    <ListView
+        android:id="@+id/listViewLoaiSanPham_activity_quan_ly_loai_san_pham"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:padding="8dp">
+        <!--        android:listSelector="@drawable/list_selector"-->
+    </ListView>
+
+    <!-- Nút thêm loại sản phẩm -->
+    <Button
+        android:id="@+id/buttonThemLoaiSanPham_activity_quan_ly_loai_san_pham"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thêm loại sản phẩm"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/blue"
+        android:textColor="@color/yellow"/>
+
+</LinearLayout>

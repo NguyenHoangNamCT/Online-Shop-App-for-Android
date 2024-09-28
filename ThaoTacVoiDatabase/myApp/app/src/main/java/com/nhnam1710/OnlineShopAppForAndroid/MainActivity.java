@@ -133,6 +133,9 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, QuanLySanPham_Activity.class);
             startActivity(intent);
         }
+        else if(item.getItemId() == R.id.menuQuanLyLoaiSanPham){
+
+        }
         return super.onOptionsItemSelected(item);
     }
 }

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:gravity="center_vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Hình ảnh loại sản phẩm -->
+    <ImageView
+        android:id="@+id/imageViewLoaiSanPham_item_loai_san_pham"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="Hình ảnh loại sản phẩm"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_background"/>
+
+    <!-- Thông tin loại sản phẩm -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Tên loại sản phẩm -->
+        <TextView
+            android:id="@+id/textViewTenLoaiSanPham_item_loai_san_pham"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên loại sản phẩm"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <!-- Mô tả loại sản phẩm -->
+        <TextView
+            android:id="@+id/textViewMoTaLoaiSanPham_item_loai_san_pham"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mô tả loại sản phẩm"
+            android:textColor="@color/blue"
+            android:textSize="16sp"/>
+
+        <!-- Trạng thái (Còn hàng/Hết hàng) -->
+        <TextView
+            android:id="@+id/textViewTrangThai_item_loai_san_pham"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Còn hàng"
+            android:textColor="@color/erroColor"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!-- ImageButton Sửa -->
+        <ImageButton
+            android:id="@+id/imageButtonSanPham_sua_dong_loai_san_pham"
+            android:layout_width="45sp"
+            android:layout_height="45sp"
+            android:src="@drawable/edit_icon"
+            android:contentDescription="Sửa sản phẩm"
+            android:padding="2dp"
+            android:scaleType="centerCrop"
+            android:layout_weight="1"/>
+
+        <!-- ImageButton Xoá -->
+        <ImageButton
+            android:id="@+id/imageButtonSanPham_xoa_dong_loai_san_pham"
+            android:layout_width="45sp"
+            android:layout_height="45sp"
+            android:src="@drawable/delete_icon"
+            android:contentDescription="Xoá sản phẩm"
+            android:padding="2dp"
+            android:scaleType="centerCrop"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>
