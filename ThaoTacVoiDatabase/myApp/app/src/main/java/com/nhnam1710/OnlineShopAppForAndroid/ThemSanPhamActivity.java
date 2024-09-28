@@ -105,9 +105,14 @@ public class ThemSanPhamActivity extends AppCompatActivity {
         buttonChonHinhAnh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //cho người dùng chọn 1 tệp từ bộ nhớ của thiết bị
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                //chỉ định loại tệp người dùng chọn là một hình ảnh
                 intent.setType("image/*");
+                // Intent.createChooser(intent, "Chọn hình ảnh") là để hiện thông báo cho người dùng chọn ứng dụng để lựa ảnh, tham số đầu là cái intent tham số 2 là tiêu đề của thông báo lựa chọn
+                //Khi bạn gọi Intent.createChooser(intent, "Chọn hình ảnh"), phương thức này sẽ tạo ra một hộp thoại mà trong đó người dùng có thể chọn ứng dụng mà họ muốn sử dụng để chọn hình ảnh từ thiết bị. Hộp thoại này giúp cải thiện trải nghiệm người dùng bằng cách cho phép họ chọn từ nhiều ứng dụng thay vì chỉ một ứng dụng cụ thể.
                 startActivityForResult(Intent.createChooser(intent, "Chọn hình ảnh"), REQUEST_CODE_CHON_HINH);
+                //startActivityForResult sẽ nhận kết quả từ hành động chọn ảnh ở phương thức onActivityResult
             }
         });
 
@@ -276,12 +281,33 @@ public class ThemSanPhamActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        //        requestCode == REQUEST_CODE_CHON_HINH:
+        //
+        //Kiểm tra xem mã yêu cầu (request code) có phải là REQUEST_CODE_CHON_HINH hay không. Mã này được xác định ở phần trước trong mã của bạn và được sử dụng để phân biệt các yêu cầu khác nhau khi có nhiều hành động có thể được thực hiện trong ứng dụng.
+        //Điều này giúp đảm bảo rằng phản hồi mà bạn nhận được là từ hành động chọn hình ảnh cụ thể mà bạn đã thực hiện.
+
+        //        resultCode == RESULT_OK:
+        //
+        //Kiểm tra xem mã kết quả (result code) có phải là RESULT_OK hay không. Mã này cho biết rằng hành động đã hoàn tất thành công.
+        //Nếu mã kết quả không phải là RESULT_OK, điều đó có nghĩa là hành động chọn hình ảnh đã bị hủy hoặc không thành công, và bạn không nên tiếp tục xử lý.
+
+        //        data != null:
+        //
+        //Kiểm tra xem đối tượng data (chứa thông tin trả về từ hành động chọn hình ảnh) có khác null hay không. Nếu data là null, điều đó có nghĩa là không có thông tin nào được trả về từ hành động.
+        //Điều này giúp đảm bảo rằng bạn có dữ liệu hợp lệ để làm việc.
+
+        //        data.getData() != null:
+        //
+        //Kiểm tra xem URI (Uniform Resource Identifier) của hình ảnh được chọn có khác null hay không. data.getData() sẽ trả về URI của hình ảnh mà người dùng đã chọn.
+        //Nếu URI là null, điều đó có nghĩa là không có hình ảnh nào được chọn, và bạn không nên tiếp tục xử lý.
         if (requestCode == REQUEST_CODE_CHON_HINH && resultCode == RESULT_OK && data != null && data.getData() != null) {
             selectedImageUri = data.getData();
             imageViewHinhAnhDaChon.setImageURI(selectedImageUri);
             imageViewHinhAnhDaChon.setVisibility(View.VISIBLE);
         }
     }
+
+
 
     private void anhXa() {
         // Ánh xạ EditText

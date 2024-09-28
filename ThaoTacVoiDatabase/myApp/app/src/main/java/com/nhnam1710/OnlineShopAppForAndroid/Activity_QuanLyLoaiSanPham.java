@@ -2,11 +2,13 @@ package com.nhnam1710.OnlineShopAppForAndroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar; // Import Toolbar
 
 import android.util.Log;
+import android.view.View;
 import android.widget.Button; // Import Button
 import android.widget.ListView; // Import ListView
 import android.widget.TextView; // Import TextView
@@ -47,6 +49,13 @@ public class Activity_QuanLyLoaiSanPham extends AppCompatActivity {
 
         layLoaiSanPhamDocDuocTuSeverHienThiLenListView();
 
+        buttonThemLoaiSanPham.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Activity_QuanLyLoaiSanPham.this, Activity_ThemLoaiSP.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void anhXa() {

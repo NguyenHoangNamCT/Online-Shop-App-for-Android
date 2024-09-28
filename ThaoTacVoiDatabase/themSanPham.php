@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hinh_anh = base64_decode($hinh_anh_base64);
 
     // Lưu hình ảnh vào thư mục trên server
+    // basename tức là lấy tên tệp mà không kèm đường dẫn, trong trường hợp này không cần thiết
     //dòng này dùng nối chuổi bình thường cũng được không cần dùng base name cũng không sao
     $imageName = basename($ten_san_pham . "_" . date("Ymd_His") . ".jpg");
     $target_file = "images/".$imageName;

@@ -11,7 +11,7 @@
 
     <!--  url liên quan đến loại sản phẩm  -->
     <string name="url_show_full_loai_san_pham">http://192.168.1.2/onlineshopapp/showFullLoaiSPDangJson.php</string>
-
+    <string name="url_them_loai_sp">http://192.168.1.2/onlineshopapp/themLoaiSP.php</string>
 
     <string name="url_nhan_tai_khoan_va_mat_khau_va_xu_ly">http://192.168.1.2/onlineshopapp/xuLyDangNhap.php</string>
     <string name="spinner_hint_chon_loai_sp">Chọn loại sản phẩm</string>
