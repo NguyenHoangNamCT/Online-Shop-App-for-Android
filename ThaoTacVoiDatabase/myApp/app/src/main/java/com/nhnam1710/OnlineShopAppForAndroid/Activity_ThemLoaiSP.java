@@ -48,11 +48,12 @@ public class Activity_ThemLoaiSP extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 //chỉ định loại tệp người dùng chọn là một hình ảnh
                 intent.setType("image/*");
-                //Khi bạn gọi Intent.createChooser(intent, "Chọn hình ảnh"), phương thức này sẽ tạo ra một hộp thoại mà trong đó người dùng có thể chọn ứng dụng mà họ muốn sử dụng để chọn hình ảnh từ thiết bị. Hộp thoại này giúp cải thiện trải nghiệm người dùng bằng cách cho phép họ chọn từ nhiều ứng dụng thay vì chỉ một ứng dụng cụ thể.
+                //Khi bạn gọi Intent.createChooser(intent, "Chọn hình ảnh"), phương thức này sẽ tạo ra một hộp thoại mà trong đó người dùng có thể chọn ứng dụng mà họ muốn sử dụng để chọn hình ảnh từ thiết bị.
+                // Hộp thoại này giúp cải thiện trải nghiệm người dùng bằng cách cho phép họ chọn từ nhiều ứng dụng thay vì chỉ một ứng dụng cụ thể.
                 startActivityForResult(Intent.createChooser(intent, "Chọn hình ảnh"), REQUEST_CODE_CHON_HINH);
                 //startActivityForResult sẽ nhận kết quả từ hành động chọn ảnh ở phương thức onActivityResult
             }
-        });
+        });A
 
         //bước cuối bắt sự kiện cho nút thêm (gọi lại phương thức gửi dữ liệu loại sản phẩm người dùng nhập lên sever để thêm)
         buttonThemLoaiSP.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +71,8 @@ public class Activity_ThemLoaiSP extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         //        requestCode == REQUEST_CODE_CHON_HINH:
         //
-        //Kiểm tra xem mã yêu cầu (request code) có phải là REQUEST_CODE_CHON_HINH hay không. Mã này được xác định ở phần trước trong mã của bạn và được sử dụng để phân biệt các yêu cầu khác nhau khi có nhiều hành động có thể được thực hiện trong ứng dụng.
+        //Kiểm tra xem mã yêu cầu (request code) có phải là REQUEST_CODE_CHON_HINH hay không.
+        // Mã này được xác định ở phần trước trong mã của bạn và được sử dụng để phân biệt các yêu cầu khác nhau khi có nhiều hành động có thể được thực hiện trong ứng dụng.
         //Điều này giúp đảm bảo rằng phản hồi mà bạn nhận được là từ hành động chọn hình ảnh cụ thể mà bạn đã thực hiện.
 
         //        resultCode == RESULT_OK:
