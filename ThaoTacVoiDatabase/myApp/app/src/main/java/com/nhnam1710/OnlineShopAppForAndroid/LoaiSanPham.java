@@ -48,7 +48,7 @@ public class LoaiSanPham {
     }
 
     // Getter và Setter cho trangThai
-    public boolean isTrangThai() {
+    public boolean isConHang() {
         return trangThai;
     }
 
