@@ -6,6 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--
+        cmt
+        android:elevation="4dp" bóng đổ
+    -->
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarQuanLyLoaiSanPham_activity_quan_ly_loai_san_pham"
@@ -15,7 +19,7 @@
         android:elevation="4dp"
         android:theme="?attr/actionBarTheme"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="ABCShop - Quản Lý Loại Sản Phẩm"
+        app:title="ABCShop"
         app:titleTextColor="@color/yellow">
     </androidx.appcompat.widget.Toolbar>
 

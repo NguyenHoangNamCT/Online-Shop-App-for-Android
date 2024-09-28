@@ -23,6 +23,10 @@ public class MyVolleyRequest {
         void onError(String errorMessage);
     }
 
+    public interface XuLyVolleyListennerLayFullLoaiSanPham(){
+
+    }
+
     public static void layThuongHieuVaLoaiSanPham(Context context, XuLyDuLieuListener listener) {
         // Tạo một RequestQueue để quản lý các yêu cầu Volley
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -69,5 +73,9 @@ public class MyVolleyRequest {
 
         // Thêm yêu cầu vào hàng đợi
         requestQueue.add(jsonObjectRequest);
+    }
+
+    public static void layFullLoaiSanPham(Context context, XuLyVolleyListennerLayFullLoaiSanPham listennerInterface){
+        
     }
 }

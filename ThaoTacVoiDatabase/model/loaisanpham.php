@@ -17,6 +17,22 @@ class LoaiSanPham{
             exit();
         }
     }
+
+
+    public function layFullDanhSachLoaiSanPham(){
+        $conn = DATABASE::connect();
+        try{
+            $sql = "SELECT * FROM loaisanpham";
+            $cmd = $conn->prepare($sql);
+            $cmd->execute();
+            $result = $cmd->fetchAll();
+            return $result;
+        }
+        catch(PDOException $e){
+            echo "Lỗi truy vấn ở layFullDanhSachLoaiSanPham: " . $e->getMessage();
+            exit();
+        }
+    }
 }
 
 ?>
