@@ -53,7 +53,7 @@ public class Activity_ThemLoaiSP extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Chọn hình ảnh"), REQUEST_CODE_CHON_HINH);
                 //startActivityForResult sẽ nhận kết quả từ hành động chọn ảnh ở phương thức onActivityResult
             }
-        });A
+        });
 
         //bước cuối bắt sự kiện cho nút thêm (gọi lại phương thức gửi dữ liệu loại sản phẩm người dùng nhập lên sever để thêm)
         buttonThemLoaiSP.setOnClickListener(new View.OnClickListener() {

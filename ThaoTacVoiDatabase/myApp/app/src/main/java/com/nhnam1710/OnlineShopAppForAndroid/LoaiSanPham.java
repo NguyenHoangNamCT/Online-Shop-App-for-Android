@@ -3,7 +3,9 @@ package com.nhnam1710.OnlineShopAppForAndroid;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoaiSanPham {
+import java.io.Serializable;
+
+public class LoaiSanPham implements Serializable {
     private int id;
     private String tenLoaiSanPham;
     private String moTa;

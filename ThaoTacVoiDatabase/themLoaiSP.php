@@ -7,7 +7,7 @@ $loaiSP = new LoaiSanPham();
 // Các tham số đầu vào 
 $tenLoaiSanPham = $_POST['tenLoaiSP'];
 $moTa = $_POST['moTa'];
-$hinhAnhDangChuoiBase64 = $_POST['hinhAnh']; 
+$hinhAnhDangChuoiBase64 = $_POST['hinhAnh']; //hình ảnh dưới dạng chuổi base64
 $trangThai = false;  // mặt định là hếT hàng khi mới thêm
 
 // // Check lỗi

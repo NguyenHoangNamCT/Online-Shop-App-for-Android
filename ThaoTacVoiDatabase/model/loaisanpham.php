@@ -65,6 +65,45 @@ class LoaiSanPham{
             exit();
         }
     }
+
+    public function suaLoaiSP($idLoaiSanPham, $tenLoaiSanPham, $moTa, $hinhAnh = null){
+        $conn = DATABASE::connect();
+        try {
+            // Tạo chuỗi SQL để cập nhật thông tin loại sản phẩm
+            $sql = "UPDATE `loaisanpham` SET 
+                `ten_loai_san_pham` = :tenLoaiSanPham, 
+                `mo_ta` = :moTa";
+    
+            // Nếu hình ảnh được truyền vào hoặc giá trị truyền vào không phải null, bao gồm nó trong câu lệnh SQL
+            if ($hinhAnh !== null) {
+                $sql .= ", `hinh_anh` = :hinhAnh";
+            }
+    
+            $sql .= " WHERE `id` = :idLoaiSanPham";
+    
+            $cmd = $conn->prepare($sql);
+    
+            // Bind các giá trị mới vào câu lệnh SQL
+            $cmd->bindParam(':tenLoaiSanPham', $tenLoaiSanPham);
+            $cmd->bindParam(':moTa', $moTa);
+            $cmd->bindParam(':idLoaiSanPham', $idLoaiSanPham);
+    
+            // Nếu hình ảnh được truyền vào, bind giá trị của hình ảnh
+            if ($hinhAnh !== null) {
+                $cmd->bindParam(':hinhAnh', $hinhAnh);
+            }
+    
+            // Thực thi câu lệnh
+            $result = $cmd->execute();
+    
+            // Trả về true nếu có ít nhất một hàng được cập nhật, ngược lại trả về false
+            return $result;
+        } catch (PDOException $e) {
+            echo "Lỗi truy vấn ở suaLoaiSP() trong model LoaiSanPham: " . $e->getMessage();
+            exit();
+        }
+    }
+    
     
     
 }

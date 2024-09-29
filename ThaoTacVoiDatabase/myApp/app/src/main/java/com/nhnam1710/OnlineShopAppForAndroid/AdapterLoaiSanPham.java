@@ -1,6 +1,7 @@
 package com.nhnam1710.OnlineShopAppForAndroid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,20 +78,23 @@ public class AdapterLoaiSanPham extends BaseAdapter {
             }
 
             // Lấy dữ liệu của item tại vị trí position
-            LoaiSanPham sanPham = loaiSanPhamArrayList.get(position);
+            LoaiSanPham loaisanPham = loaiSanPhamArrayList.get(position);
 
             // Gán dữ liệu vào các view
-            holder.textViewTenLoaiSanPham.setText(sanPham.getTenLoaiSanPham());
-            holder.textViewMoTaLoaiSanPham.setText(sanPham.getMoTa());
-            holder.textViewTrangThai.setText(sanPham.isConHang() ? "Còn hàng" : "Hết hàng");
+            holder.textViewTenLoaiSanPham.setText(loaisanPham.getTenLoaiSanPham());
+            holder.textViewMoTaLoaiSanPham.setText(loaisanPham.getMoTa());
+            holder.textViewTrangThai.setText(loaisanPham.isConHang() ? "Còn hàng" : "Hết hàng");
 
             // Gán hình ảnh từ sever vào
-            String urlImage = context.getResources().getString(R.string.url_img_on_sever) + sanPham.getHinhAnh();
+            String urlImage = context.getResources().getString(R.string.url_img_on_sever) + loaisanPham.getHinhAnh();
             Picasso.get().load(urlImage).into(holder.imageViewLoaiSanPham);
 
             // Thiết lập sự kiện cho các nút Sửa và Xóa
             holder.imageButtonSua.setOnClickListener(v -> {
-                // Xử lý logic sửa sản phẩm tại vị trí position
+                Intent intent = new Intent(context, ActivitySuaLoaiSP.class);
+                intent.putExtra("idLoaiSP", loaisanPham.getId());
+                intent.putExtra("loaiSP", loaisanPham);
+                context.startActivity(intent);
             });
 
             holder.imageButtonXoa.setOnClickListener(v -> {
