@@ -103,6 +103,26 @@ class LoaiSanPham{
             exit();
         }
     }
+
+
+    public function xoaLoaiSP($idLoaiSanPham){
+        $conn = DATABASE::connect();
+        try {
+            // Tạo chuỗi SQL để cập nhật thông tin loại sản phẩm
+            $sql ="DELETE FROM `loaisanpham` WHERE `id` = :id";
+            $cmd = $conn->prepare($sql);
+    
+            // Bind các giá trị mới vào câu lệnh SQL
+            $cmd->bindParam(':id', $idLoaiSanPham);
+            $result = $cmd->execute();
+            
+            //true nếu xóa thành công, false xóa nếu thất bại
+            return $result;
+        } catch (PDOException $e) {
+            echo "Lỗi truy vấn ở xoaLoaiSP() trong model LoaiSanPham: " . $e->getMessage();
+            exit();
+        }
+    }
     
     
     

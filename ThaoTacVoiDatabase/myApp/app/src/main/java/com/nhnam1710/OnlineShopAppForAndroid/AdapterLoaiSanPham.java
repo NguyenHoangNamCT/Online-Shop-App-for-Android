@@ -1,7 +1,10 @@
 package com.nhnam1710.OnlineShopAppForAndroid;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +13,20 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class AdapterLoaiSanPham extends BaseAdapter {
     private ArrayList<LoaiSanPham> loaiSanPhamArrayList;
     private int layout;
-    Context context;
+    Activity_QuanLyLoaiSanPham context;
 
-    public AdapterLoaiSanPham(ArrayList<LoaiSanPham> loaiSanPhamArrayList, int layout, Context context) {
+    public AdapterLoaiSanPham(ArrayList<LoaiSanPham> loaiSanPhamArrayList, int layout, Activity_QuanLyLoaiSanPham context) {
         this.loaiSanPhamArrayList = loaiSanPhamArrayList;
         this.layout = layout;
         this.context = context;
@@ -98,10 +104,55 @@ public class AdapterLoaiSanPham extends BaseAdapter {
             });
 
             holder.imageButtonXoa.setOnClickListener(v -> {
-                // Xử lý logic xóa sản phẩm tại vị trí position
+                xacNhanXoa(loaisanPham.getId(), loaisanPham.getTenLoaiSanPham());
             });
 
             // Trả về convertView đã được cập nhật
             return convertView;
         }
+
+    public void xacNhanXoa(int idLSP, String ten){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+        alertDialog.setMessage("Bán có muốn xoá loại sản phẩm " + ten + " không?");
+        alertDialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String urlXoaCuaSever = context.getResources().getString(R.string.url_xoa_loai_sp);
+                MyVolleyStringRequest.GuiStringRequestDenSever(urlXoaCuaSever, context, new MyVolleyStringRequest.thaoTacVoiStringRequestNay() {
+                    @Override
+                    public Map<String, String> guiMapLenSever(Map<String, String> param) {
+                        param.put("idLoaiSPCanXoa", idLSP+"");
+                        return param;
+                    }
+
+                    @Override
+                    public void xuLyChuoiDocDuocTuSever(String response) {
+                        Log.d("testcode", response);
+                        if(response.equals("success")){
+                            Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                            context.recreate();
+                        }
+                        else
+                            Toast.makeText(context, "Xóa thất bại, lỗi ở sever", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void baoLoiCuaOnErrorResponse(VolleyError error) {
+
+                    }
+                });
+
+            }
+        });
+
+        alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
 }

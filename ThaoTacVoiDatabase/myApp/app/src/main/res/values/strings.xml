@@ -13,6 +13,7 @@
     <string name="url_show_full_loai_san_pham">http://192.168.1.5/onlineshopapp/showFullLoaiSPDangJson.php</string>
     <string name="url_them_loai_sp">http://192.168.1.5/onlineshopapp/themLoaiSP.php</string>
     <string name="url_sua_loai_sp">http://192.168.1.5/onlineshopapp/suaLoaiSP.php</string>
+    <string name="url_xoa_loai_sp">http://192.168.1.5/onlineshopapp/xoaLoaiSP.php</string>
 
 
     <string name="url_nhan_tai_khoan_va_mat_khau_va_xu_ly">http://192.168.1.5/onlineshopapp/xuLyDangNhap.php</string>
