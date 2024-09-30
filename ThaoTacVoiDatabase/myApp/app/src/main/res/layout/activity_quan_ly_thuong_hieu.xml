@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarQuanLyThuongHieu_activity_quan_ly_thuong_hieu"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue"
+        android:elevation="4dp"
+        android:theme="?attr/actionBarTheme"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="ABCShop"
+        app:titleTextColor="@color/yellow">
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Danh sách thương hiệu -->
+    <TextView
+        android:id="@+id/textViewQuanLyThuongHieu_activity_quan_ly_thuong_hieu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:text="Quản lý thương hiệu"
+        android:textColor="@color/blue"
+        android:textSize="23sp"
+        android:textStyle="bold">
+    </TextView>
+
+    <ListView
+        android:id="@+id/listViewThuongHieu_activity_quan_ly_thuong_hieu"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:padding="8dp">
+    </ListView>
+
+    <!-- Nút thêm thương hiệu -->
+    <Button
+        android:id="@+id/buttonThemThuongHieu_activity_quan_ly_thuong_hieu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thêm thương hiệu"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/blue"
+        android:textColor="@color/yellow"/>
+
+</LinearLayout>
