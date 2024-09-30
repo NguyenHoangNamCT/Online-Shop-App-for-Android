@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thêm thương hiệu"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:paddingBottom="16dp"/>
+
+    <!-- Tên thương hiệu -->
+    <EditText
+        android:id="@+id/editTextTenThuongHieu_activity_themthuonghieu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tên thương hiệu"
+        android:padding="12dp" />
+
+    <!-- Mô tả thương hiệu -->
+    <EditText
+        android:id="@+id/editTextMoTaThuongHieu_activity_themthuonghieu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mô tả thương hiệu"
+        android:padding="12dp"
+        android:inputType="textMultiLine"
+        android:minLines="3"/>
+
+    <!-- Trang web thương hiệu -->
+    <EditText
+        android:id="@+id/editTextTrangWebThuongHieu_activity_themthuonghieu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Trang web"
+        android:padding="12dp"
+        android:inputType="textUri"/>
+
+    <!-- Nút để chọn logo thương hiệu -->
+    <Button
+        android:id="@+id/buttonChonLogo_activity_themthuonghieu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chọn logo"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/mauPhu3"/>
+
+    <!-- ImageView để hiển thị logo đã chọn -->
+    <ImageView
+        android:id="@+id/imageViewLogo_activity_themthuonghieu"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
+        android:background="@android:color/darker_gray"
+        android:contentDescription="Logo thương hiệu"
+        android:visibility="gone"/> <!-- Ẩn khi chưa chọn logo -->
+
+    <!-- Nút lưu thương hiệu -->
+    <Button
+        android:id="@+id/buttonThemThuongHieu_activity_themthuonghieu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thêm thương hiệu"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/blue"
+        android:textColor="@color/yellow"/>
+</LinearLayout>
