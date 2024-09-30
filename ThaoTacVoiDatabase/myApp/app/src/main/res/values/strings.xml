@@ -15,6 +15,9 @@
     <string name="url_sua_loai_sp">http://192.168.1.5/onlineshopapp/suaLoaiSP.php</string>
     <string name="url_xoa_loai_sp">http://192.168.1.5/onlineshopapp/xoaLoaiSP.php</string>
 
+    <!-- url liên quan đến thương hiệu -->
+    <string name="url_show_full_thuong_hieu">http://192.168.1.5/onlineshopapp/showFullThuongHieu.php</string>
+
 
     <string name="url_nhan_tai_khoan_va_mat_khau_va_xu_ly">http://192.168.1.5/onlineshopapp/xuLyDangNhap.php</string>
     <string name="spinner_hint_chon_loai_sp">Chọn loại sản phẩm</string>

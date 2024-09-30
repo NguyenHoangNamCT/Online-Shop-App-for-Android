@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <!-- Logo thương hiệu -->
+    <ImageView
+        android:id="@+id/imageViewLogoThuongHieu_dong_thuong_hieu"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="centerCrop"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="Logo thương hiệu"
+        android:src="@mipmap/ic_launcher"/>
+
+    <!-- Phần thông tin thương hiệu -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Tên thương hiệu -->
+        <TextView
+            android:id="@+id/textViewTenThuongHieu_dong_thuong_hieu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên thương hiệu"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/erroColor"/>
+
+        <!-- Mô tả thương hiệu -->
+        <TextView
+            android:id="@+id/textViewMoTaThuongHieu_dong_thuong_hieu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mô tả thương hiệu"
+            android:textSize="14sp"
+            android:textColor="@color/blue"
+            android:maxLines="2"
+            android:ellipsize="end"/>
+
+        <!-- Trang web thương hiệu -->
+        <TextView
+            android:id="@+id/textViewTrangWebThuongHieu_dong_thuong_hieu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Website: www.thuonghieu.com"
+            android:textSize="14sp"
+            android:textColor="@color/mauPhu2"/>
+    </LinearLayout>
+
+</LinearLayout>

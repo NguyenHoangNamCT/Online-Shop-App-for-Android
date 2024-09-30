@@ -29,6 +29,36 @@ public class MyVolleyRequest {
         public void chuoiBaoLoiCuaVolley(String VolleyErrorMessage);
     }
 
+    public interface XuLyDuLieuNhanDuocTuSever{
+        public void JsonArrayNhanDuocTuSever(JSONArray response);
+        public void chuoiBaoLoiCuaVolley(String VolleyErrorMessage);
+    }
+
+    public static void layJsonArrayTuSever(String url, Context context, XuLyDuLieuNhanDuocTuSever xuLyDuLieuNhanDuocTuSever){
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        xuLyDuLieuNhanDuocTuSever.JsonArrayNhanDuocTuSever(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //Báo lỗi lên
+                        Toast.makeText(context, "log: loi cua toi, Lỗi volley: cụ thể lỗi là: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        //Log lên
+                        Log.e("loi cua toi", "Lỗi ở phương thức layJsonArrayTuSever, onErrorResponse trong class MyVolleyRequest: cụ thể lỗi là: " + error.getMessage());
+                        xuLyDuLieuNhanDuocTuSever.chuoiBaoLoiCuaVolley(error.getMessage());
+                    }
+                });
+        requestQueue.add(jsonArrayRequest);
+    }
+
+
     public static void layThuongHieuVaLoaiSanPham(Context context, XuLyDuLieuListener listener) {
         // Tạo một RequestQueue để quản lý các yêu cầu Volley
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -55,6 +85,7 @@ public class MyVolleyRequest {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 // Gửi thông báo lỗi đến người nghe
+
                                 listener.onError(e.getMessage());
                             }
                         }
