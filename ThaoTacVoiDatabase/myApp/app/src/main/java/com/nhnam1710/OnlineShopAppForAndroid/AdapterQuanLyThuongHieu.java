@@ -76,7 +76,7 @@ public class AdapterQuanLyThuongHieu extends BaseAdapter {
         viewHolder.textViewTenThuongHieu.setText(thuongHieu.getTenThuongHieu());
         viewHolder.textViewMoTaThuongHieu.setText(thuongHieu.getMoTa());
         viewHolder.textViewTrangWebThuongHieu.setText("Website: " + thuongHieu.getTrangWeb());
-        String urlHinhAnhTrenSever = R.string.url_img_on_sever + thuongHieu.getLogo();
+        String urlHinhAnhTrenSever = contex.getString(R.string.url_img_on_sever) + thuongHieu.getLogo();
         Picasso.get().load(urlHinhAnhTrenSever).into(viewHolder.imageViewLogoThuongHieu);
 
         return convertView;

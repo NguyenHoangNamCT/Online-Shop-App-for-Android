@@ -25,7 +25,7 @@
 
             <item
                 android:id="@+id/menuQuanLyThuongHieu"
-                android:title="Quản lý loại sản phẩm">
+                android:title="Quản lý thương hiệu">
             </item>
         </menu>
     </item>

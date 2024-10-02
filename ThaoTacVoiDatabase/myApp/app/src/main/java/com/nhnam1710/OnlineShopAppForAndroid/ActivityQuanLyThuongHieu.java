@@ -37,6 +37,8 @@ public class ActivityQuanLyThuongHieu extends AppCompatActivity {
         thuongHieuAdapter = new AdapterQuanLyThuongHieu(ActivityQuanLyThuongHieu.this, thuongHieuArrayList, R.layout.dong_thuong_hieu);
         listViewThuongHieu.setAdapter(thuongHieuAdapter);
 
+        loadData();
+
 
         //các sự kiện
         buttonThemThuongHieu.setOnClickListener(new View.OnClickListener() {
