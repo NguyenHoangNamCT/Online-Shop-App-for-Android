@@ -17,6 +17,7 @@
 
     <!-- url liên quan đến thương hiệu -->
     <string name="url_show_full_thuong_hieu">http://192.168.1.12/onlineshopapp/showFullThuongHieu.php</string>
+    <string name="url_them_thuong_hieu">http://192.168.1.12/onlineshopapp/themThuongHieu.php</string>
 
 
     <string name="url_nhan_tai_khoan_va_mat_khau_va_xu_ly">http://192.168.1.12/onlineshopapp/xuLyDangNhap.php</string>

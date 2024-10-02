@@ -1,6 +1,7 @@
 package com.nhnam1710.OnlineShopAppForAndroid;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -76,8 +78,10 @@ public class AdapterQuanLyThuongHieu extends BaseAdapter {
         viewHolder.textViewTenThuongHieu.setText(thuongHieu.getTenThuongHieu());
         viewHolder.textViewMoTaThuongHieu.setText(thuongHieu.getMoTa());
         viewHolder.textViewTrangWebThuongHieu.setText("Website: " + thuongHieu.getTrangWeb());
-        String urlHinhAnhTrenSever = contex.getString(R.string.url_img_on_sever) + thuongHieu.getLogo();
-        Picasso.get().load(urlHinhAnhTrenSever).into(viewHolder.imageViewLogoThuongHieu);
+
+        String urlHinhAnhTrenSever = contex.getString(R.string.url_img_on_sever).trim() + thuongHieu.getLogo().trim();
+        Picasso.get().load(urlHinhAnhTrenSever).error(R.drawable.ic_launcher_foreground).into(viewHolder.imageViewLogoThuongHieu);
+
 
         return convertView;
     }

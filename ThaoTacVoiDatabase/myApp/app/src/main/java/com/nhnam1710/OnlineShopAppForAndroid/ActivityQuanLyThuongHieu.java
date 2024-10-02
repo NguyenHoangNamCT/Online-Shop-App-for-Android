@@ -1,5 +1,6 @@
 package com.nhnam1710.OnlineShopAppForAndroid;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -27,6 +28,8 @@ public class ActivityQuanLyThuongHieu extends AppCompatActivity {
     private ArrayList<ThuongHieu> thuongHieuArrayList;
     private AdapterQuanLyThuongHieu thuongHieuAdapter;
 
+    private int REQUEST_CODE_THEM_THUONG_HIEU = 123;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +48,7 @@ public class ActivityQuanLyThuongHieu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityQuanLyThuongHieu.this, ActivityThemThuongHieu.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE_THEM_THUONG_HIEU);
             }
         });
     }
@@ -82,5 +85,13 @@ public class ActivityQuanLyThuongHieu extends AppCompatActivity {
         textViewQuanLyThuongHieu = findViewById(R.id.textViewQuanLyThuongHieu_activity_quan_ly_thuong_hieu);
         listViewThuongHieu = findViewById(R.id.listViewThuongHieu_activity_quan_ly_thuong_hieu);
         buttonThemThuongHieu = findViewById(R.id.buttonThemThuongHieu_activity_quan_ly_thuong_hieu);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_THEM_THUONG_HIEU && resultCode == RESULT_OK){
+            loadData();
+        }
     }
 }
