@@ -29,6 +29,11 @@ public class ActivityQuanLyThuongHieu extends AppCompatActivity {
     private AdapterQuanLyThuongHieu thuongHieuAdapter;
 
     private int REQUEST_CODE_THEM_THUONG_HIEU = 123;
+    private int REQUEST_CODE_SUA_THUONG_HIEU = 456;
+
+    public int getREQUEST_CODE_SUA_THUONG_HIEU() {
+        return REQUEST_CODE_SUA_THUONG_HIEU;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +96,9 @@ public class ActivityQuanLyThuongHieu extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_CODE_THEM_THUONG_HIEU && resultCode == RESULT_OK){
+            loadData();
+        }
+        else if(requestCode == REQUEST_CODE_SUA_THUONG_HIEU && resultCode == RESULT_OK){
             loadData();
         }
     }

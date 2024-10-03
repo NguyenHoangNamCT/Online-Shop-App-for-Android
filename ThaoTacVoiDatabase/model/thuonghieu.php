@@ -65,6 +65,47 @@ class ThuongHieu {
             return false; // Trả về false nếu có lỗi
         }
     }
+
+    public function suaThuongHieu($idThuongHieu, $tenThuongHieu, $moTa, $trangWeb, $logo = null) {
+        $conn = DATABASE::connect();
+        try {
+            // Tạo chuỗi SQL để cập nhật thông tin thương hiệu
+            $sql = "UPDATE `thuonghieu` SET 
+                `TenThuongHieu` = :tenThuongHieu, 
+                `MoTa` = :moTa, 
+                `TrangWeb` = :trangWeb";
+            
+            // Nếu logo được truyền vào hoặc không phải null, bao gồm nó trong câu lệnh SQL
+            if ($logo !== null) {
+                $sql .= ", `Logo` = :logo";
+            }
+    
+            $sql .= " WHERE `id` = :idThuongHieu";
+    
+            $cmd = $conn->prepare($sql);
+    
+            // Bind các giá trị mới vào câu lệnh SQL
+            $cmd->bindParam(':tenThuongHieu', $tenThuongHieu);
+            $cmd->bindParam(':moTa', $moTa);
+            $cmd->bindParam(':trangWeb', $trangWeb);
+            $cmd->bindParam(':idThuongHieu', $idThuongHieu);
+    
+            // Nếu logo được truyền vào, bind giá trị của logo
+            if ($logo !== null) {
+                $cmd->bindParam(':logo', $logo);
+            }
+    
+            // Thực thi câu lệnh
+            $result = $cmd->execute();
+    
+            // Trả về true nếu có ít nhất một hàng được cập nhật, ngược lại trả về false
+            return $result;
+        } catch (PDOException $e) {
+            echo "Lỗi truy vấn ở suaThuongHieu() trong model ThuongHieu: " . $e->getMessage();
+            exit();
+        }
+    }
+    
     
     
 
