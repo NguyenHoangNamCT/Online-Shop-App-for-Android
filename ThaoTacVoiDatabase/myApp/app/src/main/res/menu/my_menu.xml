@@ -27,6 +27,11 @@
                 android:id="@+id/menuQuanLyThuongHieu"
                 android:title="Quản lý thương hiệu">
             </item>
+
+            <item
+                android:id="@+id/menuQuanLyDonHang"
+                android:title="Quản lý đơn hàng">
+            </item>
         </menu>
     </item>
 </menu>
