@@ -3,6 +3,8 @@ package com.nhnam1710.OnlineShopAppForAndroid;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -63,7 +65,7 @@ public class ActivitySuaThuongHieu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (kiemTraThongTin()) {
-                    suaThuongHieu();
+                    xacNhanSuaThuongHieu();
                 }
             }
         });
@@ -183,6 +185,27 @@ public class ActivitySuaThuongHieu extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void xacNhanSuaThuongHieu() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ActivitySuaThuongHieu.this);
+
+        alertDialog.setMessage("Bạn có muốn cập nhật thương hiệu " + thuongHieu.getTenThuongHieu() + " không?");
+        alertDialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                suaThuongHieu();
+            }
+        });
+
+        alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
     }
 
     private boolean kiemTraThongTin() {
