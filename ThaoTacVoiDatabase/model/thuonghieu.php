@@ -105,6 +105,26 @@ class ThuongHieu {
             exit();
         }
     }
+
+    public function xoaThuongHieu($idThuongHieu){
+        $conn = DATABASE::connect();
+        try {
+            // Tạo chuỗi SQL để xóa thương hiệu
+            $sql = "DELETE FROM `thuonghieu` WHERE `id` = :id";
+            $cmd = $conn->prepare($sql);
+    
+            // Bind giá trị id của thương hiệu vào câu lệnh SQL
+            $cmd->bindParam(':id', $idThuongHieu);
+            $result = $cmd->execute();
+            
+            // Trả về true nếu xóa thành công, false nếu thất bại
+            return $result;
+        } catch (PDOException $e) {
+            echo "Lỗi truy vấn ở xoaThuongHieu() trong model ThuongHieu: " . $e->getMessage();
+            exit();
+        }
+    }
+    
     
     
     

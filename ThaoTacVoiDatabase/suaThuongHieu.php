@@ -20,7 +20,7 @@
         $hinh_anh = base64_decode($hinhAnhDangChuoiBase64);
 
         //bước 2 đặt tên tệp ảnh sao cho không bị trùng
-        $imageName = $tenLoaiSanPham . "_" . date("Ymd_His") . ".jpg";
+        $imageName = $tenThuongHieu . "_" . date("Ymd_His") . ".jpg";
 
         //bước 3 xác định đường dẫn lưu ở sever
         $target_file = "images/".$imageName;

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,7 +53,7 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     public void guiTaiKhoanMatKhauLenSever(){
-        String urlNhanTaiKhoanVaMatKhau = getResources().getString(R.string.url_nhan_tai_khoan_va_mat_khau_va_xu_ly);
+        String urlNhanTaiKhoanVaMatKhau = getString(R.string.url_nhan_tai_khoan_va_mat_khau_va_xu_ly);
         MyVolleyStringRequest.GuiStringRequestDenSever(urlNhanTaiKhoanVaMatKhau, Login_Activity.this, new MyVolleyStringRequest.thaoTacVoiStringRequestNay() {
             @Override
             public Map<String, String> guiMapLenSever(Map<String, String> param) {
@@ -87,7 +88,8 @@ public class Login_Activity extends AppCompatActivity {
             @Override
             public void baoLoiCuaOnErrorResponse(VolleyError error) {
                 //báo lỗi của cua OnErrorResponse trong myVolleyStringRequest (class này gọi lại tức là lỗi xuất phát từ đây, nhưng code thì ở bên kia) code bên đây nếu lỗi thì lỗi dữ liệu đầu vào (biến kiểu Map tên param)
-
+                Toast.makeText(Login_Activity.this, "Đăng nhập fail: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("loi cua toi", "Đăng nhập fail: " + error.getMessage());
             }
         });
     }

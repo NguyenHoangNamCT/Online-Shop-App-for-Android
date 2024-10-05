@@ -1,7 +1,9 @@
 package com.nhnam1710.OnlineShopAppForAndroid;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,11 +14,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Map;
 
 public class AdapterQuanLyThuongHieu extends BaseAdapter {
     ActivityQuanLyThuongHieu contex;
@@ -102,11 +107,57 @@ public class AdapterQuanLyThuongHieu extends BaseAdapter {
         viewHolder.imageButtonXoaThuongHieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                xacNhanXoaThuongHieu(thuongHieu.getId(), thuongHieu.getTenThuongHieu());
             }
         });
 
 
         return convertView;
     }
+
+    public void xacNhanXoaThuongHieu(int idThuongHieu, String tenThuongHieu) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(contex);
+
+        alertDialog.setMessage("Bạn có muốn xoá thương hiệu " + tenThuongHieu + " không?");
+        alertDialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String urlXoaThuongHieu = contex.getResources().getString(R.string.url_xoa_thuong_hieu);
+                MyVolleyStringRequest.GuiStringRequestDenSever(urlXoaThuongHieu, contex, new MyVolleyStringRequest.thaoTacVoiStringRequestNay() {
+                    @Override
+                    public Map<String, String> guiMapLenSever(Map<String, String> param) {
+                        param.put("idThuongHieuCanXoa", idThuongHieu + "");
+                        return param;
+                    }
+
+                    @Override
+                    public void xuLyChuoiDocDuocTuSever(String response) {
+                        Log.d("testcode", response);
+                        if (response.equals("success")) {
+                            Toast.makeText(contex, "Xóa thương hiệu thành công", Toast.LENGTH_SHORT).show();
+                            contex.recreate();
+                        } else {
+                            Toast.makeText(contex, "Xóa thất bại, lỗi ở sever", Toast.LENGTH_SHORT).show();
+                            Log.e("loi cua toi", "xóa thương hiệu fail: " + response);
+                        }
+                    }
+
+                    @Override
+                    public void baoLoiCuaOnErrorResponse(VolleyError error) {
+                        // Xử lý lỗi khi gửi request
+                    }
+                });
+            }
+        });
+
+        alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
 }
