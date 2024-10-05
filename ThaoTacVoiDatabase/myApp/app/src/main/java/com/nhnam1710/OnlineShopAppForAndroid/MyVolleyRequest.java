@@ -4,6 +4,9 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -14,6 +17,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MyVolleyRequest {
 
@@ -55,6 +61,39 @@ public class MyVolleyRequest {
                         xuLyDuLieuNhanDuocTuSever.chuoiBaoLoiCuaVolley(error.getMessage());
                     }
                 });
+        requestQueue.add(jsonArrayRequest);
+    }
+
+
+    public interface XuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu{
+        public Map<String, String> guiMapLenSever(Map<String, String> param);
+        public void jsonArrayNhanDuocTuServer(JSONArray response);
+        public void chuoiBaoLoiCuaVolley(String VolleyErrorMessage);
+    }
+    public static void layJsonArrayTuSeverCoGuiKemDuLieu(String url, Context context, XuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu){
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST,
+                url,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu.jsonArrayNhanDuocTuServer(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu.chuoiBaoLoiCuaVolley(error.getMessage());
+                    }
+                }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                return xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu.guiMapLenSever(param);
+            }
+        };
         requestQueue.add(jsonArrayRequest);
     }
 
