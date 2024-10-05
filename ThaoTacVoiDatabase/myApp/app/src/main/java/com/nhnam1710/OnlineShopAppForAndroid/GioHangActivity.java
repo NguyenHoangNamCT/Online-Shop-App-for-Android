@@ -23,7 +23,6 @@ public class GioHangActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        int mynumber = 10;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gio_hang);
         anhXa();
@@ -69,6 +68,5 @@ public class GioHangActivity extends AppCompatActivity {
         for(int i = 0; i < 20; i++){
             sanPhamTrongGioArrayList.add(GioHangActivity.RandomSanPhamTrongGio());
         }
-
     }
 }
