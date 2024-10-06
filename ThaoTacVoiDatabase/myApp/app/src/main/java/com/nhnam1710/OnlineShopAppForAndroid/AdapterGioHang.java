@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class AdapterGioHang extends BaseAdapter {
@@ -82,7 +84,11 @@ public class AdapterGioHang extends BaseAdapter {
 
         // Gán giá trị cho các thành phần khác
         holder.checkbox.setChecked(sanPham.isChonMua());
-        holder.imageViewSanPham.setImageResource(sanPham.getHinhAnh());
+        String url = context.getString(R.string.url_img_on_sever) + sanPham.getHinhAnh();
+        Picasso.get()
+                .load(url)
+                .error(R.drawable.ic_launcher_foreground) // Hình ảnh sẽ hiển thị nếu có lỗi
+                .into(holder.imageViewSanPham);
         // Tiếp tục gán giá trị cho các thành phần khác tương tự
 
 

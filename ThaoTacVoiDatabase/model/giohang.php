@@ -5,8 +5,15 @@ class GIOHANG {
     public function layGioHang($idNguoiDung) {
         $conn = DATABASE::connect();
         try {
-            // Câu lệnh SQL để lấy giỏ hàng dựa trên id người dùng
-            $sql = "SELECT * FROM giohang WHERE nguoi_dung_id = :idNguoiDung";
+            // Câu lệnh SQL để lấy thông giỏ hàng dựa trên id người dùng
+            $sql = "
+                SELECT *
+                FROM 
+                    giohang
+                INNER JOIN 
+                    sanpham ON giohang.san_pham_id = sanpham.id
+                WHERE 
+                    giohang.nguoi_dung_id = :idNguoiDung";
             $cmd = $conn->prepare($sql);
 
             $cmd->bindParam(':idNguoiDung', $idNguoiDung, PDO::PARAM_INT);

@@ -1,5 +1,8 @@
 package com.nhnam1710.OnlineShopAppForAndroid;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 public class SanPhamTrongGio implements Serializable {
@@ -7,16 +10,37 @@ public class SanPhamTrongGio implements Serializable {
     private String tenSanPham;
     private int gia;
     private int soLuong;
-    private int hinhAnh;
+    private String hinhAnh;
     private boolean chonMua;
 
-    public SanPhamTrongGio(int id, String tenSanPham, int gia, int soLuong, int hinhAnh, boolean chonMua) {
+    public SanPhamTrongGio(int id, String tenSanPham, int gia, int soLuong, String hinhAnh, boolean chonMua) {
         this.id = id;
         this.tenSanPham = tenSanPham;
         this.gia = gia;
         this.soLuong = soLuong;
         this.hinhAnh = hinhAnh;
         this.chonMua = chonMua;
+    }
+
+    // Constructor nhận JSONObject
+    public SanPhamTrongGio(JSONObject jsonObject) {
+        try {
+            this.id = jsonObject.getInt("id");
+            this.tenSanPham = jsonObject.getString("ten_san_pham");
+            this.gia = Integer.parseInt(jsonObject.getString("gia_tien")); // Chuyển từ chuỗi sang số nguyên
+            this.soLuong = jsonObject.getInt("so_luong");
+            this.hinhAnh = jsonObject.getString("hinh_anh");
+
+            // Kiểm tra xem trường "chon_mua" có tồn tại không
+            if (jsonObject.has("chon_mua")) {
+                this.chonMua = jsonObject.getBoolean("chon_mua");
+            } else {
+                this.chonMua = false; // Mặc định là false nếu không có trong JSON
+            }
+
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public int getId() {
@@ -51,11 +75,11 @@ public class SanPhamTrongGio implements Serializable {
         this.soLuong = soLuong;
     }
 
-    public int getHinhAnh() {
+    public String getHinhAnh() {
         return hinhAnh;
     }
 
-    public void setHinhAnh(int hinhAnh) {
+    public void setHinhAnh(String hinhAnh) {
         this.hinhAnh = hinhAnh;
     }
 
@@ -65,5 +89,17 @@ public class SanPhamTrongGio implements Serializable {
 
     public void setChonMua(boolean chonMua) {
         this.chonMua = chonMua;
+    }
+
+    @Override
+    public String toString() {
+        return "SanPhamTrongGio{" +
+                "id=" + id +
+                ", tenSanPham='" + tenSanPham + '\'' +
+                ", gia=" + gia +
+                ", soLuong=" + soLuong +
+                ", hinhAnh='" + hinhAnh + '\'' +
+                ", chonMua=" + chonMua +
+                '}';
     }
 }

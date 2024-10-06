@@ -10,8 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -23,6 +26,7 @@ public class GioHangActivity extends AppCompatActivity {
     private Button btnThanhToan;
     private TextView tvGioHangRong;
     private ArrayList<SanPhamTrongGio> sanPhamTrongGioArrayList;
+    AdapterGioHang adapterGioHang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +34,13 @@ public class GioHangActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gio_hang);
         anhXa();
 
-        AdapterGioHang adapterGioHang = new AdapterGioHang(this, R.layout.dong_gio_hang, sanPhamTrongGioArrayList);
+        sanPhamTrongGioArrayList = new ArrayList<>();
+        adapterGioHang = new AdapterGioHang(this, R.layout.dong_gio_hang, sanPhamTrongGioArrayList);
         listViewGioHang.setAdapter(adapterGioHang);
+
+        loadGiaHang();
+//        themDuLieuAo();
+        adapterGioHang.notifyDataSetChanged();
 
         btnThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,13 +70,24 @@ public class GioHangActivity extends AppCompatActivity {
             }
 
             @Override
-            public void jsonArrayNhanDuocTuServer(JSONArray response) {
-
+            public void jsonArrayNhanDuocTuServer(JSONArray response){
+                for (int i = 0; i < response.length(); i++){
+                    try {
+                        JSONObject jsonObject = response.getJSONObject(i);
+                        SanPhamTrongGio sanPhamTrongGio = new SanPhamTrongGio(jsonObject);
+                        Log.d("loi cua toi", "\nSản phẩm trong giỏ thứ: " + i + sanPhamTrongGio.toString()+ "\n") ;
+                        sanPhamTrongGioArrayList.add(sanPhamTrongGio);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                adapterGioHang.notifyDataSetChanged();
             }
 
             @Override
             public void chuoiBaoLoiCuaVolley(String VolleyErrorMessage) {
-
+                Toast.makeText(GioHangActivity.this, "Load giỏ hàng thất bại", Toast.LENGTH_SHORT).show();
+                Log.e("loi cua toi", "Load giỏ hàng thất bại: " + VolleyErrorMessage);
             }
         });
     }
@@ -82,17 +102,17 @@ public class GioHangActivity extends AppCompatActivity {
 //        String randomTenSanPham = TEN_SAN_PHAM[random.nextInt(TEN_SAN_PHAM.length)];
 //        int randomGia = GIA[random.nextInt(GIA.length)];
 //        int randomSoLuong = SO_LUONG[random.nextInt(SO_LUONG.length)];
-//        int randomHinhAnh = R.drawable.ao;
 //        boolean randomChonMua = false;  // Chọn mua ngẫu nhiên
 //
-//        return (new SanPhamTrongGio(randomId, randomTenSanPham, randomGia, randomSoLuong, randomHinhAnh, randomChonMua));
+//        return (new SanPhamTrongGio(randomId, randomTenSanPham, randomGia, randomSoLuong, "randomHinhAnh", randomChonMua));
 //    }
 //
 //    public void themDuLieuAo(){
-//        sanPhamTrongGioArrayList = new ArrayList<>();
 //        for(int i = 0; i < 20; i++){
 //            sanPhamTrongGioArrayList.add(GioHangActivity.RandomSanPhamTrongGio());
 //        }
+//        adapterGioHang.notifyDataSetChanged();
+//        Log.d("GioHangActivity", "Số sản phẩm trong giỏ: " + sanPhamTrongGioArrayList.size()); // Log số lượng sản phẩm
 //    }
 
 

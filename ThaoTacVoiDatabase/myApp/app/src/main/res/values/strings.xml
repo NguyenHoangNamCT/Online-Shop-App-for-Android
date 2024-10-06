@@ -1,30 +1,30 @@
 <resources>
     <string name="app_name">OnlineShopAppForAndroid</string>
-    <string name="url_sever">http://192.168.1.5/onlineshopapp/hienThiDanhSachSanPhamDangJson.php</string>
-    <string name="url_img_on_sever">http://192.168.1.5/onlineshopapp/images/</string>
+    <string name="url_sever">http://192.168.1.2/onlineshopapp/hienThiDanhSachSanPhamDangJson.php</string>
+    <string name="url_img_on_sever">http://192.168.1.2/onlineshopapp/images/</string>
 
     <!--  url liên quan đến sản phẩm  -->
-    <string name="url_thuong_hieu_va_loai_san_pham">http://192.168.1.5/onlineshopapp/hienThiTatCaLoaiVaThuongHieuSanPham.php</string>
-    <string name="url_them_san_pham">http://192.168.1.5/onlineshopapp/themSanPham.php</string>
-    <string name="url_xoa_san_pham">http://192.168.1.5/onlineshopapp/xoaSanPham.php</string>
-    <string name="url_sua_san_pham">http://192.168.1.5/onlineshopapp/suaSanPham.php</string>
+    <string name="url_thuong_hieu_va_loai_san_pham">http://192.168.1.2/onlineshopapp/hienThiTatCaLoaiVaThuongHieuSanPham.php</string>
+    <string name="url_them_san_pham">http://192.168.1.2/onlineshopapp/themSanPham.php</string>
+    <string name="url_xoa_san_pham">http://192.168.1.2/onlineshopapp/xoaSanPham.php</string>
+    <string name="url_sua_san_pham">http://192.168.1.2/onlineshopapp/suaSanPham.php</string>
 
     <!--  url liên quan đến loại sản phẩm  -->
-    <string name="url_show_full_loai_san_pham">http://192.168.1.5/onlineshopapp/showFullLoaiSPDangJson.php</string>
-    <string name="url_them_loai_sp">http://192.168.1.5/onlineshopapp/themLoaiSP.php</string>
-    <string name="url_sua_loai_sp">http://192.168.1.5/onlineshopapp/suaLoaiSP.php</string>
-    <string name="url_xoa_loai_sp">http://192.168.1.5/onlineshopapp/xoaLoaiSP.php</string>
+    <string name="url_show_full_loai_san_pham">http://192.168.1.2/onlineshopapp/showFullLoaiSPDangJson.php</string>
+    <string name="url_them_loai_sp">http://192.168.1.2/onlineshopapp/themLoaiSP.php</string>
+    <string name="url_sua_loai_sp">http://192.168.1.2/onlineshopapp/suaLoaiSP.php</string>
+    <string name="url_xoa_loai_sp">http://192.168.1.2/onlineshopapp/xoaLoaiSP.php</string>
 
     <!-- url liên quan đến thương hiệu -->
-    <string name="url_show_full_thuong_hieu">http://192.168.1.5/onlineshopapp/showFullThuongHieu.php</string>
-    <string name="url_them_thuong_hieu">http://192.168.1.5/onlineshopapp/themThuongHieu.php</string>
-    <string name="url_sua_thuong_hieu">http://192.168.1.5/onlineshopapp/suaThuongHieu.php</string>
-    <string name="url_xoa_thuong_hieu">http://192.168.1.5/onlineshopapp/xoaThuongHieu.php</string>
+    <string name="url_show_full_thuong_hieu">http://192.168.1.2/onlineshopapp/showFullThuongHieu.php</string>
+    <string name="url_them_thuong_hieu">http://192.168.1.2/onlineshopapp/themThuongHieu.php</string>
+    <string name="url_sua_thuong_hieu">http://192.168.1.2/onlineshopapp/suaThuongHieu.php</string>
+    <string name="url_xoa_thuong_hieu">http://192.168.1.2/onlineshopapp/xoaThuongHieu.php</string>
 
     <!-- url liên quan đến giỏ hàng -->
-    <string name="url_show_full_gio_hang">http://192.168.1.5/onlineshopapp/showFullGioHang.php</string>
+    <string name="url_show_full_gio_hang">http://192.168.1.2/onlineshopapp/showFullGioHang.php</string>
 
-    <string name="url_nhan_tai_khoan_va_mat_khau_va_xu_ly">http://192.168.1.5/onlineshopapp/xuLyDangNhap.php</string>
+    <string name="url_nhan_tai_khoan_va_mat_khau_va_xu_ly">http://192.168.1.2/onlineshopapp/xuLyDangNhap.php</string>
     <string name="spinner_hint_chon_loai_sp">Chọn loại sản phẩm</string>
     <string name="spinner_hint_chon_thuong_hieu_sp">Chọn thương hiệu</string>
 </resources>

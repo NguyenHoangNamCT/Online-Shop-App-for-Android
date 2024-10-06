@@ -50,6 +50,13 @@ public class Login_Activity extends AppCompatActivity {
         editTextTenDangNhap = findViewById(R.id.editTextTenDangNhap_activity_login);
         editTextPassword = findViewById(R.id.editTextPassword_activity_login);
         buttonDangNhap = findViewById(R.id.buttonDangNhap_activity_login);
+
+        autoDangNhap();
+    }
+
+    private void autoDangNhap(){
+        editTextPassword.setText("123");
+        editTextTenDangNhap.setText("a");
     }
 
     public void guiTaiKhoanMatKhauLenSever(){

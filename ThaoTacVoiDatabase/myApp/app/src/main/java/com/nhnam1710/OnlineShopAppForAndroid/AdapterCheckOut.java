@@ -64,7 +64,7 @@ public class AdapterCheckOut extends BaseAdapter {
         }
 
         SanPhamTrongGio sanPham = sanPhamTrongGioList.get(position);
-        holder.imageViewAnhSanPham.setImageResource(sanPham.getHinhAnh());
+//        holder.imageViewAnhSanPham.setImageResource(sanPham.getHinhAnh());
         holder.textViewTenSanPham.setText(sanPham.getTenSanPham());
         holder.textViewGiaSanPham.setText(String.valueOf(sanPham.getGia()));
         holder.textViewSoLuongSanPham.setText(String.valueOf(sanPham.getSoLuong()));

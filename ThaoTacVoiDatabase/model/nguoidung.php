@@ -116,6 +116,29 @@ class NGUOIDUNG {
         }
     }
 
+    // Hàm lấy ID người dùng thông qua tên đăng nhập và mật khẩu
+    public function layIdNguoiDungBangTenDangNhapVaMatKhau($tendangnhap, $matkhau) {
+        $db = DATABASE::connect(); // Kết nối đến cơ sở dữ liệu
+        try {
+            $sql = "SELECT id FROM nguoidung WHERE ten_dang_nhap = :tendangnhap AND mat_khau = :matkhau AND trang_thai = 1"; // Chuẩn bị câu lệnh SQL để lấy ID người dùng
+            $cmd = $db->prepare($sql); // Chuẩn bị câu lệnh SQL để thực thi
+            $cmd->bindValue(":tendangnhap", $tendangnhap); // Gán giá trị biến vào tham số của câu lệnh SQL
+            $cmd->bindValue(":matkhau", md5($matkhau)); // Gán giá trị biến vào tham số của câu lệnh SQL và mã hóa mật khẩu bằng MD5
+            $cmd->execute(); // Thực thi câu lệnh SQL
+            
+            if ($cmd->rowCount() == 1) { // Kiểm tra xem người dùng có hợp lệ hay không
+                $user = $cmd->fetch(PDO::FETCH_ASSOC); // Lấy thông tin người dùng
+                return $user['id']; // Trả về ID người dùng
+            } else {
+                return null; // Nếu không tìm thấy người dùng, trả về null
+            }
+        } catch (PDOException $e) { // Xử lý ngoại lệ nếu có lỗi khi thực thi câu lệnh SQL
+            $error_message = $e->getMessage(); // Lấy thông báo lỗi
+            echo "<p>Lỗi truy vấn ở layIdNguoiDung: $error_message</p>"; // Xuất thông báo lỗi
+            exit(); // Thoát khỏi chương trình
+        }
+    }
+
 // Các hàm khác của lớp NGUOIDUNG như laySoLuongNguoiDung, layNguoiDungPhanTrang, etc.
 }
 ?>

@@ -7,6 +7,13 @@ require("model/giohang.php");
 
 $gioHang = new GIOHANG(); // Khởi tạo đối tượng
 
+if (isset($_POST['userName']) && isset($_POST['password']) && !empty($_POST['userName']) && !empty($_POST['password'])) {
+    $tenDangNhap = $_POST['userName'];
+    $matKhau = $_POST['password'];
+
+    // Xử lý tiếp với $tenDangNhap và $matKhau
+}
+
 // $idNguoiDung = $_SESSION['user_id'];
 $idNguoiDung = 42;
 

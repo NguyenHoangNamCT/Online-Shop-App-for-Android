@@ -67,7 +67,7 @@ public class MyVolleyRequest {
 
     public interface XuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu{
         public Map<String, String> guiMapLenSever(Map<String, String> param);
-        public void jsonArrayNhanDuocTuServer(JSONArray response);
+        public void jsonArrayNhanDuocTuServer(JSONArray response) throws JSONException;
         public void chuoiBaoLoiCuaVolley(String VolleyErrorMessage);
     }
     public static void layJsonArrayTuSeverCoGuiKemDuLieu(String url, Context context, XuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu){
@@ -78,7 +78,11 @@ public class MyVolleyRequest {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu.jsonArrayNhanDuocTuServer(response);
+                        try {
+                            xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu.jsonArrayNhanDuocTuServer(response);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
