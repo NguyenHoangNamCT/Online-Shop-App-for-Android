@@ -58,6 +58,55 @@ public class GioHangActivity extends AppCompatActivity {
         tvGioHangRong = findViewById(R.id.tvGioHangRong_activity_gio_hang);
     }
 
+    //phương thức này để thông báo và log lỗi từ các trường hợp báo lỗi từ sever
+    public void thongBaoLoi(String chuoiTuSever) {
+        // Lấy giá trị username và password
+        String username = GlobalClass.getUserName();
+        String password = GlobalClass.getPassword();
+
+        // Kiểm tra nội dung chuỗi lỗi từ server và xử lý tương ứng
+        if (chuoiTuSever.contains("Du_lieu_gui_len_sever_co_van_de")) {
+            // Thông báo lỗi khi dữ liệu gửi lên server có vấn đề
+            Toast.makeText(GioHangActivity.this, "Dữ liệu gửi lên server có vấn đề. Server báo là: " + chuoiTuSever, Toast.LENGTH_SHORT).show();
+            Log.d("loi cua toi", "Dữ liệu gửi lên server có vấn đề. Server báo là: " + chuoiTuSever + " | Username: " + username + " | Password: " + password);
+        } else if (chuoiTuSever.contains("Nguoi_dung_khong_hop_le")) {
+            // Thông báo lỗi khi người dùng không hợp lệ
+            Toast.makeText(GioHangActivity.this, "Người dùng không hợp lệ. Server báo là: " + chuoiTuSever, Toast.LENGTH_SHORT).show();
+            Log.d("loi cua toi", "Người dùng không hợp lệ. Server báo là: " + chuoiTuSever + " | Username: " + username + " | Password: " + password);
+        } else if (chuoiTuSever.contains("Some_other_error")) {
+            // Xử lý lỗi khác (nếu có)
+            Toast.makeText(GioHangActivity.this, "Lỗi không xác định. Server báo là: " + chuoiTuSever, Toast.LENGTH_SHORT).show();
+            Log.d("loi cua toi", "Lỗi không xác định từ server. Server báo là: " + chuoiTuSever + " | Username: " + username + " | Password: " + password);
+        } else {
+            // Xử lý lỗi mặc định nếu không khớp với các trường hợp trên
+            Toast.makeText(GioHangActivity.this, "Có lỗi xảy ra: " + chuoiTuSever, Toast.LENGTH_SHORT).show();
+            Log.d("loi cua toi", "Lỗi từ server: " + chuoiTuSever + " | Username: " + username + " | Password: " + password);
+        }
+    }
+
+    // phương thức này dùng để kiểm tra xem server có báo lỗi hay không (lỗi do server cố tình in ra) true false là có hoặc không tương ứng. Có cả thông báo và log lỗi nữa
+    public boolean kiemTraSeverCoBaoLoiKhong(JSONArray response){
+        // Kiểm tra xem phản hồi có phải là một thông điệp lỗi không
+            try {
+                JSONObject jsonObject = response.getJSONObject(0); // Lấy đối tượng JSON đầu tiên
+                if (jsonObject.has("error")) { // Kiểm tra nếu có trường "error"
+                    String errorMessage = jsonObject.getString("error"); // Lấy thông điệp lỗi
+                    thongBaoLoi(errorMessage);// báo và log lỗi ra
+                    return true; // Dừng lại nếu có lỗi
+                }
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        return false;
+    }
+
+    public void xuLyNeuGioHangRong(JSONArray response){
+        if(response.length() == 0){
+            tvGioHangRong.setText("Hiện giỏ hàng của bạn không có sản phẩm nào!");
+            tvGioHangRong.setVisibility(View.VISIBLE);
+        }
+    }
+
     public void loadGiaHang(){
         String url = getString(R.string.url_show_full_gio_hang);
         MyVolleyRequest.layJsonArrayTuSeverCoGuiKemDuLieu(url, GioHangActivity.this, new MyVolleyRequest.XuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu() {
@@ -71,23 +120,33 @@ public class GioHangActivity extends AppCompatActivity {
 
             @Override
             public void jsonArrayNhanDuocTuServer(JSONArray response){
-                for (int i = 0; i < response.length(); i++){
-                    try {
-                        JSONObject jsonObject = response.getJSONObject(i);
-                        SanPhamTrongGio sanPhamTrongGio = new SanPhamTrongGio(jsonObject);
-                        Log.d("loi cua toi", "\nSản phẩm trong giỏ thứ: " + i + sanPhamTrongGio.toString()+ "\n") ;
-                        sanPhamTrongGioArrayList.add(sanPhamTrongGio);
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
+                // Log giá trị của response để kiểm tra
+                Log.d("loi cua toi", "Giá trị response: " + response.toString());
+
+                // Thông báo cho người dùng về giá trị của response
+                Toast.makeText(GioHangActivity.this, "Giá trị response: " + response.toString(), Toast.LENGTH_LONG).show();
+
+//                xuLyNeuGioHangRong(response);
+
+                if(!kiemTraSeverCoBaoLoiKhong(response)){
+                    for (int i = 0; i < response.length(); i++){
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            SanPhamTrongGio sanPhamTrongGio = new SanPhamTrongGio(jsonObject);
+                            Log.d("loi cua toi", "\nSản phẩm trong giỏ thứ: " + i + sanPhamTrongGio.toString()+ "\n") ;
+                            sanPhamTrongGioArrayList.add(sanPhamTrongGio);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
+                    adapterGioHang.notifyDataSetChanged();
                 }
-                adapterGioHang.notifyDataSetChanged();
             }
 
             @Override
             public void chuoiBaoLoiCuaVolley(String VolleyErrorMessage) {
                 Toast.makeText(GioHangActivity.this, "Load giỏ hàng thất bại", Toast.LENGTH_SHORT).show();
-                Log.e("loi cua toi", "Load giỏ hàng thất bại: " + VolleyErrorMessage);
+                Log.e("loi cua toi", "Load giỏ hàng thất bại: Lỗi volley: " + VolleyErrorMessage);
             }
         });
     }

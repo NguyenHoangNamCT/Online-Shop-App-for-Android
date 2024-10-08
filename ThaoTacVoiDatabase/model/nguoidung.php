@@ -1,5 +1,5 @@
 <?php
-require("database.php");
+require_once("database.php");
 
 class NGUOIDUNG {
     // Hàm kiểm tra người dùng hợp lệ
@@ -41,14 +41,49 @@ class NGUOIDUNG {
             //     // Tạo token phiên
             //     // $this->taoTokenPhien($user['id']); // Gọi phương thức để tạo token phiên
             // }
-            $cmd->closeCursor(); // Đóng con trỏ của câu lệnh SQL
             return $valid; // Trả về kết quả xác nhận hợp lệ của người dùng
         } catch (PDOException $e) { // Xử lý ngoại lệ nếu có lỗi khi thực thi câu lệnh SQL
             $error_message = $e->getMessage(); // Lấy thông báo lỗi
             echo "<p>Lỗi truy vấn ở kiemTraNguoiDungHopLeDaMaHoa: $error_message</p>"; // Xuất thông báo lỗi
             exit(); // Thoát khỏi chương trình
         }
+        finally {
+            // Đảm bảo luôn đóng con trỏ, ngay cả khi có lỗi
+            $cmd->closeCursor();
+        }
     }
+
+    // Hàm kiểm tra người dùng hợp lệ và trả về ID nếu hợp lệ
+    //đầu vào là tài khoản mật khẩu đã được mã hóa, đầu ra là id người dùng nếu tk mật khẩu đúng ngoặc lại là false
+    public function kiemTraNguoiDungHopLeTraVeID($tendangnhap, $matkhau) {
+        $db = DATABASE::connect(); // Kết nối đến cơ sở dữ liệu
+        try {
+            $sql = "SELECT id FROM nguoidung WHERE ten_dang_nhap = :tendangnhap AND mat_khau = :matkhau AND trang_thai = 1"; // Chuẩn bị câu lệnh SQL để kiểm tra người dùng
+            $cmd = $db->prepare($sql); // Chuẩn bị câu lệnh SQL để thực thi
+            $cmd->bindValue(":tendangnhap", $tendangnhap); // Gán giá trị biến vào tham số của câu lệnh SQL
+            $cmd->bindValue(":matkhau", $matkhau); // Gán giá trị biến vào tham số của câu lệnh SQL và mã hóa mật khẩu bằng MD5
+            $cmd->execute(); // Thực thi câu lệnh SQL
+            
+            if ($cmd->rowCount() == 1) { // Kiểm tra xem người dùng có hợp lệ hay không
+                $user = $cmd->fetch(PDO::FETCH_ASSOC); // Lấy thông tin của người dùng
+                $cmd->closeCursor(); // Đóng con trỏ của câu lệnh SQL
+                return $user['id']; // Trả về ID của người dùng nếu hợp lệ
+            } 
+            
+
+            return false; // Trả về false nếu không hợp lệ
+            
+        } catch (PDOException $e) { // Xử lý ngoại lệ nếu có lỗi khi thực thi câu lệnh SQL
+            $error_message = $e->getMessage(); // Lấy thông báo lỗi
+            echo "<p>Lỗi truy vấn ở kiemtranguoidunghople: $error_message</p>"; // Xuất thông báo lỗi
+            exit(); // Thoát khỏi chương trình
+        }
+        finally {
+            // Đảm bảo luôn đóng con trỏ, ngay cả khi có lỗi
+            $cmd->closeCursor();
+        }
+    }
+
 
     // // Hàm tạo token phiên
     // private function taoTokenPhien($userId) {
