@@ -13,7 +13,6 @@ $nguoiDung = new NGUOIDUNG();
 // inGioHangDuoiDangJson($tenDangNhap, $matKhau, $nguoiDung, $gioHang);
 
 
-
 if (isset($_POST['userName']) && isset($_POST['password'])) {
     $tenDangNhap = $_POST['userName'];
     $matKhau = $_POST['password'];

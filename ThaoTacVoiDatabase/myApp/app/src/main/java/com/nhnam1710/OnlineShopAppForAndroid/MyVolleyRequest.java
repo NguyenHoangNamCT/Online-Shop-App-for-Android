@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,21 +66,59 @@ public class MyVolleyRequest {
     }
 
 
+//    public interface XuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu{
+//        public Map<String, String> guiMapLenSever(Map<String, String> param);
+//        public void jsonArrayNhanDuocTuServer(JSONArray response) throws JSONException;
+//        public void chuoiBaoLoiCuaVolley(String VolleyErrorMessage);
+//    }
+
+//    //nghe chatgpt nói json array request không hỗ trợ getParams để gửi dữ liệu
+//    public static void layJsonArrayTuSeverCoGuiKemDuLieu(String url, Context context, XuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu){
+//        RequestQueue requestQueue = Volley.newRequestQueue(context);
+//        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST,
+//                url,
+//                null,
+//                new Response.Listener<JSONArray>() {
+//                    @Override
+//                    public void onResponse(JSONArray response) {
+//                        try {
+//                            xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu.jsonArrayNhanDuocTuServer(response);
+//                        } catch (JSONException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu.chuoiBaoLoiCuaVolley(error.getMessage());
+//                    }
+//                }){
+//            @Nullable
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> param = new HashMap<>();
+//                return xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu.guiMapLenSever(param);
+//            }
+//        };
+//        requestQueue.add(jsonArrayRequest);
+//    }
+
     public interface XuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu{
         public Map<String, String> guiMapLenSever(Map<String, String> param);
-        public void jsonArrayNhanDuocTuServer(JSONArray response) throws JSONException;
+        public void jsonArrayDangString_NhanDuocTuServer(String response) throws JSONException;
         public void chuoiBaoLoiCuaVolley(String VolleyErrorMessage);
     }
-    public static void layJsonArrayTuSeverCoGuiKemDuLieu(String url, Context context, XuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu){
+
+    public static void layJsonArrayDangString_TuSeverCoGuiKemDuLieu(String url, Context context, XuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST,
+        StringRequest jsonStringRequest = new StringRequest(Request.Method.POST,
                 url,
-                null,
-                new Response.Listener<JSONArray>() {
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(String response) {
                         try {
-                            xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu.jsonArrayNhanDuocTuServer(response);
+                            xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu.jsonArrayDangString_NhanDuocTuServer(response);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -98,7 +137,7 @@ public class MyVolleyRequest {
                 return xuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu.guiMapLenSever(param);
             }
         };
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(jsonStringRequest);
     }
 
 

@@ -58,7 +58,7 @@ public class GioHangActivity extends AppCompatActivity {
         tvGioHangRong = findViewById(R.id.tvGioHangRong_activity_gio_hang);
     }
 
-    //phương thức này để thông báo và log lỗi từ các trường hợp báo lỗi từ sever
+//    phương thức này để thông báo và log lỗi từ các trường hợp báo lỗi từ sever
     public void thongBaoLoi(String chuoiTuSever) {
         // Lấy giá trị username và password
         String username = GlobalClass.getUserName();
@@ -107,40 +107,89 @@ public class GioHangActivity extends AppCompatActivity {
         }
     }
 
+//    public void loadGiaHang(){
+//        String url = getString(R.string.url_show_full_gio_hang);
+//        MyVolleyRequest.layJsonArrayTuSeverCoGuiKemDuLieu(url, GioHangActivity.this, new MyVolleyRequest.XuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu() {
+//            @Override
+//            public Map<String, String> guiMapLenSever(Map<String, String> param) {
+//                Log.d("Params", "Sending params: userName=" + GlobalClass.getUserName() + ", password=" + GlobalClass.getPassword());
+//                //mục đích: gửi tên đăng nhập và mật khẩu lên cho server thay thế id người dùng để load giỏ hàng về (mục đích đảm bảo người dùng chính là chủ nick)
+//                param.put("userName", GlobalClass.getUserName());
+//                param.put("password", GlobalClass.getPassword());
+//                return param;
+//            }
+//
+//            @Override
+//            public void jsonArrayNhanDuocTuServer(JSONArray response){
+//                // Log giá trị của response để kiểm tra
+//                Log.d("loi cua toi", "Giá trị response: " + response.toString());
+//
+//                // Thông báo cho người dùng về giá trị của response
+//                Toast.makeText(GioHangActivity.this, "Giá trị response: " + response.toString(), Toast.LENGTH_LONG).show();
+//
+////                xuLyNeuGioHangRong(response);
+//
+//                if(!kiemTraSeverCoBaoLoiKhong(response)){
+//                    for (int i = 0; i < response.length(); i++){
+//                        try {
+//                            JSONObject jsonObject = response.getJSONObject(i);
+//                            SanPhamTrongGio sanPhamTrongGio = new SanPhamTrongGio(jsonObject);
+//                            Log.d("loi cua toi", "\nSản phẩm trong giỏ thứ: " + i + sanPhamTrongGio.toString()+ "\n") ;
+//                            sanPhamTrongGioArrayList.add(sanPhamTrongGio);
+//                        } catch (JSONException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                    }
+//                    adapterGioHang.notifyDataSetChanged();
+//                }
+//            }
+//
+//            @Override
+//            public void chuoiBaoLoiCuaVolley(String VolleyErrorMessage) {
+//                Toast.makeText(GioHangActivity.this, "Load giỏ hàng thất bại", Toast.LENGTH_SHORT).show();
+//                Log.e("loi cua toi", "Load giỏ hàng thất bại: Lỗi volley: " + VolleyErrorMessage);
+//            }
+//        });
+//    }
+
+
+
+    //viết lại vì jsonarray request không được tương thích với getParams eên không gửi dữ liệu được
     public void loadGiaHang(){
         String url = getString(R.string.url_show_full_gio_hang);
-        MyVolleyRequest.layJsonArrayTuSeverCoGuiKemDuLieu(url, GioHangActivity.this, new MyVolleyRequest.XuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu() {
+        MyVolleyRequest.layJsonArrayDangString_TuSeverCoGuiKemDuLieu(url, GioHangActivity.this, new MyVolleyRequest.XuLyDuLieuNhanDuocTuServerCoGuiKemDuLieu() {
             @Override
             public Map<String, String> guiMapLenSever(Map<String, String> param) {
+                Log.d("Params", "Sending params: userName=" + GlobalClass.getUserName() + ", password=" + GlobalClass.getPassword());
                 //mục đích: gửi tên đăng nhập và mật khẩu lên cho server thay thế id người dùng để load giỏ hàng về (mục đích đảm bảo người dùng chính là chủ nick)
                 param.put("userName", GlobalClass.getUserName());
                 param.put("password", GlobalClass.getPassword());
                 return param;
             }
 
+
             @Override
-            public void jsonArrayNhanDuocTuServer(JSONArray response){
-                // Log giá trị của response để kiểm tra
-                Log.d("loi cua toi", "Giá trị response: " + response.toString());
-
-                // Thông báo cho người dùng về giá trị của response
-                Toast.makeText(GioHangActivity.this, "Giá trị response: " + response.toString(), Toast.LENGTH_LONG).show();
-
+            public void jsonArrayDangString_NhanDuocTuServer(String JsonArrayDangString){
+                try {
+                    JSONArray response = new JSONArray(JsonArrayDangString);
+                    if(!kiemTraSeverCoBaoLoiKhong(response)){
+                        for (int i = 0; i < response.length(); i++){
+                            try {
+                                JSONObject jsonObject = response.getJSONObject(i);
+                                SanPhamTrongGio sanPhamTrongGio = new SanPhamTrongGio(jsonObject);
+                                Log.d("loi cua toi", "\nSản phẩm trong giỏ thứ: " + i + sanPhamTrongGio.toString()+ "\n") ;
+                                sanPhamTrongGioArrayList.add(sanPhamTrongGio);
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        adapterGioHang.notifyDataSetChanged();
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
 //                xuLyNeuGioHangRong(response);
 
-                if(!kiemTraSeverCoBaoLoiKhong(response)){
-                    for (int i = 0; i < response.length(); i++){
-                        try {
-                            JSONObject jsonObject = response.getJSONObject(i);
-                            SanPhamTrongGio sanPhamTrongGio = new SanPhamTrongGio(jsonObject);
-                            Log.d("loi cua toi", "\nSản phẩm trong giỏ thứ: " + i + sanPhamTrongGio.toString()+ "\n") ;
-                            sanPhamTrongGioArrayList.add(sanPhamTrongGio);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    adapterGioHang.notifyDataSetChanged();
-                }
             }
 
             @Override
