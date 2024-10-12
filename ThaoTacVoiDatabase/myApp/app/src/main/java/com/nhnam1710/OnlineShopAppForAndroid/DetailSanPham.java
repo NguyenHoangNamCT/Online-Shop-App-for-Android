@@ -6,13 +6,19 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Map;
 
 public class DetailSanPham extends AppCompatActivity {
 
@@ -22,6 +28,7 @@ public class DetailSanPham extends AppCompatActivity {
     private ImageView anhNguoiDung, anhSanPham1, anhSanPham2, anhSanPham3, anhSanPham4, anhSanPham5;
     private TextView tenNguoiDung;
     private RatingBar soSao;
+    Button btnTrangChu, btnThemVaoGio, btnMuaHang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,9 @@ public class DetailSanPham extends AppCompatActivity {
 
         SanPham sp = nhanSanPhamTuMainActivity();
         ganGiaTriTuSanPhamVaoGiaoDienDetail(sp);
+
+        //-------------------- danh sách các sự kiện --------------------
+        suKienThemSanPhamVaoGioHang(sp);
     }
 
     private void anhXa() {
@@ -54,6 +64,9 @@ public class DetailSanPham extends AppCompatActivity {
         soLuongSanPham = findViewById(R.id.soLuongSanPham_activity_detail_san_pham);
         giamGiaTextView = findViewById(R.id.giamGia_activity_detail_san_pham);
         giaBanTextView = findViewById(R.id.giaBan_activity_detail_san_pham);
+        btnTrangChu = findViewById(R.id.btn_home_activity_detail_san_pham);
+        btnThemVaoGio = findViewById(R.id.btn_cart_activity_detail_san_pham);
+        btnMuaHang = findViewById(R.id.btn_buy_activity_detail_san_pham);
 
     }
 
@@ -88,5 +101,70 @@ public class DetailSanPham extends AppCompatActivity {
 
         DecimalFormat formatter = new DecimalFormat("#,###", symbols);
         return formatter.format(num) + "đ"; // Đơn vị tiền tệ VND
+    }
+
+    public void themSanPhamVaoGio(SanPham sanPhamCanThemVaoGio){
+        String url = getString(R.string.url_them_san_pham_vao_gio_hang);
+        MyVolleyStringRequest.GuiStringRequestDenSever(url,
+                DetailSanPham.this,
+                new MyVolleyStringRequest.thaoTacVoiStringRequestNay() {
+                    @Override
+                    public Map<String, String> guiMapLenSever(Map<String, String> param) {
+                        param.put("userName", GlobalClass.getUserName());
+                        param.put("password", GlobalClass.getPassword());
+                        param.put("idSanPham", sanPhamCanThemVaoGio.getId() + "");
+                        return param;
+                    }
+
+                    @Override
+                    public void xuLyChuoiDocDuocTuSever(String response) {
+                        if (response != null && !response.isEmpty()) {
+                            // Kiểm tra các thông báo thành công từ server
+                            if (response.contains("them_san_pham_vao_gio_hang_thanh_cong!")) {
+                                Toast.makeText(DetailSanPham.this, "Thêm sản phẩm vào giỏ hàng thành công!", Toast.LENGTH_SHORT).show();
+                            } else if (response.contains("serser_khong_nhan_duoc_user_name!")) {
+                                String tag = "loi cua toi";
+                                Log.e(tag, "Server không nhận được user name!");
+                                Toast.makeText(DetailSanPham.this, tag + ": Server không nhận được user name!", Toast.LENGTH_SHORT).show();
+                            } else if (response.contains("serser_khong_nhan_duoc_mat_khau!")) {
+                                String tag = "loi cua toi";
+                                Log.e(tag, "Server không nhận được mật khẩu!");
+                                Toast.makeText(DetailSanPham.this, tag + ": Server không nhận được mật khẩu!", Toast.LENGTH_SHORT).show();
+                            } else if (response.contains("serser_khong_nhan_duoc_id_san_pham!")) {
+                                String tag = "loi cua toi";
+                                Log.e(tag, "Server không nhận được ID sản phẩm!");
+                                Toast.makeText(DetailSanPham.this, tag + ": Server không nhận được ID sản phẩm!", Toast.LENGTH_SHORT).show();
+                            } else if (response.contains("them_san_pham_vao_gio_hang_that_bai!")) {
+                                String tag = "loi cua toi";
+                                Log.e(tag, "Thêm sản phẩm vào giỏ hàng thất bại!");
+                                Toast.makeText(DetailSanPham.this, tag + ": Thêm sản phẩm vào giỏ hàng thất bại!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                String tag = "thong_bao";
+                                Log.i(tag, "Phản hồi từ server: " + response);
+                                Toast.makeText(DetailSanPham.this, tag + ": Phản hồi từ server: " + response, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            String tag = "loi cua toi";
+                            Log.e(tag, "Không có phản hồi từ server!");
+                            Toast.makeText(DetailSanPham.this, tag + ": Không có phản hồi từ server!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+
+                    @Override
+                    public void baoLoiCuaOnErrorResponse(VolleyError error) {
+
+                    }
+                });
+    }
+
+    //-------------------- Danh sách các sự kiện --------------------
+    public void suKienThemSanPhamVaoGioHang(SanPham sanPhamCanThemVaoGio){
+        btnThemVaoGio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                themSanPhamVaoGio(sanPhamCanThemVaoGio);
+            }
+        });
     }
 }
