@@ -1,6 +1,11 @@
 package com.nhnam1710.OnlineShopAppForAndroid;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +15,20 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Map;
 
 public class AdapterGioHang extends BaseAdapter {
-    Context context;
+    GioHangActivity context;
     int layout;
     List<SanPhamTrongGio> sanPhamTrongGioList;
 
-    public AdapterGioHang(Context context, int layout, List<SanPhamTrongGio> sanPhamTrongGioList) {
+    public AdapterGioHang(GioHangActivity context, int layout, List<SanPhamTrongGio> sanPhamTrongGioList) {
         this.context = context;
         this.layout = layout;
         this.sanPhamTrongGioList = sanPhamTrongGioList;
@@ -89,9 +97,122 @@ public class AdapterGioHang extends BaseAdapter {
                 .load(url)
                 .error(R.drawable.ic_launcher_foreground) // Hình ảnh sẽ hiển thị nếu có lỗi
                 .into(holder.imageViewSanPham);
-        // Tiếp tục gán giá trị cho các thành phần khác tương tự
 
+        //-------------------------------- Danh sách các sự kiện --------------------------------
+
+        holder.editTextSoLuong.addTextChangedListener(new TextWatcher() {
+//            giải thích tham số
+//            CharSequence s: là chuổi đang được hiển thị trên edittext
+//            int start: vị trí bắt đầu của băn bản thay đổi (nếu thêm thì tính là vị trí đầu tiên của ký tự được thêm đầu tiên, nếu xóa thì là vị trí của ký tự cuối cùng được xóa)
+//            int count: là số ký tự được thêm vào hoặc xóa đi, dương nếu thêm, âm nếu xóa
+//            int after: là số ký tự được thêm vào (nếu xóa thì nó sẽ là 0)
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Trước khi văn bản thay đổi
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Văn bản đang thay đổi
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().equals(""))
+                    return;
+                thayDoiSoLuongSanPhamTrongGio(Integer.parseInt(s.toString()), sanPham.getId());
+            }
+        });
 
         return convertView;
+    }
+
+    // Phương thức để hiển thị dialog xác nhận
+    private void showDiaLogXacNhanXoa(final SanPhamTrongGio sanPham) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Xác nhận");
+        builder.setMessage("Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?");
+
+        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Xử lý khi người dùng chọn "Không"
+                dialog.dismiss(); // Đóng dialog
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void thayDoiSoLuongSanPhamTrongGio(int soLuongMoi, int idSanPham){
+        String url = context.getString(R.string.url_thay_doi_so_luong_san_pham_trong_gio);
+        MyVolleyStringRequest.GuiStringRequestDenSever(url, context, new MyVolleyStringRequest.thaoTacVoiStringRequestNay() {
+            @Override
+            public Map<String, String> guiMapLenSever(Map<String, String> param) {
+                param.put("tenDangNhap", GlobalClass.getUserName());
+                param.put("matKhau", GlobalClass.getPassword());
+                param.put("idSanPham", idSanPham+"");
+                param.put("soLuongMoi", soLuongMoi+"");
+                return param;
+            }
+
+            @Override
+            public void xuLyChuoiDocDuocTuSever(String response) {
+                if(response.contains("Cap_nhat_thanh_cong")){
+                    //xử lý các kiểu
+                    String message = "Thành công yeah.";
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                }
+                else if(response.contains("Cap_nhat_that_bai")){
+                    String message = "Cập nhật thất bại khi thay đổi số lượng sản phẩm trong giỏ hàng.";
+                    Log.e("loi cua toi", message);
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                }
+                else if (response.contains("serser_khong_nhan_duoc_user_name")) {
+                    String message = "Server không nhận được username khi thay đổi số lượng sản phẩm trong giỏ hàng.";
+                    Log.e("loi cua toi", message);
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                } else if (response.contains("serser_khong_nhan_duoc_mat_khau")) {
+                    String message = "Server không nhận được mật khẩu khi thay đổi số lượng sản phẩm trong giỏ hàng.";
+                    Log.e("loi cua toi", message);
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                } else if (response.contains("serser_khong_nhan_duoc_id_san_pham")) {
+                    String message = "Server không nhận được ID sản phẩm khi thay đổi số lượng sản phẩm trong giỏ hàng.";
+                    Log.e("loi cua toi", message);
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                } else if (response.contains("serser_khong_nhan_duoc_so_luong_moi")) {
+                    String message = "Server không nhận được số lượng mới khi thay đổi số lượng sản phẩm trong giỏ hàng.";
+                    Log.e("loi cua toi", message);
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                } else if (response.contains("Nguoi_dung_khong_ton_tai_ID_tim_duoc_la_null")) {
+                    String message = "Người dùng không tồn tại, ID tìm được là null.";
+                    Log.e("loi cua toi", message);
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                } else if (response.contains("Cap_nhat_that_bai")) {
+                    String message = "Cập nhật thất bại khi thay đổi số lượng sản phẩm trong giỏ hàng.";
+                    Log.e("loi cua toi", message);
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                } else {
+                    // Có thể thêm xử lý cho trường hợp không có lỗi
+                    Log.i("thong tin", "Không có lỗi từ server: " + response);
+                }
+
+                Log.e("loi cua toi", "Server báo khi cập nhật sản phẩm trong giỏ hàng là:" + response);
+            }
+
+            @Override
+            public void baoLoiCuaOnErrorResponse(VolleyError error) {
+
+            }
+        });
     }
 }

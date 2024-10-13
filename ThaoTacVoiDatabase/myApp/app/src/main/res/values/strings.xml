@@ -24,6 +24,7 @@
     <!-- url liên quan đến giỏ hàng -->
     <string name="url_show_full_gio_hang">http://192.168.1.4/onlineshopapp/showFullGioHang.php</string>
     <string name="url_them_san_pham_vao_gio_hang">http://192.168.1.4/onlineshopapp/themSanPhamVaoGioHang.php</string>
+    <string name="url_thay_doi_so_luong_san_pham_trong_gio">http://192.168.1.4/onlineshopapp/thayDoiSoLuongSanPhamTrongGio.php</string>
 
     <string name="url_nhan_tai_khoan_va_mat_khau_va_xu_ly">http://192.168.1.4/onlineshopapp/xuLyDangNhap.php</string>
     <string name="spinner_hint_chon_loai_sp">Chọn loại sản phẩm</string>

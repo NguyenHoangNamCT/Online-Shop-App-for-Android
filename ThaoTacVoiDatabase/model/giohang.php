@@ -113,6 +113,26 @@ class GIOHANG {
             return false;
         }
     }
+
+    public function capNhatSoLuongSanPham($idNguoiDung, $idSanPham, $soLuongMoi) {
+        $conn = DATABASE::connect();
+        try {
+            // Câu lệnh SQL để cập nhật số lượng sản phẩm trong giỏ hàng
+            $sql = "UPDATE giohang SET so_luong = :soLuongMoi WHERE nguoi_dung_id = :idNguoiDung AND san_pham_id = :idSanPham";
+            $cmd = $conn->prepare($sql);
+            $cmd->bindParam(':soLuongMoi', $soLuongMoi, PDO::PARAM_INT);
+            $cmd->bindParam(':idNguoiDung', $idNguoiDung, PDO::PARAM_INT);
+            $cmd->bindParam(':idSanPham', $idSanPham, PDO::PARAM_INT);
+            $cmd->execute();
+    
+            // Kiểm tra xem câu lệnh có thực hiện thành công hay không
+            return ($cmd->rowCount() > 0);
+        } catch (PDOException $e) {
+            echo "Lỗi truy vấn ở capNhatSoLuongSanPham: " . $e->getMessage();
+            return false; // Trả về false nếu có lỗi xảy ra
+        }
+    }
+    
     
     
 }
