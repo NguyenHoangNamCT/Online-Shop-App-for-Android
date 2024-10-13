@@ -12,14 +12,17 @@ public class SanPhamTrongGio implements Serializable {
     private int soLuong;
     private String hinhAnh;
     private boolean chonMua;
+    private int soLuongSanPhamCuaShop;
 
-    public SanPhamTrongGio(int id, String tenSanPham, int gia, int soLuong, String hinhAnh, boolean chonMua) {
+
+    public SanPhamTrongGio(int id, String tenSanPham, int gia, int soLuong, String hinhAnh, boolean chonMua, int soLuongSanPhamCuaShop) {
         this.id = id;
         this.tenSanPham = tenSanPham;
         this.gia = gia;
         this.soLuong = soLuong;
         this.hinhAnh = hinhAnh;
         this.chonMua = chonMua;
+        this.soLuongSanPhamCuaShop = soLuongSanPhamCuaShop;
     }
 
     // Constructor nhận JSONObject
@@ -30,14 +33,7 @@ public class SanPhamTrongGio implements Serializable {
             this.gia = Integer.parseInt(jsonObject.getString("gia_tien")); // Chuyển từ chuỗi sang số nguyên
             this.soLuong = jsonObject.getInt("so_luong");
             this.hinhAnh = jsonObject.getString("hinh_anh");
-
-            // Kiểm tra xem trường "chon_mua" có tồn tại không
-            if (jsonObject.has("chon_mua")) {
-                this.chonMua = jsonObject.getBoolean("chon_mua");
-            } else {
-                this.chonMua = false; // Mặc định là false nếu không có trong JSON
-            }
-
+            this.soLuongSanPhamCuaShop = jsonObject.getInt("so_luong_san_pham_cua_shop");
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -81,6 +77,14 @@ public class SanPhamTrongGio implements Serializable {
 
     public void setHinhAnh(String hinhAnh) {
         this.hinhAnh = hinhAnh;
+    }
+
+    public int getSoLuongSanPhamCuaShop() {
+        return soLuongSanPhamCuaShop;
+    }
+
+    public void setSoLuongSanPhamCuaShop(int soLuongSanPhamCuaShop) {
+        this.soLuongSanPhamCuaShop = soLuongSanPhamCuaShop;
     }
 
     public boolean isChonMua() {

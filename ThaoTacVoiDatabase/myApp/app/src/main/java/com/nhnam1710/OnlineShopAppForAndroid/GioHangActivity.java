@@ -180,6 +180,7 @@ public class GioHangActivity extends AppCompatActivity {
                         return;
                     if(!kiemTraSeverCoBaoLoiKhong(response)){
                         for (int i = 0; i < response.length(); i++){
+                            Log.d("loi cua toi", "Giá trị của biến respone là: " + response);
                             try {
                                 JSONObject jsonObject = response.getJSONObject(i);
                                 SanPhamTrongGio sanPhamTrongGio = new SanPhamTrongGio(jsonObject);
@@ -194,8 +195,6 @@ public class GioHangActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-//                xuLyNeuGioHangRong(response);
-
             }
 
             @Override

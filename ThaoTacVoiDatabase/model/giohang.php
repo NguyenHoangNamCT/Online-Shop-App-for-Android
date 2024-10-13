@@ -7,13 +7,23 @@ class GIOHANG {
         try {
             // Câu lệnh SQL để lấy thông giỏ hàng dựa trên id người dùng
             $sql = "
-                SELECT *
-                FROM 
-                    giohang
-                INNER JOIN 
-                    sanpham ON giohang.san_pham_id = sanpham.id
-                WHERE 
-                    giohang.nguoi_dung_id = :idNguoiDung";
+            SELECT 
+            giohang.nguoi_dung_id, 
+            giohang.san_pham_id, 
+            giohang.so_luong, 
+            sanpham.ten_san_pham, 
+            sanpham.mo_ta,
+            sanpham.id, 
+            sanpham.gia_tien, 
+            sanpham.giam_gia, 
+            sanpham.so_luong AS so_luong_san_pham_cua_shop, 
+            sanpham.hinh_anh
+        FROM 
+            giohang
+        INNER JOIN 
+            sanpham ON giohang.san_pham_id = sanpham.id
+        WHERE 
+            giohang.nguoi_dung_id = :idNguoiDung";
             $cmd = $conn->prepare($sql);
 
             $cmd->bindParam(':idNguoiDung', $idNguoiDung, PDO::PARAM_INT);
