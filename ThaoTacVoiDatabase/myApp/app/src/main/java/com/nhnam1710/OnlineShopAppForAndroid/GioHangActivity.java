@@ -79,8 +79,8 @@ public class GioHangActivity extends AppCompatActivity {
             Log.d("loi cua toi", "Lỗi không xác định từ server. Server báo là: " + chuoiTuSever + " | Username: " + username + " | Password: " + password);
         } else {
             // Xử lý lỗi mặc định nếu không khớp với các trường hợp trên
-            Toast.makeText(GioHangActivity.this, "Có lỗi xảy ra: " + chuoiTuSever, Toast.LENGTH_SHORT).show();
-            Log.d("loi cua toi", "Lỗi từ server: " + chuoiTuSever + " | Username: " + username + " | Password: " + password);
+            Toast.makeText(GioHangActivity.this, "Có lỗi xảy ra, Sever báo là: " + chuoiTuSever, Toast.LENGTH_SHORT).show();
+            Log.d("loi cua toi", "Lỗi từ server, Sever báo là: " + chuoiTuSever + " | Username: " + username + " | Password: " + password);
         }
     }
 
@@ -100,11 +100,15 @@ public class GioHangActivity extends AppCompatActivity {
         return false;
     }
 
-    public void xuLyNeuGioHangRong(JSONArray response){
+    //đầu vào là jsonarray (giỏ hàng), đầu ra là true false với giỏ hàng rỗng hoặc không tương ứng
+    public boolean kiemTraVaXuLyGioHangRong(JSONArray response){
         if(response.length() == 0){
             tvGioHangRong.setText("Hiện giỏ hàng của bạn không có sản phẩm nào!");
             tvGioHangRong.setVisibility(View.VISIBLE);
+            return true;
         }
+        tvGioHangRong.setVisibility(View.INVISIBLE);
+        return false;
     }
 
 //    public void loadGiaHang(){
@@ -172,6 +176,8 @@ public class GioHangActivity extends AppCompatActivity {
             public void jsonArrayDangString_NhanDuocTuServer(String JsonArrayDangString){
                 try {
                     JSONArray response = new JSONArray(JsonArrayDangString);
+                    if(kiemTraVaXuLyGioHangRong(response))
+                        return;
                     if(!kiemTraSeverCoBaoLoiKhong(response)){
                         for (int i = 0; i < response.length(); i++){
                             try {
