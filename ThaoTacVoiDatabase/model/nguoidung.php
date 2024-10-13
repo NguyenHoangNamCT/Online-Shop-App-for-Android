@@ -155,10 +155,10 @@ class NGUOIDUNG {
     public function layIdNguoiDungBangTenDangNhapVaMatKhau($tendangnhap, $matkhau) {
         $db = DATABASE::connect(); // Kết nối đến cơ sở dữ liệu
         try {
-            $sql = "SELECT id FROM nguoidung WHERE ten_dang_nhap = :tendangnhap AND mat_khau = :matkhau AND trang_thai = 1"; // Chuẩn bị câu lệnh SQL để lấy ID người dùng
+            $sql = "SELECT id FROM nguoidung WHERE ten_dang_nhap = :tendangnhap AND mat_khau = :matkhau"; // Chuẩn bị câu lệnh SQL để lấy ID người dùng
             $cmd = $db->prepare($sql); // Chuẩn bị câu lệnh SQL để thực thi
             $cmd->bindValue(":tendangnhap", $tendangnhap); // Gán giá trị biến vào tham số của câu lệnh SQL
-            $cmd->bindValue(":matkhau", md5($matkhau)); // Gán giá trị biến vào tham số của câu lệnh SQL và mã hóa mật khẩu bằng MD5
+            $cmd->bindValue(":matkhau", $matkhau); // Gán giá trị biến vào tham số của câu lệnh SQL và mã hóa mật khẩu bằng MD5
             $cmd->execute(); // Thực thi câu lệnh SQL
             
             if ($cmd->rowCount() == 1) { // Kiểm tra xem người dùng có hợp lệ hay không

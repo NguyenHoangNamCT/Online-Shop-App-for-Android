@@ -1,5 +1,6 @@
 <?php 
 require_once('model/giohang.php');
+require_once('model/nguoidung.php');
 
 // Nhận các biến từ yêu cầu
 $username = isset($_POST['userName']) ? $_POST['userName'] : null;
@@ -13,12 +14,26 @@ if (!kiemTraBien($username, $password, $idSanPham)) {
 
 // Khởi tạo đối tượng giỏ hàng và thực hiện thêm sản phẩm
 $gioHang = new GioHang();
-$result = $gioHang->themVaoGioHang($username, $password, $idSanPham);
+$nd = new NGUOIDUNG();
+
+$idNguoiDung = $nd->layIdNguoiDungBangTenDangNhapVaMatKhau($username, $password);
+if($idNguoiDung === null){
+    echo "Nguoi_dung_khong_ton_tai_ID_tim_duoc_la_null";
+    echo "
+    Username: ".$username;
+    echo "
+    password: ".$password;
+    return;
+}
+
+$result = $gioHang->themVaoGioHang($idNguoiDung, $idSanPham);
 
 // Kiểm tra kết quả
 if ($result) {
     echo "them_san_pham_vao_gio_hang_thanh_cong!";
 } else {
+    if($result != null)
+        echo $result;
     echo "them_san_pham_vao_gio_hang_that_bai!";
 }
 

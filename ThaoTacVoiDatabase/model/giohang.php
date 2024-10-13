@@ -35,7 +35,7 @@ class GIOHANG {
             if ($kiemTra) {
                 // Nếu sản phẩm đã tồn tại, tăng số lượng lên 1
                 if ($this->tangSoLuongSanPham($idNguoiDung, $idSanPham)) {
-                    return "Sản phẩm đã có trong giỏ hàng, số lượng đã được tăng thêm 1.";
+                    return "san_pham_da_co_trong_gio_hang_so_luong_da_duoc_tang_them_1"; //lệnh if sẽ nhận là true (chỉ cần khong phải chuổi rỗng, null, hoặc chuổi "0" thì là true)
                 } else {
                     return false; // Trả về false nếu không tăng được số lượng
                 }

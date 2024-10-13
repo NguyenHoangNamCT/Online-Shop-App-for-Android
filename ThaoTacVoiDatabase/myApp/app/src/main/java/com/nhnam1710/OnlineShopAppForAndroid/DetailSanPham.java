@@ -148,6 +148,7 @@ public class DetailSanPham extends AppCompatActivity {
                             Log.e(tag, "Không có phản hồi từ server!");
                             Toast.makeText(DetailSanPham.this, tag + ": Không có phản hồi từ server!", Toast.LENGTH_SHORT).show();
                         }
+                        Log.e("loi cua toi", "Sever báo là: " + response);
                     }
 
 
