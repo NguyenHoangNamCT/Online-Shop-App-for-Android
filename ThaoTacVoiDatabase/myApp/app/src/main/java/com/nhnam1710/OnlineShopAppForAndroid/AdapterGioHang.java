@@ -100,28 +100,47 @@ public class AdapterGioHang extends BaseAdapter {
 
         //-------------------------------- Danh sách các sự kiện --------------------------------
 
-        holder.editTextSoLuong.addTextChangedListener(new TextWatcher() {
-//            giải thích tham số
-//            CharSequence s: là chuổi đang được hiển thị trên edittext
-//            int start: vị trí bắt đầu của băn bản thay đổi (nếu thêm thì tính là vị trí đầu tiên của ký tự được thêm đầu tiên, nếu xóa thì là vị trí của ký tự cuối cùng được xóa)
-//            int count: là số ký tự được thêm vào hoặc xóa đi, dương nếu thêm, âm nếu xóa
-//            int after: là số ký tự được thêm vào (nếu xóa thì nó sẽ là 0)
+//        holder.editTextSoLuong.addTextChangedListener(new TextWatcher() {
+////            giải thích tham số
+////            CharSequence s: là chuổi đang được hiển thị trên edittext
+////            int start: vị trí bắt đầu của băn bản thay đổi (nếu thêm thì tính là vị trí đầu tiên của ký tự được thêm đầu tiên, nếu xóa thì là vị trí của ký tự cuối cùng được xóa)
+////            int count: là số ký tự được thêm vào hoặc xóa đi, dương nếu thêm, âm nếu xóa
+////            int after: là số ký tự được thêm vào (nếu xóa thì nó sẽ là 0)
+//
+//            private String chuoiBanDau;
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                chuoiBanDau = s.toString();
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                // Văn bản đang thay đổi
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if(s.toString().equals("") || s.toString().equals(chuoiBanDau))
+//                    return;
+//                thayDoiSoLuongSanPhamTrongGio(Integer.parseInt(s.toString()), sanPham.getId());
+//                context.recreate(); //mục đích: load lại màn hình giỏ hàng đồng bộ các biến và giao diện với database (điều xảy ra: màn hình giỏ hàng hiện tại sẽ bị hủy, và tạo lại màn hình giỏ hàng mới)
+//            }
+//        });
 
+        holder.editTextSoLuong.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Trước khi văn bản thay đổi
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Văn bản đang thay đổi
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.toString().equals(""))
-                    return;
-                thayDoiSoLuongSanPhamTrongGio(Integer.parseInt(s.toString()), sanPham.getId());
+            public void onFocusChange(View v, boolean hasFocus) {
+                String soLuongMoi = holder.editTextSoLuong.getText().toString();
+                if(!soLuongMoi.isEmpty()){
+                    int soLuongCu = sanPham.getSoLuong();
+                    int soLuongMoi_kieuInt = Integer.parseInt(soLuongMoi);
+                    if (!hasFocus && soLuongMoi_kieuInt != soLuongCu) {
+                        thayDoiSoLuongSanPhamTrongGio(Integer.parseInt(soLuongMoi), sanPham.getId());
+                        context.recreate(); // Load lại màn hình giỏ hàng
+                    }
+                }
+                else
+                    context.recreate();
             }
         });
 
@@ -171,6 +190,7 @@ public class AdapterGioHang extends BaseAdapter {
                     //xử lý các kiểu
                     String message = "Thành công yeah.";
                     Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                    notifyDataSetChanged();
                 }
                 else if(response.contains("Cap_nhat_that_bai")){
                     String message = "Cập nhật thất bại khi thay đổi số lượng sản phẩm trong giỏ hàng.";

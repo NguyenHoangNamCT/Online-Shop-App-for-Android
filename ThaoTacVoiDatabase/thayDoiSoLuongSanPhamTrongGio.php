@@ -14,8 +14,10 @@ if (!kiemTraBien($username, $password, $idSanPham, $soLuongMoi)) {
 }
 
 // Khởi tạo đối tượng giỏ hàng và thực hiện thêm sản phẩm
-$gioHang = new GioHang();
+$gioHang = new GIOHANG();
 $nd = new NGUOIDUNG();
+
+
 
 $idNguoiDung = $nd->layIdNguoiDungBangTenDangNhapVaMatKhau($username, $password);
 if($idNguoiDung === null){
@@ -27,12 +29,20 @@ if($idNguoiDung === null){
     return;
 }
 
-// if($soLuongMoi > 0){
-//     if($gioHang->capNhatSoLuongSanPhamTrongGio($idNguoiDung, $idSanPham, $soLuongMoi))
-//         echo "Cap_nhat_thanh_cong";
-//     else
-//         echo "Cap_nhat_that_bai";
-// }
+
+if($soLuongMoi > 0){
+    $soLuongCu = $gioHang->laySoLuongSanPhamTrongGio($idNguoiDung, $idSanPham);
+
+    if($soLuongMoi == $soLuongCu)
+        return;
+    if($gioHang->capNhatSoLuongSanPhamTrongGio($idNguoiDung, $idSanPham, $soLuongMoi))
+        echo "Cap_nhat_thanh_cong";
+    else
+        echo "Cap_nhat_that_bai";
+}
+else{
+    echo "so_luong_moi_gui_len_nho_hon_hoac_bang_0";
+}
 
 //------------------------------ danh sách các hàm ------------------------------
 function kiemTraBien($username, $password, $idSanPham, $soLuongMoi) {

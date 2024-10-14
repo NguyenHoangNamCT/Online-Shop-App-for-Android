@@ -114,7 +114,7 @@ class GIOHANG {
         }
     }
 
-    public function capNhatSoLuongSanPham($idNguoiDung, $idSanPham, $soLuongMoi) {
+    public function capNhatSoLuongSanPhamTrongGio($idNguoiDung, $idSanPham, $soLuongMoi) {
         $conn = DATABASE::connect();
         try {
             // Câu lệnh SQL để cập nhật số lượng sản phẩm trong giỏ hàng
@@ -132,7 +132,28 @@ class GIOHANG {
             return false; // Trả về false nếu có lỗi xảy ra
         }
     }
+
+    public function laySoLuongSanPhamTrongGio($idNguoiDung, $idSanPham) {
+        $conn = DATABASE::connect(); // Kết nối đến cơ sở dữ liệu
+        try {
+            // Câu lệnh SQL để lấy số lượng sản phẩm trong giỏ hàng
+            $sql = "SELECT so_luong FROM giohang WHERE nguoi_dung_id = :idNguoiDung AND san_pham_id = :idSanPham";
+            $cmd = $conn->prepare($sql);
+            $cmd->bindParam(':idNguoiDung', $idNguoiDung, PDO::PARAM_INT);
+            $cmd->bindParam(':idSanPham', $idSanPham, PDO::PARAM_INT);
+            $cmd->execute();
     
+            // Lấy kết quả
+            if ($row = $cmd->fetch(PDO::FETCH_ASSOC)) {
+                return $row['so_luong']; // Trả về số lượng sản phẩm
+            } else {
+                return 0; // Trả về 0 nếu không có sản phẩm trong giỏ hàng
+            }
+        } catch (PDOException $e) {
+            echo "Lỗi truy vấn ở laySoLuongSanPhamTrongGio: " . $e->getMessage();
+            return null; // Trả về null nếu có lỗi xảy ra
+        }
+    }    
     
     
 }
