@@ -23,14 +23,21 @@ public class CheckOutActivity extends AppCompatActivity {
         AdapterCheckOut adapterCheckOut = new AdapterCheckOut(this, R.layout.dong_check_out, arrayListSP);
         listViewDSSP.setAdapter(adapterCheckOut);
 
+        loadCheckOut(arrayListSP, adapterCheckOut);
+
 
     }
 
-    public void loadCheckOut(){
-
+    public void loadCheckOut(ArrayList<SanPhamTrongGio> arrayListSP, AdapterCheckOut adapterCheckOut){
+        for(int i = 0; i < arrayListSP.size();)
+            if(arrayListSP.get(i).getChonMua() == false)
+                arrayListSP.remove(i);
+            else
+                i++;
+        adapterCheckOut.notifyDataSetChanged();
     }
 
-    public void anhXa(){
+    public void anhXa(){    
         listViewDSSP = findViewById(R.id.listViewDanhSachSanPham_check_out_activity);
     }
 }
