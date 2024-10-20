@@ -45,9 +45,15 @@ public class GioHangActivity extends AppCompatActivity {
         btnThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(GioHangActivity.this, CheckOutActivity.class);
-                intent1.putExtra("danhSachSP", sanPhamTrongGioArrayList);
-                startActivity(intent1);
+                if(kiemTraCoChonSanPhamNaoKhongGioKhong()){
+                    Intent intent1 = new Intent(GioHangActivity.this, CheckOutActivity.class);
+                    intent1.putExtra("danhSachSP", sanPhamTrongGioArrayList);
+                    startActivity(intent1);
+                }
+                else {
+                    Toast.makeText(GioHangActivity.this, "Hãy chọn mua tối thiểu một sản phẩm", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -229,5 +235,16 @@ public class GioHangActivity extends AppCompatActivity {
 //        Log.d("GioHangActivity", "Số sản phẩm trong giỏ: " + sanPhamTrongGioArrayList.size()); // Log số lượng sản phẩm
 //    }
 
-
+    public boolean kiemTraCoChonSanPhamNaoKhongGioKhong(){
+        if(sanPhamTrongGioArrayList != null){
+            for(int i = 0; i < sanPhamTrongGioArrayList.size(); i++)
+                if(sanPhamTrongGioArrayList.get(i).getChonMua())
+                    return true;
+            return false;
+        } else {
+            Toast.makeText(GioHangActivity.this, "Array list sanPhamTrongGioArrayList bị null", Toast.LENGTH_SHORT).show();
+            Log.e("loi cua toi", "Array list sanPhamTrongGioArrayList bị null (đoạn log này nằm ở GioHangActivity phương thức kiemTraCoChonSanPhamNaoKhongGioKhong)");
+            return false;
+        }
+    }
 }
