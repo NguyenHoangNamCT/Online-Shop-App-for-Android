@@ -155,6 +155,36 @@ public class AdapterGioHang extends BaseAdapter {
             }
         });
 
+        holder.buttonGiamSoLuong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int soLuongCu = sanPham.getSoLuong(),
+                    soLuongMoi = soLuongCu - 1;
+                if(soLuongMoi <= 0)
+                    showDiaLogXacNhanXoa(sanPham);
+                else{
+                    thayDoiSoLuongSanPhamTrongGio(soLuongMoi, sanPham.getId());
+                    context.loadGiaHang();
+                }
+            }
+        });
+
+        holder.buttonTangSoLuong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int soLuongCu = sanPham.getSoLuong(),
+                    soLuongMoi = soLuongCu + 1;
+                if(soLuongMoi > sanPham.getSoLuongSanPhamCuaShop()){
+                    Toast.makeText(context, "Shop chỉ còn " + sanPham.getSoLuongSanPhamCuaShop() + " sản phẩm, bạn không thể mua số lượng lớn hơn con số này", Toast.LENGTH_SHORT).show();
+                    context.loadGiaHang();
+                }
+                else{
+                    thayDoiSoLuongSanPhamTrongGio(soLuongMoi, sanPham.getId());
+                    context.loadGiaHang();
+                }
+            }
+        });
+
         return convertView;
     }
 
