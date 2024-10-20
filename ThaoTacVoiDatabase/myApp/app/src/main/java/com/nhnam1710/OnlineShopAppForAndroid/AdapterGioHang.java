@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
 
@@ -134,9 +136,11 @@ public class AdapterGioHang extends BaseAdapter {
                 if(!soLuongMoi.isEmpty()){
                     int soLuongCu = sanPham.getSoLuong();
                     int soLuongMoi_kieuInt = Integer.parseInt(soLuongMoi);
-                    if (!hasFocus && soLuongMoi_kieuInt != soLuongCu) {
+                    if (!hasFocus && soLuongMoi_kieuInt != soLuongCu && soLuongMoi_kieuInt != 0) {
                         thayDoiSoLuongSanPhamTrongGio(Integer.parseInt(soLuongMoi), sanPham.getId());
-                        context.recreate(); // Load lại màn hình giỏ hàng
+                        context.loadGiaHang(); // Load lại màn hình giỏ hàng
+                    } else if(!hasFocus && soLuongMoi_kieuInt != soLuongCu && soLuongMoi_kieuInt == 0){
+                        showDiaLogXacNhanXoa(sanPham);
                     }
                 }
                 else
@@ -234,5 +238,45 @@ public class AdapterGioHang extends BaseAdapter {
 
             }
         });
+    }
+
+    public void xoaSanPhamTrongGio(SanPham sp){
+        String diaChiIPCuaMayWindows = layDiaChiIPCuaMayWindows();
+        if(!diaChiIPCuaMayWindows.isEmpty()){
+            String url = context.getString(R.string.url_xoa_san_pham_trong_gio).replace("{ip_address}", diaChiIPCuaMayWindows);
+            MyVolleyStringRequest.GuiStringRequestDenSever(url, context, new MyVolleyStringRequest.thaoTacVoiStringRequestNay() {
+                @Override
+                public Map<String, String> guiMapLenSever(Map<String, String> param) {
+                    param.put("tenDangNhap", GlobalClass.getUserName());
+                    param.put("matKhau", GlobalClass.getPassword());
+                    param.put("idSanPham", sp.getId()+"");
+                    return param;
+                }
+
+                @Override
+                public void xuLyChuoiDocDuocTuSever(String response) {
+                    Log.e("loi cua toi", "Server báo khi cập nhật sản phẩm trong giỏ hàng là:" + response);
+                }
+
+                @Override
+                public void baoLoiCuaOnErrorResponse(VolleyError error) {
+
+                }
+            });
+        }
+    }
+
+    public String layDiaChiIPCuaMayWindows(){
+        // Lấy đối tượng InetAddress của máy cục bộ (localhost)
+        InetAddress localhost = null;
+        try {
+            localhost = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Lấy địa chỉ IP của máy
+        String diaChiIP = localhost.getHostAddress();
+        return diaChiIP;
     }
 }

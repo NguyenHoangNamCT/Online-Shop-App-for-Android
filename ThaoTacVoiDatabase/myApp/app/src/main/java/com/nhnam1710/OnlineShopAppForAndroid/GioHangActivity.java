@@ -179,6 +179,7 @@ public class GioHangActivity extends AppCompatActivity {
                     if(kiemTraVaXuLyGioHangRong(response))
                         return;
                     if(!kiemTraSeverCoBaoLoiKhong(response)){
+                        sanPhamTrongGioArrayList.clear();
                         for (int i = 0; i < response.length(); i++){
                             Log.d("loi cua toi", "Giá trị của biến respone là: " + response);
                             try {
