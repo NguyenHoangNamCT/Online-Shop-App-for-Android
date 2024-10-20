@@ -20,8 +20,12 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
 
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -144,7 +148,7 @@ public class AdapterGioHang extends BaseAdapter {
                     }
                 }
                 else
-                    context.recreate();
+                    context.loadGiaHang();
             }
         });
 
@@ -160,7 +164,8 @@ public class AdapterGioHang extends BaseAdapter {
         builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                xoaSanPhamTrongGio(sanPham);
+                context.loadGiaHang();
             }
         });
 
@@ -168,6 +173,7 @@ public class AdapterGioHang extends BaseAdapter {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Xử lý khi người dùng chọn "Không"
+                context.loadGiaHang();
                 dialog.dismiss(); // Đóng dialog
             }
         });
@@ -240,43 +246,40 @@ public class AdapterGioHang extends BaseAdapter {
         });
     }
 
-    public void xoaSanPhamTrongGio(SanPham sp){
-        String diaChiIPCuaMayWindows = layDiaChiIPCuaMayWindows();
-        if(!diaChiIPCuaMayWindows.isEmpty()){
-            String url = context.getString(R.string.url_xoa_san_pham_trong_gio).replace("{ip_address}", diaChiIPCuaMayWindows);
-            MyVolleyStringRequest.GuiStringRequestDenSever(url, context, new MyVolleyStringRequest.thaoTacVoiStringRequestNay() {
-                @Override
-                public Map<String, String> guiMapLenSever(Map<String, String> param) {
-                    param.put("tenDangNhap", GlobalClass.getUserName());
-                    param.put("matKhau", GlobalClass.getPassword());
-                    param.put("idSanPham", sp.getId()+"");
-                    return param;
+    public void xoaSanPhamTrongGio(SanPhamTrongGio sp){
+        String url = context.getString(R.string.url_xoa_san_pham_trong_gio);
+        MyVolleyStringRequest.GuiStringRequestDenSever(url, context, new MyVolleyStringRequest.thaoTacVoiStringRequestNay() {
+            @Override
+            public Map<String, String> guiMapLenSever(Map<String, String> param) {
+                param.put("tenDangNhap", GlobalClass.getUserName());
+                param.put("matKhau", GlobalClass.getPassword());
+                param.put("idSanPham", sp.getId()+"");
+                return param;
+            }
+            @Override
+            public void xuLyChuoiDocDuocTuSever(String response) {
+                Log.e("loi cua toi", "Server báo khi xóa sản phẩm trong giỏ hàng là: " + response);
+
+                if (response.contains("Xoa_thanh_cong")) {
+                    Toast.makeText(context, "Xóa sản phẩm thành công!", Toast.LENGTH_SHORT).show();
+                } else if (response.contains("xoa_that_bai")) {
+                    Toast.makeText(context, "Xóa sản phẩm thất bại!", Toast.LENGTH_SHORT).show();
+                } else if (response.contains("serser_khong_nhan_duoc_user_name!")) {
+                    Toast.makeText(context, "Không nhận được tên đăng nhập!", Toast.LENGTH_SHORT).show();
+                } else if (response.contains("serser_khong_nhan_duoc_mat_khau!")) {
+                    Toast.makeText(context, "Không nhận được mật khẩu!", Toast.LENGTH_SHORT).show();
+                } else if (response.contains("serser_khong_nhan_duoc_id_san_pham!")) {
+                    Toast.makeText(context, "Không nhận được ID sản phẩm!", Toast.LENGTH_SHORT).show();
+                } else if (response.contains("Nguoi_dung_khong_ton_tai_ID_tim_duoc_la_null")) {
+                    Toast.makeText(context, "Người dùng không tồn tại!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Có lỗi xảy ra, vui lòng thử lại!", Toast.LENGTH_SHORT).show();
                 }
-
-                @Override
-                public void xuLyChuoiDocDuocTuSever(String response) {
-                    Log.e("loi cua toi", "Server báo khi cập nhật sản phẩm trong giỏ hàng là:" + response);
-                }
-
-                @Override
-                public void baoLoiCuaOnErrorResponse(VolleyError error) {
-
-                }
-            });
-        }
-    }
-
-    public String layDiaChiIPCuaMayWindows(){
-        // Lấy đối tượng InetAddress của máy cục bộ (localhost)
-        InetAddress localhost = null;
-        try {
-            localhost = InetAddress.getLocalHost();
-        } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
-        }
-
-        // Lấy địa chỉ IP của máy
-        String diaChiIP = localhost.getHostAddress();
-        return diaChiIP;
+            }
+            @Override
+            public void baoLoiCuaOnErrorResponse(VolleyError error) {
+                Log.e("loi cua toi", "Volley báo lỗi khi xóa sản phẩm trong giỏ hàng là:" + error.getMessage());
+            }
+        });
     }
 }

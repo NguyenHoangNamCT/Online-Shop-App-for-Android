@@ -133,6 +133,24 @@ class GIOHANG {
         }
     }
 
+    public function xoaSanPhamKhoiGio($idNguoiDung, $idSanPham) {
+        $conn = DATABASE::connect();
+        try {
+            // Câu lệnh SQL để xóa sản phẩm khỏi giỏ hàng
+            $sql = "DELETE FROM giohang WHERE nguoi_dung_id = :idNguoiDung AND san_pham_id = :idSanPham";
+            $cmd = $conn->prepare($sql);
+            $cmd->bindParam(':idNguoiDung', $idNguoiDung, PDO::PARAM_INT);
+            $cmd->bindParam(':idSanPham', $idSanPham, PDO::PARAM_INT);
+            $cmd->execute();
+    
+            // Kiểm tra xem câu lệnh có thực hiện thành công hay không
+            return ($cmd->rowCount() > 0);
+        } catch (PDOException $e) {
+            echo "Lỗi truy vấn ở xoaSanPhamKhoiGio: " . $e->getMessage();
+            return false; // Trả về false nếu có lỗi xảy ra
+        }
+    }
+
     public function laySoLuongSanPhamTrongGio($idNguoiDung, $idSanPham) {
         $conn = DATABASE::connect(); // Kết nối đến cơ sở dữ liệu
         try {
@@ -153,8 +171,6 @@ class GIOHANG {
             echo "Lỗi truy vấn ở laySoLuongSanPhamTrongGio: " . $e->getMessage();
             return null; // Trả về null nếu có lỗi xảy ra
         }
-    }    
-    
-    
+    }
 }
 ?>
