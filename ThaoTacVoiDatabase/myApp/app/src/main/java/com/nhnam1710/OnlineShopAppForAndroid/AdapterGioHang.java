@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -181,6 +182,18 @@ public class AdapterGioHang extends BaseAdapter {
                 else{
                     thayDoiSoLuongSanPhamTrongGio(soLuongMoi, sanPham.getId());
                     context.loadGiaHang();
+                }
+            }
+        });
+
+        holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(holder.checkbox.isChecked()){
+                    sanPham.setChonMua(true);
+                }
+                else{
+                    sanPham.setChonMua(false);
                 }
             }
         });
