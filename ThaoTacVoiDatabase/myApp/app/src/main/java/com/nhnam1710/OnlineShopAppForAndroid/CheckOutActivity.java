@@ -26,6 +26,10 @@ public class CheckOutActivity extends AppCompatActivity {
 
     }
 
+    public void loadCheckOut(){
+
+    }
+
     public void anhXa(){
         listViewDSSP = findViewById(R.id.listViewDanhSachSanPham_check_out_activity);
     }
