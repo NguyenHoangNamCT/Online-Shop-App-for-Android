@@ -97,7 +97,7 @@ public class AdapterGioHang extends BaseAdapter {
         holder.editTextSoLuong.setText(String.valueOf(sanPham.getSoLuong()));
 
         // Gán giá trị cho các thành phần khác
-        holder.checkbox.setChecked(sanPham.isChonMua());
+        holder.checkbox.setChecked(sanPham.getChonMua());
         String url = context.getString(R.string.url_img_on_sever) + sanPham.getHinhAnh();
         Picasso.get()
                 .load(url)

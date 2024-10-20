@@ -34,6 +34,7 @@ public class SanPhamTrongGio implements Serializable {
             this.soLuong = jsonObject.getInt("so_luong");
             this.hinhAnh = jsonObject.getString("hinh_anh");
             this.soLuongSanPhamCuaShop = jsonObject.getInt("so_luong_san_pham_cua_shop");
+            this.chonMua = false;
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -87,7 +88,7 @@ public class SanPhamTrongGio implements Serializable {
         this.soLuongSanPhamCuaShop = soLuongSanPhamCuaShop;
     }
 
-    public boolean isChonMua() {
+    public boolean getChonMua() {
         return chonMua;
     }
 
