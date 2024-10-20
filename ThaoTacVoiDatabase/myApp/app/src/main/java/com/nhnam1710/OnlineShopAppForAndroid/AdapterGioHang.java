@@ -140,11 +140,14 @@ public class AdapterGioHang extends BaseAdapter {
                 if(!soLuongMoi.isEmpty()){
                     int soLuongCu = sanPham.getSoLuong();
                     int soLuongMoi_kieuInt = Integer.parseInt(soLuongMoi);
-                    if (!hasFocus && soLuongMoi_kieuInt != soLuongCu && soLuongMoi_kieuInt != 0) {
+                    if (!hasFocus && soLuongMoi_kieuInt != soLuongCu && soLuongMoi_kieuInt != 0 && soLuongMoi_kieuInt <= sanPham.getSoLuongSanPhamCuaShop()) {
                         thayDoiSoLuongSanPhamTrongGio(Integer.parseInt(soLuongMoi), sanPham.getId());
                         context.loadGiaHang(); // Load lại màn hình giỏ hàng
-                    } else if(!hasFocus && soLuongMoi_kieuInt != soLuongCu && soLuongMoi_kieuInt == 0){
+                    } else if(!hasFocus && soLuongMoi_kieuInt != soLuongCu && soLuongMoi_kieuInt == 0 && soLuongMoi_kieuInt <= sanPham.getSoLuongSanPhamCuaShop()){
                         showDiaLogXacNhanXoa(sanPham);
+                    } else if(!hasFocus && soLuongMoi_kieuInt != soLuongCu && soLuongMoi_kieuInt != 0 && soLuongMoi_kieuInt > sanPham.getSoLuongSanPhamCuaShop()){
+                        Toast.makeText(context, "Shop chỉ còn " + sanPham.getSoLuongSanPhamCuaShop() + " sản phẩm, bạn không thể mua số lượng lớn hơn con số này", Toast.LENGTH_SHORT).show();
+                        context.loadGiaHang();
                     }
                 }
                 else
