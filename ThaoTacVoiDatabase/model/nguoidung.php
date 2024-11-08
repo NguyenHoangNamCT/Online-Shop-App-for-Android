@@ -2,6 +2,36 @@
 require_once("database.php");
 
 class NGUOIDUNG {
+    // Hàm lấy thông tin người dùng bằng ID mà không lấy tên đăng nhập và mật khẩu
+    public function layThongTinNguoiDungBangID($id) {
+        $db = DATABASE::connect(); // Kết nối đến cơ sở dữ liệu
+        try {
+            // Câu lệnh SQL để lấy thông tin người dùng, không bao gồm tên đăng nhập và mật khẩu
+            $sql = "SELECT id, ho_ten, dia_chi, dien_thoai, email, ngay_dang_ky, loai_nguoi_dung, hinh_anh, trang_thai 
+                    FROM nguoidung 
+                    WHERE id = :id"; 
+            $cmd = $db->prepare($sql); // Chuẩn bị câu lệnh SQL để thực thi
+            $cmd->bindValue(":id", $id); // Gán giá trị ID vào tham số câu lệnh SQL
+            $cmd->execute(); // Thực thi câu lệnh SQL
+
+            // Kiểm tra xem có dữ liệu trả về không
+            if ($cmd->rowCount() == 1) {
+                $user = $cmd->fetch(PDO::FETCH_ASSOC); // Lấy thông tin người dùng dưới dạng mảng
+                $cmd->closeCursor(); // Đóng con trỏ câu lệnh SQL
+                return $user; // Trả về thông tin người dùng
+            } else {
+                return false; // Nếu không tìm thấy người dùng
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage(); // Lấy thông báo lỗi
+            echo "<p>Lỗi truy vấn ở layThongTinNguoiDungBangID: $error_message</p>"; // Xuất thông báo lỗi
+            exit(); // Thoát khỏi chương trình
+        } finally {
+            // Đảm bảo luôn đóng con trỏ, ngay cả khi có lỗi
+            $cmd->closeCursor();
+        }
+    }
+
     // Hàm kiểm tra người dùng hợp lệ
     public function kiemTraNguoiDungHopLe($tendangnhap, $matkhau) {
         $db = DATABASE::connect(); // Kết nối đến cơ sở dữ liệu
@@ -173,6 +203,8 @@ class NGUOIDUNG {
             exit(); // Thoát khỏi chương trình
         }
     }
+
+    
 
 // Các hàm khác của lớp NGUOIDUNG như laySoLuongNguoiDung, layNguoiDungPhanTrang, etc.
 }

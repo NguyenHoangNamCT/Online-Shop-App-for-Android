@@ -1,6 +1,5 @@
 <?php 
-
-require("database.php");
+require_once("database.php");
 
 class SanPham{
     public function layDanhSachSanPham(){
@@ -93,6 +92,49 @@ class SanPham{
         }
     }
 
+    public function laySanPhamTheoId($sanPhamID){
+        $conn = DATABASE::connect();
+        try{
+            $sql = "SELECT * FROM sanpham WHERE id = :sanPhamID";
+            $cmd = $conn->prepare($sql);
+            $cmd->bindParam(':sanPhamID', $sanPhamID, PDO::PARAM_INT);
+            $cmd->execute();
+            $result = $cmd->fetch(PDO::FETCH_ASSOC);
+            
+            // Kiểm tra nếu kết quả tồn tại, trả về dữ liệu, ngược lại trả về thông báo lỗi
+            if ($result) {
+                return $result;
+            } else {
+                echo "Khong_tim_thay_san_pham";
+                return false;
+            }
+        }
+        catch(PDOException $e){
+            echo "Lỗi truy vấn ở laySanPhamTheoId() trong model SanPham: " . $e->getMessage();
+            exit();
+        }
+    }
+
+    // Lấy giá tiền và giảm giá của sản phẩm theo id
+    public function layGiaTienVaGiamGiaTheoId($sanPhamId) {
+        $conn = DATABASE::connect();
+        try {
+            // Truy vấn lấy giá tiền và giảm giá từ bảng sanpham
+            $sql = "SELECT gia_tien, giam_gia FROM sanpham WHERE id = :sanPhamId";
+            $cmd = $conn->prepare($sql);
+            $cmd->bindParam(':sanPhamId', $sanPhamId, PDO::PARAM_INT);
+            $cmd->execute();
+
+            $result = $cmd->fetch(PDO::FETCH_ASSOC);
+
+            return $result;
+        } catch (PDOException $e) {
+            // Xử lý lỗi nếu có
+            echo "Lỗi truy vấn ở layGiaTienVaGiamGiaTheoId: " . $e->getMessage();
+            return false;
+        }
+    }
+
     public function suaSanPham($sanPhamID, $idLoaiSanPham, $idThuongHieu, $tenSanPham, $moTa, $giaTien, $giamGia, $soLuong, $luotXem, $luotMua, $donViTinh, $hinhAnh = null){
         $conn = DATABASE::connect();
         try{
@@ -146,8 +188,6 @@ class SanPham{
             exit();
         }
     }
-    
-    
     
 }
 
