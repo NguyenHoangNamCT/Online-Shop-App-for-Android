@@ -90,6 +90,7 @@ public class Login_Activity extends AppCompatActivity {
                 else {
                     Toast.makeText(Login_Activity.this, "Có lỗi khi đăng nhập: @Override xuLyChuoiDocDuocTuSever trong Login activity", Toast.LENGTH_SHORT).show();
                 }
+                Log.d("server thong bao khi dang nhap" , "Server bao khi dang nhap: " + response);
             }
 
             @Override
