@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class CheckOutActivity extends AppCompatActivity {
     ListView listViewDSSP;
 
     ArrayList<SanPhamTrongGio> arrayListSP;
-
+    AdapterCheckOut adapterCheckOut;
     private TextView textViewTieuDe, textViewTongTien;
     private Button buttonDatHang;
 
@@ -39,17 +41,17 @@ public class CheckOutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_check_out);
         anhXa();
 
-        Intent intent = getIntent();
-        arrayListSP = (ArrayList<SanPhamTrongGio>) intent.getSerializableExtra("danhSachSP");
-        AdapterCheckOut adapterCheckOut = new AdapterCheckOut(this, R.layout.dong_check_out, arrayListSP);
-        listViewDSSP.setAdapter(adapterCheckOut);
+        loadCheckOut();
 
-        loadCheckOut(arrayListSP, adapterCheckOut);
-
-
+        buttonDatHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xacNhanDatHang();
+            }
+        });
     }
 
-    public void guiThongTinDatHangLenServerDeTaoDonHang(ArrayList<SanPhamTrongGio> arrayListSP){
+    public void guiThongTinDatHangLenServerDeTaoDonHang(){
         String url = getString(R.string.url_tao_don_hang);
         MyVolleyStringRequest.GuiStringRequestDenSever(url, CheckOutActivity.this, new MyVolleyStringRequest.thaoTacVoiStringRequestNay() {
             @Override
@@ -76,24 +78,43 @@ public class CheckOutActivity extends AppCompatActivity {
 
             @Override
             public void xuLyChuoiDocDuocTuSever(String response) {
-
+                if (response.contains("Nguoi_dung_khong_ton_tai_ID_tim_duoc_la_null")) {
+                    // Xử lý khi không tìm thấy người dùng
+                    Toast.makeText(CheckOutActivity.this, "Người dùng không tồn tại!", Toast.LENGTH_SHORT).show();
+                } else if (response.contains("server_that_bai_trong_viec_doc_arraylist_cac_san_pham_chon_mua_tu_app")) {
+                    // Xử lý khi server không đọc được giỏ hàng
+                    Toast.makeText(CheckOutActivity.this, "Server không đọc được giỏ hàng!", Toast.LENGTH_SHORT).show();
+                } else if (response.contains("serser_khong_nhan_duoc_user_name!_Khi_dat_hang")) {
+                    // Xử lý khi không nhận được tên đăng nhập
+                    Toast.makeText(CheckOutActivity.this, "Tên đăng nhập không được gửi tới server!", Toast.LENGTH_SHORT).show();
+                } else if (response.contains("serser_khong_nhan_duoc_mat_khau!_Khi_dat_hang")) {
+                    // Xử lý khi không nhận được mật khẩu
+                    Toast.makeText(CheckOutActivity.this, "Mật khẩu không được gửi tới server!", Toast.LENGTH_SHORT).show();
+                } else if (response.contains("serser_khong_nhan_duoc_gio_hang!_Khi_dat_hang")) {
+                    // Xử lý khi không nhận được giỏ hàng
+                    Toast.makeText(CheckOutActivity.this, "Giỏ hàng không được gửi tới server!", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Xử lý cho các trường hợp khác hoặc thành công
+                    Toast.makeText(CheckOutActivity.this, "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
+                }
+                Log.d("loi cua toi", "----Trong class: " + getClass().getName() + " nhận được chuổi thông báo từ server là: " + response);
             }
 
             @Override
             public void baoLoiCuaOnErrorResponse(VolleyError error) {
-
+                Toast.makeText(CheckOutActivity.this, "Hello i can run", Toast.LENGTH_SHORT).show();
             }
-        };
+        });
     }
 
-    public void xacNhanDatHang(ArrayList<SanPhamTrongGio> arrayListSP) {
+    public void xacNhanDatHang() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(CheckOutActivity.this);
 
         alertDialog.setMessage("Xác nhận đặt hàng");
         alertDialog.setPositiveButton("Đặt hàng", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                guiThongTinDatHangLenServerDeTaoDonHang();
             }
         });
 
@@ -128,13 +149,26 @@ public class CheckOutActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void loadCheckOut(ArrayList<SanPhamTrongGio> arrayListSP, AdapterCheckOut adapterCheckOut){
-        arrayListSP.clear();
-        for(int i = 0; i < arrayListSP.size();)
-            if(arrayListSP.get(i).getChonMua() == false)
+    public void nhanArrayListVaKhoiTaoListviewVaAdapter(){
+        arrayListSP = (ArrayList<SanPhamTrongGio>) getIntent().getSerializableExtra("danhSachSP");
+        adapterCheckOut = new AdapterCheckOut(CheckOutActivity.this, R.layout.dong_check_out, arrayListSP);
+        listViewDSSP.setAdapter(adapterCheckOut);
+        Log.e("test loi", "1"+arrayListSP.toString());
+    }
+    public void loadCheckOut(){
+        //nhận dữ liệu từ trang giỏ hàng
+        nhanArrayListVaKhoiTaoListviewVaAdapter();
+        Log.e("test loi", "2"+arrayListSP.toString());
+
+        for (int i = 0; i < arrayListSP.size(); )
+            if (arrayListSP.get(i).getChonMua() == false)
                 arrayListSP.remove(i);
             else
                 i++;
+        if (arrayListSP == null)
+            Toast.makeText(CheckOutActivity.this, "khongNhanDuoc", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(CheckOutActivity.this, arrayListSP.toString(), Toast.LENGTH_SHORT).show();
         adapterCheckOut.notifyDataSetChanged();
     }
 
