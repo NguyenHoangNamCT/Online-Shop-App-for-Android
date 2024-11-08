@@ -27,7 +27,7 @@
     <string name="url_thay_doi_so_luong_san_pham_trong_gio">http://192.168.1.9/onlineshopapp/thayDoiSoLuongSanPhamTrongGio.php</string>
     <string name="url_xoa_san_pham_trong_gio">http://192.168.1.9/onlineshopapp/xoaSanPhamTrongGio.php</string>
         <!-- Tạo đơn hàng khi đặt từ giỏ hàng-->
-        <string name="url_tao_don_hang">http://192.168.88.1/onlineshopapp/taoDonHang.php</string>
+        <string name="url_tao_don_hang">http://192.168.1.9/onlineshopapp/taoDonHang.php</string>
 
     <string name="url_nhan_tai_khoan_va_mat_khau_va_xu_ly">http://192.168.1.9/onlineshopapp/xuLyDangNhap.php</string>
     <string name="spinner_hint_chon_loai_sp">Chọn loại sản phẩm</string>

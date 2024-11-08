@@ -49,10 +49,12 @@ public class CheckOutActivity extends AppCompatActivity {
                 xacNhanDatHang();
             }
         });
+
     }
 
     public void guiThongTinDatHangLenServerDeTaoDonHang(){
         String url = getString(R.string.url_tao_don_hang);
+//        Toast.makeText(CheckOutActivity.this, "So luong la: " + arrayListSP.size(), Toast.LENGTH_SHORT).show();
         MyVolleyStringRequest.GuiStringRequestDenSever(url, CheckOutActivity.this, new MyVolleyStringRequest.thaoTacVoiStringRequestNay() {
             @Override
             public Map<String, String> guiMapLenSever(Map<String, String> param) {
@@ -102,10 +104,11 @@ public class CheckOutActivity extends AppCompatActivity {
 
             @Override
             public void baoLoiCuaOnErrorResponse(VolleyError error) {
-                Toast.makeText(CheckOutActivity.this, "Hello i can run", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
 
     public void xacNhanDatHang() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(CheckOutActivity.this);

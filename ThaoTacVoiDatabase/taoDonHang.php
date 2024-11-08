@@ -2,7 +2,6 @@
 require_once('model/giohang.php');
 require_once('model/nguoidung.php');
 
-echo "hello";
 
 // Nhận các biến từ yêu cầu
 $username = isset($_POST['tenDangNhap']) ? $_POST['tenDangNhap'] : null;
@@ -33,12 +32,15 @@ if ($gioHangArray === null) {
     return;
 }
 
+
 $gioHang = new GIOHANG();
 foreach ($gioHangArray as $sanPham) {
     $idSanPham = $sanPham['idSanPham'];
     $soLuong = $sanPham['soLuong'];
-    //múa code đi
 }
+
+
+
 
 // ------------------------------ danh sách các hàm ------------------------------
 function kiemTraBien($username, $password, $gioHang) {
