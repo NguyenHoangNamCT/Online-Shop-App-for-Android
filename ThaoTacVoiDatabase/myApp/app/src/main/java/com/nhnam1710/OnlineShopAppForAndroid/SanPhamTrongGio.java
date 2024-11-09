@@ -13,6 +13,7 @@ public class SanPhamTrongGio implements Serializable {
     private String hinhAnh;
     private boolean chonMua;
     private int soLuongSanPhamCuaShop;
+    private float giamGia;
 
 
     public SanPhamTrongGio(int id, String tenSanPham, int gia, int soLuong, String hinhAnh, boolean chonMua, int soLuongSanPhamCuaShop) {
@@ -34,10 +35,23 @@ public class SanPhamTrongGio implements Serializable {
             this.soLuong = jsonObject.getInt("so_luong");
             this.hinhAnh = jsonObject.getString("hinh_anh");
             this.soLuongSanPhamCuaShop = jsonObject.getInt("so_luong_san_pham_cua_shop");
+            this.giamGia = (float) jsonObject.getDouble("giam_gia");
             this.chonMua = false;
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public boolean isChonMua() {
+        return chonMua;
+    }
+
+    public float getGiamGia() {
+        return giamGia;
+    }
+
+    public void setGiamGia(float giamGia) {
+        this.giamGia = giamGia;
     }
 
     public int getId() {

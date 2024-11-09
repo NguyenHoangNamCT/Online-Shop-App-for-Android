@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class AdapterCheckOut extends BaseAdapter {
 
@@ -59,6 +61,8 @@ public class AdapterCheckOut extends BaseAdapter {
             holder.textViewGiaSanPham = convertView.findViewById(R.id.textView_giasanpham_dong_check_out);
             holder.textViewSoLuongSanPham = convertView.findViewById(R.id.textView_soluongsanpham_dong_check_out);
 
+
+
             convertView.setTag(holder);
         }
         else {
@@ -67,8 +71,11 @@ public class AdapterCheckOut extends BaseAdapter {
 
         SanPhamTrongGio sanPham = sanPhamTrongGioList.get(position);
         holder.textViewTenSanPham.setText(sanPham.getTenSanPham());
-        holder.textViewGiaSanPham.setText(String.valueOf(sanPham.getGia()));
-        holder.textViewSoLuongSanPham.setText(String.valueOf(sanPham.getSoLuong()));
+        //tính giá sau khi giảm và format thành dạng vnd để dễ đọc
+        int giaSauKhiGiam = (int) (sanPham.getGia() * (1 - sanPham.getGiamGia()/100));
+        NumberFormat vndFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        holder.textViewGiaSanPham.setText(vndFormat.format(giaSauKhiGiam));
+        holder.textViewSoLuongSanPham.setText(String.valueOf("Số lượng" + sanPham.getSoLuong()));
         String urlImageOnServer = context.getString(R.string.url_img_on_sever) + sanPham.getHinhAnh();
         Picasso.get()
                 .load(urlImageOnServer)                     // Tải hình ảnh từ URL

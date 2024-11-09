@@ -28,7 +28,9 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.text.NumberFormat;
 
 public class AdapterGioHang extends BaseAdapter {
     GioHangActivity context;
@@ -94,7 +96,10 @@ public class AdapterGioHang extends BaseAdapter {
 
         // Gán các giá trị của SanPhamTrongGio vào holder
         holder.textViewTenSanPham.setText(sanPham.getTenSanPham());
-        holder.textViewGia.setText(String.valueOf(sanPham.getGia()));
+        //tính giá sau khi giảm và format thành dạng vnd để dễ đọc
+        int giaSauKhiGiam = (int) (sanPham.getGia() * (1 - sanPham.getGiamGia()/100));
+        NumberFormat vndFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        holder.textViewGia.setText(String.valueOf(vndFormat.format(giaSauKhiGiam)));
         holder.editTextSoLuong.setText(String.valueOf(sanPham.getSoLuong()));
 
         // Gán giá trị cho các thành phần khác
